@@ -1,7 +1,8 @@
 import { createContext, ReactNode, useContext, useState } from 'react'
+import Router from 'next/router'
 
 import { api } from '../service/api'
-import Router from 'next/router'
+import { setCookie } from 'nookies'
 
 import { AuthenticatedUserData } from '../types/types'
 
@@ -30,8 +31,8 @@ type AuthProviderProps = {
 const AuthContext = createContext({} as AuthContextData)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const isAuthenticated = false
   const [user, setUser] = useState<User>()
+  const isAuthenticated = !!user
 
   const signIn = async ({ email, password }: SignInCredentials) => {
     try {
@@ -40,9 +41,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         password
       })
       if (!response) return
-      setUser(response.data.user)
+      const { refreshToken, token, user: userData } = response.data
+
+      setCookie(undefined, 'joinMeToken', token, {
+        maxAge: 60 * 60 * 24 * 30, //30 days
+        path: '/'
+      })
+      setCookie(undefined, 'joinMeRefreshToken', refreshToken, {
+        maxAge: 60 * 60 * 24 * 30, //30 days
+        path: '/'
+      })
+
+      setUser(userData)
       Router.push('dashboard')
-      console.log(response.data.user)
     } catch (error) {
       console.log(error)
     }
