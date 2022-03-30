@@ -1,0 +1,106 @@
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
+import Router from 'next/router'
+
+import { api } from '../service/api'
+import { setCookie, parseCookies, destroyCookie } from 'nookies'
+
+import { AuthenticatedUserData } from '../types/types'
+
+type User = {
+  email: string
+  firstName: string
+  id: string
+  lastName: string
+}
+
+type SignInCredentials = {
+  email: string
+  password: string
+}
+
+type AuthContextData = {
+  signIn: (credentials: SignInCredentials) => Promise<void>
+  signOut: () => void
+  user?: User
+  isAuthenticated: boolean
+}
+
+type AuthProviderProps = {
+  children: ReactNode
+}
+
+const AuthContext = createContext({} as AuthContextData)
+
+export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const [currentToken, setCurrentToken] = useState('')
+  const [user, setUser] = useState<User>()
+  const isAuthenticated = !!user
+
+  const signOut = () => {
+    destroyCookie(undefined, 'joinMeToken')
+    destroyCookie(undefined, 'joinMeRefreshToken')
+    destroyCookie(undefined, 'joinMeUser')
+
+    Router.push('/')
+  }
+
+  useEffect(() => {
+    const { joinMeToken, joinMeUser } = parseCookies()
+
+    try {
+      if (!joinMeToken || joinMeToken !== currentToken) throw Error
+      const userData = JSON.parse(joinMeUser)
+      setUser(userData)
+    } catch {
+      signOut()
+    }
+  }, [currentToken])
+
+  const signIn = async ({ email, password }: SignInCredentials) => {
+    try {
+      const response = await api.post<AuthenticatedUserData>('users/signin', {
+        email,
+        password
+      })
+      if (!response) throw Error
+      const { refreshToken, token, user: userData } = response.data
+      setCurrentToken(token)
+
+      setCookie(undefined, 'joinMeToken', token, {
+        maxAge: 60 * 60 * 24 * 30, //30 days
+        path: '/'
+      })
+      setCookie(undefined, 'joinMeRefreshToken', refreshToken, {
+        maxAge: 60 * 60 * 24 * 30, //30 days
+        path: '/'
+      })
+      setCookie(undefined, 'joinMeUser', JSON.stringify(userData), {
+        maxAge: 60 * 60 * 24 * 30, //30 days
+        path: '/'
+      })
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+      setUser(userData)
+      Router.push('dashboard')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  return (
+    <AuthContext.Provider value={{ signIn, isAuthenticated, user, signOut }}>
+      {children}
+    </AuthContext.Provider>
+  )
+}
+
+export const useAuth = (): AuthContextData => {
+  const context = useContext(AuthContext)
+  return context
+}
