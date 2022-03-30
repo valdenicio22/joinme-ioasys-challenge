@@ -2,7 +2,7 @@ import { useAuth } from 'context/AuthContext'
 import React, { useEffect } from 'react'
 import { api } from 'service/api'
 
-const Dashboard = () => {
+export default function Dashboard() {
   const { user } = useAuth()
 
   useEffect(() => {
@@ -14,5 +14,3 @@ const Dashboard = () => {
 
   return <h1>Bem-vindo: {!!user && `${user.firstName} ${user.lastName}`}</h1>
 }
-
-export default Dashboard
