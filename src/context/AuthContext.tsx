@@ -38,7 +38,6 @@ type AuthProviderProps = {
 const AuthContext = createContext({} as AuthContextData)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [currentToken, setCurrentToken] = useState('')
   const [user, setUser] = useState<User>()
   const isAuthenticated = !!user
 
@@ -47,20 +46,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     destroyCookie(undefined, 'joinMeRefreshToken')
     destroyCookie(undefined, 'joinMeUser')
 
-    Router.push('/')
+    Router.push('/login')
   }
 
   useEffect(() => {
     const { joinMeToken, joinMeUser } = parseCookies()
-
     try {
-      if (!joinMeToken || joinMeToken !== currentToken) throw Error
+      if (!joinMeToken) throw Error
       const userData = JSON.parse(joinMeUser)
       setUser(userData)
     } catch {
       signOut()
     }
-  }, [currentToken])
+  }, [])
 
   const signIn = async ({ email, password }: SignInCredentials) => {
     try {
@@ -70,7 +68,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       if (!response) throw Error
       const { refreshToken, token, user: userData } = response.data
-      setCurrentToken(token)
 
       setCookie(undefined, 'joinMeToken', token, {
         maxAge: 60 * 60 * 24 * 30, //30 days
@@ -87,7 +84,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
       setUser(userData)
-      Router.push('dashboard')
+      Router.push('/')
     } catch (error) {
       console.log(error)
     }
