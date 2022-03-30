@@ -1,3 +1,4 @@
+import { AuthProvider } from 'context/AuthContext'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 
@@ -18,7 +19,9 @@ function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <GlobalStyles />
-      <Component {...pageProps} />
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     </>
   )
 }
