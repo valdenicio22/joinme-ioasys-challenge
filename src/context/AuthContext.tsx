@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const userData = JSON.parse(joinMeUser)
       setUser(userData)
     } catch {
-      signOut()
+      // signOut()
     }
   }, [])
 
@@ -84,7 +84,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
       setUser(userData)
-      Router.push('/')
+      Router.push('/dashboard')
     } catch (error) {
       console.log(error)
     }
