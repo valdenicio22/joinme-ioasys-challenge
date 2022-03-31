@@ -7,7 +7,8 @@ export const InputWrapper = styled.div`
 `
 
 export const Input = styled.input`
-  padding: 0.8rem;
+  padding: 0.7rem 1rem;
+  border-radius: 0.3rem;
 `
 
 export const Label = styled.label``
