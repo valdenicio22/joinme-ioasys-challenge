@@ -1,41 +1,57 @@
 import { useReducer, FormEvent } from 'react'
+import { api } from '../service/api'
 import Button from 'components/Button'
 import TextField from 'components/TextField'
 import Head from 'next/head'
+import Router from 'next/router'
 
 import * as S from '../styles/SignUp.styles'
 
 type State = {
   firstName: string
-  surName: string
+  lastName: string
   email: string
-  phoneNumber: string
-  emergencyContact: string
   password: string
+  passwordConfirmation: string
+  phone: string
+  emergencyPhone: string
+  emergencyName: string
 }
 
 type Action =
   | { type: 'addFirstName'; firstName: State['firstName'] }
-  | { type: 'addSurName'; surName: State['surName'] }
+  | { type: 'addLastName'; lastName: State['lastName'] }
   | { type: 'addEmail'; email: State['email'] }
-  | { type: 'addPhoneNumber'; phoneNumber: State['phoneNumber'] }
-  | { type: 'addEmergencyContact'; emergencyContact: State['emergencyContact'] }
+  | { type: 'addPhone'; phone: State['phone'] }
+  | { type: 'addEmergencyPhone'; emergencyPhone: State['emergencyPhone'] }
+  | { type: 'addEmergencyName'; emergencyName: State['emergencyName'] }
   | { type: 'addPassword'; password: State['password'] }
+  | {
+      type: 'addPasswordConfirmation'
+      passwordConfirmation: State['passwordConfirmation']
+    }
+  | { type: 'resetState' }
 
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case 'addFirstName':
       return { ...state, firstName: action.firstName }
-    case 'addSurName':
-      return { ...state, surName: action.surName }
+    case 'addLastName':
+      return { ...state, lastName: action.lastName }
     case 'addEmail':
       return { ...state, email: action.email }
-    case 'addPhoneNumber':
-      return { ...state, phoneNumber: action.phoneNumber }
-    case 'addEmergencyContact':
-      return { ...state, emergencyContact: action.emergencyContact }
+    case 'addPhone':
+      return { ...state, phone: action.phone }
+    case 'addEmergencyPhone':
+      return { ...state, emergencyPhone: action.emergencyPhone }
+    case 'addEmergencyName':
+      return { ...state, emergencyName: action.emergencyName }
     case 'addPassword':
       return { ...state, password: action.password }
+    case 'addPasswordConfirmation':
+      return { ...state, passwordConfirmation: action.passwordConfirmation }
+    case 'resetState':
+      return initialState
     default:
       return state
   }
@@ -43,20 +59,44 @@ const reducer = (state: State, action: Action) => {
 
 const initialState: State = {
   firstName: '',
-  surName: '',
+  lastName: '',
   email: '',
-  phoneNumber: '',
-  emergencyContact: '',
-  password: ''
+  password: '',
+  passwordConfirmation: '',
+  phone: '',
+  emergencyName: '',
+  emergencyPhone: ''
 }
 
 export default function SignUp() {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const handleNewUserSubmit = (e: FormEvent) => {
+  const formatStateData = (stateData: State) => {
+    const formattedStateData = {
+      ...stateData,
+      phone: +stateData.phone,
+      emergencyPhone: +stateData.emergencyPhone
+    }
+    return formattedStateData
+  }
+
+  const handleNewUserSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    console.log(state)
+    const formattedData = formatStateData(state)
+
+    console.log({ state })
+    console.log({ formattedData })
+
+    try {
+      const response = await api.post('users/signup', { ...formattedData })
+      console.log(response)
+
+      Router.push('/login')
+      dispatch({ type: 'resetState' })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -72,48 +112,65 @@ export default function SignUp() {
           onChange={(event) =>
             dispatch({ type: 'addFirstName', firstName: event.target.value })
           }
+          required
         />
         <TextField
           type="text"
           placeholder="Sobrenome"
-          value={state.surName}
+          value={state.lastName}
           onChange={(event) =>
-            dispatch({ type: 'addSurName', surName: event.target.value })
+            dispatch({ type: 'addLastName', lastName: event.target.value })
           }
+          required
         />
         <TextField
           type="email"
-          placeholder="email"
+          placeholder="E-mail"
           value={state.email}
           onChange={(event) =>
             dispatch({ type: 'addEmail', email: event.target.value })
           }
+          required
         />
         <TextField
           type="text"
-          placeholder="telefone"
-          value={state.phoneNumber}
+          placeholder="Telefone"
+          value={state.phone}
           onChange={(event) =>
             dispatch({
-              type: 'addPhoneNumber',
-              phoneNumber: event.target.value
+              type: 'addPhone',
+              phone: event.target.value
             })
           }
+          required
         />
         <TextField
           type="text"
-          placeholder="contato de emergência"
-          value={state.emergencyContact}
+          placeholder="Telefone de emergência"
+          value={state.emergencyPhone}
           onChange={(event) =>
             dispatch({
-              type: 'addEmergencyContact',
-              emergencyContact: event.target.value
+              type: 'addEmergencyPhone',
+              emergencyPhone: event.target.value
             })
           }
+          required
+        />
+        <TextField
+          type="text"
+          placeholder="Nome do contato de emergência"
+          value={state.emergencyName}
+          onChange={(event) =>
+            dispatch({
+              type: 'addEmergencyName',
+              emergencyName: event.target.value
+            })
+          }
+          required
         />
         <TextField
           type="password"
-          placeholder="********"
+          placeholder="Senha"
           value={state.password}
           onChange={(event) =>
             dispatch({
@@ -121,6 +178,18 @@ export default function SignUp() {
               password: event.target.value
             })
           }
+        />
+        <TextField
+          type="password"
+          placeholder="Confirme a senha"
+          value={state.passwordConfirmation}
+          onChange={(event) =>
+            dispatch({
+              type: 'addPasswordConfirmation',
+              passwordConfirmation: event.target.value
+            })
+          }
+          required
         />
 
         <Button>Cadastrar</Button>
