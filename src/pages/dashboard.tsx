@@ -1,5 +1,4 @@
 import { useAuth } from 'context/AuthContext'
-import React from 'react'
 import Link from 'next/Link'
 
 export default function Dashboard() {
