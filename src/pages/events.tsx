@@ -4,35 +4,31 @@ import TextField from 'components/TextField'
 import Head from 'next/head'
 
 import * as S from '../styles/SignUp.styles'
+import { api } from 'service/api'
+import Router from 'next/router'
 
 type State = {
   name: string
   description: string
-  isOnline: true
+  isOnline: boolean
   date: string
-  minimumAge: 0
-  maxParticipants: 0
+  minimumAge: string
+  maxParticipants: string
   startTime: string
   endTime: string
-  activityId: string
-  userId: string
-  userIdentity: 0
-  isAccessible: true
+  isAccessible: boolean
 }
 
 type Action =
   | { type: 'addName'; name: State['name'] }
   | { type: 'addDescription'; description: State['description'] }
-  | { type: 'addIsOnline'; isOnline: State['isOnline'] }
+  | { type: 'toggleIsOnline'; isOnline: State['isOnline'] }
   | { type: 'addDate'; date: State['date'] }
   | { type: 'addMinimumAge'; minimumAge: State['minimumAge'] }
   | { type: 'addMaxParticipants'; maxParticipants: State['maxParticipants'] }
   | { type: 'addStartTime'; startTime: State['startTime'] }
   | { type: 'addEndTime'; endTime: State['endTime'] }
-  | { type: 'addActivityId'; activityId: State['activityId'] }
-  | { type: 'addUserId'; userId: State['userId'] }
-  | { type: 'addUserIdentity'; userIdentity: State['userIdentity'] }
-  | { type: 'addIsAccessible'; isAccessible: State['isAccessible'] }
+  | { type: 'toggleIsAccessible'; isAccessible: State['isAccessible'] }
   | { type: 'resetState' }
 
 const reducer = (state: State, action: Action) => {
@@ -41,8 +37,8 @@ const reducer = (state: State, action: Action) => {
       return { ...state, name: action.name }
     case 'addDescription':
       return { ...state, description: action.description }
-    case 'addIsOnline':
-      return { ...state, isOnline: action.isOnline }
+    case 'toggleIsOnline':
+      return { ...state, isOnline: !action.isOnline }
     case 'addDate':
       return { ...state, date: action.date }
     case 'addMinimumAge':
@@ -53,13 +49,7 @@ const reducer = (state: State, action: Action) => {
       return { ...state, startTime: action.startTime }
     case 'addEndTime':
       return { ...state, endTime: action.endTime }
-    case 'addActivityId':
-      return { ...state, activityId: action.activityId }
-    case 'addUserId':
-      return { ...state, userId: action.userId }
-    case 'addUserIdentity':
-      return { ...state, userIdentity: action.userIdentity }
-    case 'addIsAccessible':
+    case 'toggleIsAccessible':
       return { ...state, isAccessible: action.isAccessible }
     case 'resetState':
       return initialState
@@ -73,36 +63,45 @@ const initialState: State = {
   description: '',
   isOnline: true,
   date: '',
-  minimumAge: 0,
-  maxParticipants: 0,
+  minimumAge: '',
+  maxParticipants: '',
   startTime: '',
   endTime: '',
-  activityId: '',
-  userId: '',
-  userIdentity: 0,
   isAccessible: true
 }
 
 export default function Events() {
   const [state, dispatch] = useReducer(reducer, initialState)
 
+  const formatStateData = (stateData: State) => {
+    const formattedStateData = {
+      ...stateData,
+      minimumAge: +stateData.minimumAge,
+      maxParticipants: +stateData.maxParticipants,
+      activityId: 'default',
+      userId: 'userDefault',
+      userIdentity: 0
+    }
+    return formattedStateData
+  }
+
   const handleNewUserSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    // const formattedData = formatStateData(state)
+    const formattedData = formatStateData(state)
 
-    // console.log({ state })
-    // console.log({ formattedData })
+    console.log({ state })
+    console.log({ formattedData })
 
-    // try {
-    //   const response = await api.post('users/signup', { ...formattedData })
-    //   console.log(response)
+    try {
+      const response = await api.post('events', { ...formattedData })
+      console.log(response)
 
-    //   Router.push('/login')
-    //   dispatch({ type: 'resetState' })
-    // } catch (error) {
-    //   console.log(error)
-    // }
+      Router.push('/login')
+      dispatch({ type: 'resetState' })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -134,20 +133,18 @@ export default function Events() {
           }
           required
         />
-        <TextField
-          label="Email"
-          type="email"
-          placeholder=""
-          value={state.isOnline}
-          onChange={(event) =>
-            dispatch({ type: 'addIsOnline', isOnline: event.target.value })
+        <input
+          type="checkbox"
+          checked={state.isOnline}
+          onChange={() =>
+            dispatch({ type: 'toggleIsOnline', isOnline: state.isOnline })
           }
           required
         />
         <TextField
-          label="Telefone"
+          label="Data do evento"
           type="text"
-          placeholder="Telefone"
+          placeholder="22/04/2022"
           value={state.date}
           onChange={(event) =>
             dispatch({
@@ -158,9 +155,9 @@ export default function Events() {
           required
         />
         <TextField
-          label="Telefone de emergência"
+          label="Idade minima"
           type="text"
-          placeholder="Telefone de emergência"
+          placeholder="Idade minima"
           value={state.minimumAge}
           onChange={(event) =>
             dispatch({
@@ -171,9 +168,9 @@ export default function Events() {
           required
         />
         <TextField
-          label="Nome do contato de emergência"
+          label="Maximo de participantes"
           type="text"
-          placeholder="Nome do contato de emergência"
+          placeholder="Maximo de participantes"
           value={state.maxParticipants}
           onChange={(event) =>
             dispatch({
@@ -184,9 +181,9 @@ export default function Events() {
           required
         />
         <TextField
-          label="Senha"
-          type="password"
-          placeholder="Senha"
+          label="Horario de inicio"
+          type="text"
+          placeholder="Horario de inicio"
           value={state.startTime}
           onChange={(event) =>
             dispatch({
@@ -196,9 +193,9 @@ export default function Events() {
           }
         />
         <TextField
-          label="Confirme a senha"
-          type="password"
-          placeholder="Confirme a senha"
+          label="Horario de fim"
+          type="text"
+          placeholder="Horario de fim"
           value={state.endTime}
           onChange={(event) =>
             dispatch({
@@ -208,53 +205,13 @@ export default function Events() {
           }
           required
         />
-        <TextField
-          label="Telefone de emergência"
-          type="text"
-          placeholder="Telefone de emergência"
-          value={state.activityId}
-          onChange={(event) =>
+        <input
+          type="checkbox"
+          checked={state.isAccessible}
+          onChange={() =>
             dispatch({
-              type: 'addActivityId',
-              activityId: event.target.value
-            })
-          }
-          required
-        />
-        <TextField
-          label="Nome do contato de emergência"
-          type="text"
-          placeholder="Nome do contato de emergência"
-          value={state.userId}
-          onChange={(event) =>
-            dispatch({
-              type: 'addUserId',
-              userId: event.target.value
-            })
-          }
-          required
-        />
-        <TextField
-          label="Senha"
-          type="password"
-          placeholder="Senha"
-          value={state.userIdentity}
-          onChange={(event) =>
-            dispatch({
-              type: 'addUserIdentity',
-              userIdentity: event.target.value
-            })
-          }
-        />
-        <TextField
-          label="Confirme a senha"
-          type="password"
-          placeholder="Confirme a senha"
-          value={state.isAccessible}
-          onChange={(event) =>
-            dispatch({
-              type: 'addIsAccessible',
-              isAccessible: event.target.value
+              type: 'toggleIsAccessible',
+              isAccessible: state.isAccessible
             })
           }
           required
