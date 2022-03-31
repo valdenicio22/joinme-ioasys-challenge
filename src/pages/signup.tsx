@@ -106,6 +106,7 @@ export default function SignUp() {
       </Head>
       <form onSubmit={handleNewUserSubmit}>
         <TextField
+          label="Primeiro Nome"
           type="text"
           placeholder="Primeiro Nome"
           value={state.firstName}
@@ -115,6 +116,7 @@ export default function SignUp() {
           required
         />
         <TextField
+          label="Sobrenome"
           type="text"
           placeholder="Sobrenome"
           value={state.lastName}
@@ -124,6 +126,7 @@ export default function SignUp() {
           required
         />
         <TextField
+          label="Email"
           type="email"
           placeholder="E-mail"
           value={state.email}
@@ -133,6 +136,7 @@ export default function SignUp() {
           required
         />
         <TextField
+          label="Telefone"
           type="text"
           placeholder="Telefone"
           value={state.phone}
@@ -145,6 +149,7 @@ export default function SignUp() {
           required
         />
         <TextField
+          label="Telefone de emergência"
           type="text"
           placeholder="Telefone de emergência"
           value={state.emergencyPhone}
@@ -157,6 +162,7 @@ export default function SignUp() {
           required
         />
         <TextField
+          label="Nome do contato de emergência"
           type="text"
           placeholder="Nome do contato de emergência"
           value={state.emergencyName}
@@ -169,6 +175,7 @@ export default function SignUp() {
           required
         />
         <TextField
+          label="Senha"
           type="password"
           placeholder="Senha"
           value={state.password}
@@ -180,6 +187,7 @@ export default function SignUp() {
           }
         />
         <TextField
+          label="Confirme a senha"
           type="password"
           placeholder="Confirme a senha"
           value={state.passwordConfirmation}

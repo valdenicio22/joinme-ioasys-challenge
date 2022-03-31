@@ -26,11 +26,13 @@ export default function Login() {
       </Head>
       <form onSubmit={handleSubmit}>
         <TextField
+          label="Email"
           type="email"
           onChange={(event) => setEmail(event.target.value)}
           value={email}
         />
         <TextField
+          label="Senha"
           type="password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
