@@ -1,7 +1,7 @@
 import { useAuth } from 'context/AuthContext'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
-import { withSSRGuest } from 'utils/withSSRGuest'
+import { withSSRAuth } from 'utils/withSSRAuth'
 
 export default function Dashboard() {
   const { user } = useAuth()
@@ -18,7 +18,7 @@ export default function Dashboard() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = withSSRGuest(async () => {
+export const getServerSideProps: GetServerSideProps = withSSRAuth(async () => {
   return {
     props: {}
   }

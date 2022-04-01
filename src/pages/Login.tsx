@@ -3,6 +3,8 @@ import Button from 'components/Button'
 import TextField from 'components/TextField'
 import { useAuth } from 'context/AuthContext'
 import Head from 'next/head'
+import { GetServerSideProps } from 'next'
+import { withSSRGuest } from 'utils/withSSRGuest'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -42,3 +44,9 @@ export default function Login() {
     </>
   )
 }
+
+export const getServerSideProps: GetServerSideProps = withSSRGuest(async () => {
+  return {
+    props: {}
+  }
+})
