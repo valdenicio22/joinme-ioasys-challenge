@@ -71,26 +71,12 @@ const initialState: State = {
 export default function SignUp() {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const formatStateData = (stateData: State) => {
-    const formattedStateData = {
-      ...stateData,
-      phone: +stateData.phone,
-      emergencyPhone: +stateData.emergencyPhone
-    }
-    return formattedStateData
-  }
-
   const handleNewUserSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    const formattedData = formatStateData(state)
-
-    console.log({ state })
-    console.log({ formattedData })
-
     try {
-      const response = await api.post('users/signup', { ...formattedData })
-      console.log(response)
+      const response = await api.post('users/signup', { ...state })
+      console.log(response.data)
 
       Router.push('/login')
       dispatch({ type: 'resetState' })
