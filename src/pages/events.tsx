@@ -1,4 +1,4 @@
-import { useReducer, FormEvent } from 'react'
+import { useReducer, FormEvent, useEffect } from 'react'
 import Button from 'components/Button'
 import TextField from 'components/TextField'
 import Head from 'next/head'
@@ -7,28 +7,34 @@ import * as S from '../styles/SignUp.styles'
 import { api } from 'service/api'
 import Router from 'next/router'
 
+import { useAuth } from 'context/AuthContext'
+
 type State = {
   name: string
   description: string
-  isOnline: boolean
-  date: string
+  date: Date
   minimumAge: string
   maxParticipants: string
   startTime: string
   endTime: string
+  userIdentity: string
+  isOnline: boolean
   isAccessible: boolean
+  activityList: ActivityList
 }
 
 type Action =
   | { type: 'addName'; name: State['name'] }
   | { type: 'addDescription'; description: State['description'] }
-  | { type: 'toggleIsOnline'; isOnline: State['isOnline'] }
   | { type: 'addDate'; date: State['date'] }
   | { type: 'addMinimumAge'; minimumAge: State['minimumAge'] }
   | { type: 'addMaxParticipants'; maxParticipants: State['maxParticipants'] }
-  | { type: 'addStartTime'; startTime: State['startTime'] }
+  | { type: 'addUserIdentity'; userIdentity: State['userIdentity'] }
+  | { type: 'addActivityList'; activityList: State['activityList'] }
   | { type: 'addEndTime'; endTime: State['endTime'] }
+  | { type: 'addStartTime'; startTime: State['startTime'] }
   | { type: 'toggleIsAccessible'; isAccessible: State['isAccessible'] }
+  | { type: 'toggleIsOnline'; isOnline: State['isOnline'] }
   | { type: 'resetState' }
 
 const reducer = (state: State, action: Action) => {
@@ -37,8 +43,6 @@ const reducer = (state: State, action: Action) => {
       return { ...state, name: action.name }
     case 'addDescription':
       return { ...state, description: action.description }
-    case 'toggleIsOnline':
-      return { ...state, isOnline: !action.isOnline }
     case 'addDate':
       return { ...state, date: action.date }
     case 'addMinimumAge':
@@ -49,8 +53,14 @@ const reducer = (state: State, action: Action) => {
       return { ...state, startTime: action.startTime }
     case 'addEndTime':
       return { ...state, endTime: action.endTime }
+    case 'addUserIdentity':
+      return { ...state, userIdentity: action.userIdentity }
+    case 'addActivityList':
+      return { ...state, activityList: action.activityList }
     case 'toggleIsAccessible':
       return { ...state, isAccessible: action.isAccessible }
+    case 'toggleIsOnline':
+      return { ...state, isOnline: !action.isOnline }
     case 'resetState':
       return initialState
     default:
@@ -62,25 +72,41 @@ const initialState: State = {
   name: '',
   description: '',
   isOnline: true,
-  date: '',
+  date: new Date(),
   minimumAge: '',
   maxParticipants: '',
   startTime: '',
   endTime: '',
+  userIdentity: '',
+  activityList: [],
   isAccessible: true
 }
 
+type ActivityList = Array<{
+  id: string
+  name: string
+}>
+
 export default function Events() {
   const [state, dispatch] = useReducer(reducer, initialState)
+  const { user } = useAuth()
+
+  useEffect(() => {
+    api
+      .get<ActivityList>('activities/list')
+      .then((response) =>
+        dispatch({ type: 'addActivityList', activityList: response.data })
+      )
+  }, [])
 
   const formatStateData = (stateData: State) => {
     const formattedStateData = {
       ...stateData,
       minimumAge: +stateData.minimumAge,
       maxParticipants: +stateData.maxParticipants,
-      activityId: 'default',
-      userId: 'userDefault',
-      userIdentity: 0
+      date: stateData.date.toJSON(),
+      activityId: user?.id ? user.id : '',
+      userId: user?.id ? user.id : ''
     }
     return formattedStateData
   }
@@ -104,6 +130,7 @@ export default function Events() {
     }
   }
 
+  const today = new Date().toLocaleString('pt-Br').slice(0, 10)
   return (
     <S.wrapper>
       <Head>
@@ -141,18 +168,15 @@ export default function Events() {
           }
           required
         />
-        <TextField
-          label="Data do evento"
-          type="text"
-          placeholder="22/04/2022"
-          value={state.date}
-          onChange={(event) =>
-            dispatch({
-              type: 'addDate',
-              date: event.target.value
-            })
-          }
-          required
+        <label htmlFor="start">Data do evento</label>
+
+        <input
+          type="date"
+          id="start"
+          name="Data do evento"
+          value={today}
+          min={today}
+          max="2025-12-31"
         />
         <TextField
           label="Idade minima"
@@ -216,7 +240,32 @@ export default function Events() {
           }
           required
         />
+        <TextField
+          label="CPF do responsavel pelo evento"
+          type="text"
+          placeholder="Horario de fim"
+          value={state.userIdentity}
+          onChange={(event) =>
+            dispatch({
+              type: 'addUserIdentity',
+              userIdentity: event.target.value
+            })
+          }
+          required
+        />
         <Button>Cadastrar</Button>
+        <select name="activities" id="activities">
+          <label htmlFor="activities">Escolha </label>
+
+          <option value=""> --Escolha uma opção-- </option>
+          {state.activityList
+            ? state.activityList.map((activity) => (
+                <option key={activity.id} value={activity.name}>
+                  {activity.name}
+                </option>
+              ))
+            : ''}
+        </select>
       </form>
     </S.wrapper>
   )
