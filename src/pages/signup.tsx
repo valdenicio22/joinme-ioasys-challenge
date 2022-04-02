@@ -6,6 +6,8 @@ import Head from 'next/head'
 import Router from 'next/router'
 
 import * as S from '../styles/SignUp.styles'
+import { GetServerSideProps } from 'next'
+import { withSSRGuest } from 'utils/withSSRGuest'
 
 type State = {
   firstName: string
@@ -191,3 +193,9 @@ export default function SignUp() {
     </S.wrapper>
   )
 }
+
+export const getServerSideProps: GetServerSideProps = withSSRGuest(async () => {
+  return {
+    props: {}
+  }
+})
