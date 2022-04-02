@@ -2,6 +2,7 @@ import { useAuth } from 'context/AuthContext'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import { withSSRAuth } from 'utils/withSSRAuth'
+import { signOut } from '../context/AuthContext'
 
 export default function Dashboard() {
   const { user } = useAuth()
@@ -13,7 +14,7 @@ export default function Dashboard() {
       <Link href="/events">
         <a>Events</a>
       </Link>
-      <button>Logout</button>
+      <button onClick={() => signOut()}>Logout</button>
     </>
   )
 }

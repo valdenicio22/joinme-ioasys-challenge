@@ -1,6 +1,7 @@
 import { AuthProvider } from '../context/AuthContext'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import { ToastContainer } from 'react-toastify'
 
 import GlobalStyles from 'styles/global'
 
@@ -21,6 +22,8 @@ function App({ Component, pageProps }: AppProps) {
       <AuthProvider>
         <Component {...pageProps} />
       </AuthProvider>
+
+      <ToastContainer />
     </>
   )
 }

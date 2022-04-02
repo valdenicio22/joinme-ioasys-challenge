@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
-import { useAuth } from 'context/AuthContext'
 import { parseCookies, setCookie } from 'nookies'
+import { signOut } from '../context/AuthContext'
 
 type FailedRequestQueue = {
   onSuccess: (token: string) => void
@@ -30,7 +30,7 @@ api.interceptors.response.use(
         if (!isRefreshing) {
           isRefreshing = true
           api
-            .post('/refresh', {
+            .post('users/refresh', {
               joinMeRefreshToken
             })
             .then((response) => {
@@ -56,6 +56,10 @@ api.interceptors.response.use(
             .catch((err) => {
               failedRequestQueue.forEach((request) => request.onFailure(err))
               failedRequestQueue = []
+
+              if (typeof window !== 'undefined') {
+                signOut()
+              }
             })
             .finally(() => {
               isRefreshing = false
@@ -76,9 +80,9 @@ api.interceptors.response.use(
           })
         })
       } else {
-        const { signOut } = useAuth()
-
-        signOut()
+        if (typeof window !== 'undefined') {
+          signOut()
+        }
       }
     }
     return Promise.reject(error)

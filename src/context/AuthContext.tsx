@@ -7,10 +7,11 @@ import {
 } from 'react'
 import Router from 'next/router'
 
-import { api } from '../service/api'
 import { setCookie, parseCookies, destroyCookie } from 'nookies'
 
 import { AuthenticatedUserData } from '../types/types'
+import { toast } from 'react-toastify'
+import { api } from 'service/api'
 
 type User = {
   email: string
@@ -26,7 +27,6 @@ type SignInCredentials = {
 
 type AuthContextData = {
   signIn: (credentials: SignInCredentials) => Promise<void>
-  signOut: () => void
   user?: User
   isAuthenticated: boolean
 }
@@ -35,19 +35,19 @@ type AuthProviderProps = {
   children: ReactNode
 }
 
+export const signOut = () => {
+  destroyCookie(undefined, 'joinMeToken')
+  destroyCookie(undefined, 'joinMeRefreshToken')
+  destroyCookie(undefined, 'joinMeUser')
+
+  Router.push('/')
+}
+
 const AuthContext = createContext({} as AuthContextData)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User>()
   const isAuthenticated = !!user
-
-  const signOut = () => {
-    destroyCookie(undefined, 'joinMeToken')
-    destroyCookie(undefined, 'joinMeRefreshToken')
-    destroyCookie(undefined, 'joinMeUser')
-
-    Router.push('/login')
-  }
 
   useEffect(() => {
     const { joinMeToken, joinMeUser } = parseCookies()
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const userData = JSON.parse(joinMeUser)
       setUser(userData)
     } catch {
-      // signOut()
+      signOut()
     }
   }, [])
 
@@ -67,6 +67,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         password
       })
       if (!response) throw Error
+      console.log(response)
       const { refreshToken, token, user: userData } = response.data
 
       setCookie(undefined, 'joinMeToken', token, {
@@ -86,12 +87,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setUser(userData)
       Router.push('/dashboard')
     } catch (error) {
+      toast('Usuario ou senha invalida, tente novamente')
       console.log(error)
     }
   }
 
   return (
-    <AuthContext.Provider value={{ signIn, isAuthenticated, user, signOut }}>
+    <AuthContext.Provider value={{ signIn, isAuthenticated, user }}>
       {children}
     </AuthContext.Provider>
   )
