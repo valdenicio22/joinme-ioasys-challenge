@@ -2,23 +2,21 @@ export default {
   border: {
     radius: {
       medium: '0.8rem',
-      large: '1.5rem'
+      xlarge: '4rem'
     }
   },
   font: {
-    family: 'Poppins, sans-serif',
+    family: 'Libre Franklin, sans-serif',
     weight: {
       regular: 400,
       semiBold: 500,
-      bold: 700
+      bold: 600
     },
     sizes: {
-      xxxsmall: '0.8rem', // 8px
-      xxsmall: '1rem',
-      xsmall: '1.2rem',
+      xsmall: '1.2rem', // 12px
       small: '1.4rem',
       medium: '1.6rem',
-      large: '2.0rem',
+      large: '1.8rem',
       xlarge: '2.4rem' // 24px
     }
   },
@@ -26,9 +24,9 @@ export default {
     primary: '#493A92',
     lightModeBg: '#E8E7E3',
     white: '#FFFFFF',
-    lightGray: '#E0E0E0',
-    mediumGray: '#BDBDBD',
-    darkGray: '#666666'
+    black: '#2C3131',
+    lightPurple: '#9C91D3',
+    lightGray: '#CACACA'
   },
   containers: {
     mobile: '34.8rem', //428px - 80 = 348px
