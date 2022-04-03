@@ -2,9 +2,16 @@ import { BsFillPersonFill } from 'react-icons/bs'
 import * as S from './styles'
 
 export const SignUpButton = () => {
-  return (
+  const isUserLoggedIn = false
+
+  return isUserLoggedIn ? (
     <S.Wrapper>
-      <BsFillPersonFill />
+      <BsFillPersonFill color="#04d361" />
+      Increva-se Aqui
+    </S.Wrapper>
+  ) : (
+    <S.Wrapper>
+      <BsFillPersonFill color="#eba417" />
       Increva-se Aqui
     </S.Wrapper>
   )

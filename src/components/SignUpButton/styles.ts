@@ -22,4 +22,10 @@ export const Wrapper = styled.button`
     width: 15px;
     height: 15px;
   }
+
+  transition: filter 0.2s;
+
+  &:hover {
+    filter: brightness(0.8);
+  }
 `
