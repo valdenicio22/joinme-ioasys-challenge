@@ -1,18 +1,17 @@
 import { screen } from '@testing-library/react'
-import theme from 'styles/theme'
 import { renderWithThemeProvider } from 'utils/renderWithThemeProvider'
 
 import Header from '.'
 
 describe('<Header />', () => {
   it('should render the heading', () => {
-    renderWithThemeProvider(<Header />, { providerProps: { theme } })
+    renderWithThemeProvider(<Header />)
 
     expect(screen.getByRole('banner')).toBeInTheDocument()
   })
 
   it('should render navigation options correctly', () => {
-    renderWithThemeProvider(<Header />, { providerProps: { theme } })
+    renderWithThemeProvider(<Header />)
 
     const homeOption = screen.getByRole('link', { name: 'Home' })
     const postsOption = screen.getByRole('link', { name: 'Posts' })

@@ -1,6 +1,4 @@
 import { Story, Meta } from '@storybook/react'
-import { ThemeProvider } from 'styled-components'
-import theme from 'styles/theme'
 import Header from '.'
 
 export default {
@@ -8,8 +6,4 @@ export default {
   component: Header
 } as Meta
 
-export const Default: Story = () => (
-  <ThemeProvider theme={theme}>
-    <Header />
-  </ThemeProvider>
-)
+export const Default: Story = () => <Header />

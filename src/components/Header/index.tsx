@@ -1,3 +1,4 @@
+import SignUpButton from 'components/SignUpButton'
 import Image from 'next/image'
 import * as S from './styles'
 
@@ -11,6 +12,7 @@ const Header = () => (
         </a>
         <a href="">Posts</a>
       </S.NavContainer>
+      <SignUpButton />
     </S.ContentWrapper>
   </S.Wrapper>
 )

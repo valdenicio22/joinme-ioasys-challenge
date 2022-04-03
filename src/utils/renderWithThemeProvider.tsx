@@ -1,17 +1,18 @@
 import { render, RenderOptions, RenderResult } from '@testing-library/react'
-import { DefaultTheme, ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
+import theme from 'styles/theme'
 
 type RenderWithThemeProvider = (
   ui: React.ReactElement,
-  options: RenderOptions & { providerProps: { theme: DefaultTheme } }
+  options?: RenderOptions
 ) => RenderResult
 
 export const renderWithThemeProvider: RenderWithThemeProvider = (
   ui,
-  { providerProps, ...renderOptions }
+  renderOptions
 ) => {
   return render(
-    <ThemeProvider {...providerProps}>{ui}</ThemeProvider>,
+    <ThemeProvider theme={theme}>{ui}</ThemeProvider>,
     renderOptions
   )
 }

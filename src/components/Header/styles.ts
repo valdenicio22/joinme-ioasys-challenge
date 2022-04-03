@@ -16,7 +16,10 @@ export const ContentWrapper = styled.div`
 
   display: flex;
   align-items: center;
-  border: 1px solid white;
+
+  button {
+    margin-left: auto;
+  }
 `
 export const NavContainer = styled.nav`
   width: 100%;
@@ -42,7 +45,7 @@ export const NavContainer = styled.nav`
     }
     &.active {
       font-weight: ${({ theme }) => theme.font.weight.bold};
-      border-bottom: 1px solid red;
+      border-bottom: 0.2rem solid red;
     }
     & + a {
       margin-left: 2rem;
