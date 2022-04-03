@@ -9,7 +9,7 @@ const GlobalStyles = createGlobalStyle`
 
   ${({ theme }) => css`
     html {
-      font-size: 62.5%;
+      font-size: 62.5%; //10px - 1rem
     }
     body {
       font-family: ${theme.font.family};

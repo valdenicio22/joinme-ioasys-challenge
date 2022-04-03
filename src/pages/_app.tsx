@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify'
 import GlobalStyles from 'styles/global'
 import { ThemeProvider } from 'styled-components'
 import theme from 'styles/theme'
+import Header from 'components/Header'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -22,6 +23,7 @@ function App({ Component, pageProps }: AppProps) {
       </Head>
       <GlobalStyles />
       <AuthProvider>
+        <Header />
         <Component {...pageProps} />
       </AuthProvider>
 

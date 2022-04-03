@@ -26,7 +26,8 @@ export default {
     white: '#FFFFFF',
     black: '#2C3131',
     lightPurple: '#9C91D3',
-    lightGray: '#CACACA'
+    lightGray: '#CACACA',
+    yellow: '#eba417'
   },
   containers: {
     mobile: '34.8rem', //428px - 80 = 348px
