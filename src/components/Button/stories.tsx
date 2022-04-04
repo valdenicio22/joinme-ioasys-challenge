@@ -1,5 +1,5 @@
 import { Story, Meta } from '@storybook/react/types-6-0'
-import Button from '.'
+import Button, { ButtonProps } from '.'
 
 export default {
   title: 'Button',
@@ -9,10 +9,10 @@ export default {
       type: 'string'
     }
   }
-} as Meta
+} as Meta<ButtonProps>
 
-export const Default: Story = (args) => <Button {...args} />
+export const Default: Story<ButtonProps> = (args) => <Button {...args} />
 
 Default.args = {
-  children: 'Buy now'
+  children: 'Test'
 }

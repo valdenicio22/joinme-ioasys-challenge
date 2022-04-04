@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
 import * as S from '../styles/Home.styles'
 
@@ -21,8 +20,6 @@ export default function Home() {
             <span>for $9.90 month</span>
           </p>
         </section>
-
-        <Image src="/img/avatar.svg" alt="Girl Coding" />
       </main>
 
       <Link href="/login">
