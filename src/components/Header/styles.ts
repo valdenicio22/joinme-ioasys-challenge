@@ -12,7 +12,7 @@ export const ContentWrapper = styled.div`
   margin: 0 auto;
   height: 100%;
 
-  padding: 0 3.2rem;
+  padding: 0 2rem;
 
   display: flex;
   align-items: center;
