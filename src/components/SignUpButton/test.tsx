@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react'
-import { renderWithThemeProvider } from 'utils/renderWithThemeProvider'
+import { renderWithThemeProvider } from 'utils/tests/renderWithThemeProvider'
 
 import SignUpButton from '.'
 
