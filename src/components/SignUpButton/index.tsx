@@ -1,4 +1,4 @@
-import { BsFillPersonFill } from 'react-icons/bs'
+import { IoPersonCircleOutline } from 'react-icons/io5'
 import * as S from './styles'
 
 export const SignUpButton = () => {
@@ -6,12 +6,12 @@ export const SignUpButton = () => {
 
   return isUserLoggedIn ? (
     <S.Wrapper>
-      <BsFillPersonFill color="#04d361" />
-      Increva-se Aqui
+      <IoPersonCircleOutline color="#04d361" />
+      Bem-vindo: Pessoa
     </S.Wrapper>
   ) : (
     <S.Wrapper>
-      <BsFillPersonFill color="#eba417" />
+      <IoPersonCircleOutline color="#eba417" />
       Increva-se Aqui
     </S.Wrapper>
   )

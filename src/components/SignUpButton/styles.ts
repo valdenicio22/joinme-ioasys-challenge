@@ -19,8 +19,8 @@ export const Wrapper = styled.button`
   font-size: ${({ theme }) => theme.font.sizes.medium};
 
   svg {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
   }
 
   transition: filter 0.2s;

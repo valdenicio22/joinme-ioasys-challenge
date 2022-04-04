@@ -23,8 +23,9 @@ export default {
   colors: {
     primary: '#493A92',
     lightModeBg: '#E8E7E3',
-    white: '#FFFFFF',
+    white: '#FAFAFA',
     black: '#2C3131',
+    testeBlack: '#030517',
     lightPurple: '#9C91D3',
     lightGray: '#CACACA',
     yellow: '#eba417'

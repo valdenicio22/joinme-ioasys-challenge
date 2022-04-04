@@ -1,9 +1,30 @@
+import Head from 'next/head'
+import Image from 'next/image'
 import Link from 'next/link'
 import * as S from '../styles/Home.styles'
 
 export default function Home() {
   return (
     <S.Wrapper>
+      <Head>
+        <title>Home | joinMe</title>
+      </Head>
+
+      <main>
+        <section>
+          <span>👏 Hey, Bem vindo!</span>
+          <h1>
+            News about the <span>React</span>world
+          </h1>
+          <p>
+            Get acess to all publications <br />
+            <span>for $9.90 month</span>
+          </p>
+        </section>
+
+        <Image src="/img/avatar.svg" alt="Girl Coding" />
+      </main>
+
       <Link href="/login">
         <a>Login Page</a>
       </Link>
