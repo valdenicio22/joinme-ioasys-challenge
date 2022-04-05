@@ -1,10 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { renderWithThemeProvider } from 'utils/tests/renderWithThemeProvider'
 
 import TextField from '.'
 
 describe('<TextField />', () => {
   it('should render the heading', () => {
-    render(<TextField />)
+    renderWithThemeProvider(<TextField />)
 
     expect(screen.getByRole('textbox')).toBeInTheDocument()
   })

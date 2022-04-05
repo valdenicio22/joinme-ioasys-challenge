@@ -27,5 +27,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ]
+  ],
+  "files": ["./src/styles/styled-components.d.ts"]
 }
