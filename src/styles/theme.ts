@@ -25,10 +25,11 @@ export default {
     lightModeBg: '#E8E7E3',
     white: '#FAFAFA',
     black: '#2C3131',
+    yellow: '#eba417',
     testeBlack: '#030517',
     lightPurple: '#9C91D3',
     lightGray: '#CACACA',
-    yellow: '#eba417'
+    darkGray: '#757678;'
   },
   containers: {
     mobile: '34.8rem', //428px - 80 = 348px
