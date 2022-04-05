@@ -8,11 +8,13 @@ import { withSSRGuest } from '../../utils/withSSRGuest'
 import * as S from './Login.styles'
 import Logo from 'components/Logo'
 import Link from 'next/link'
+import Switch from 'components/Switch'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { signIn } = useAuth()
+  const [isConectedChecked, setIsConectedChecked] = useState(true)
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -51,7 +53,10 @@ export default function Login() {
         />
       </S.FormContainer>
       <S.SwitchContainer>
-        <input type="checkbox" />
+        <Switch
+          onCheckedChange={() => setIsConectedChecked(!isConectedChecked)}
+          checked={isConectedChecked}
+        />
         <p>Permanecer conectado</p>
       </S.SwitchContainer>
       <S.P>Esqueceu a senha?</S.P>
