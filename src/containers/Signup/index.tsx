@@ -8,6 +8,7 @@ import Router from 'next/router'
 import { api } from 'service/api'
 import Fakelogo from 'components/Fakelogo'
 import { withSSRGuest } from 'utils/withSSRGuest'
+import Checkbox from 'components/Checkbox'
 
 type SignupFormData = {
   name: 'string'
@@ -100,7 +101,7 @@ export default function Signup() {
         </S.ErrorMessageContainer>
 
         <S.SwitchContainer>
-          <input type="checkbox" />
+          <Checkbox />
           <p>
             Li e concordo com os{' '}
             <span>Termos e Condições e Política de Privacidade.</span>
