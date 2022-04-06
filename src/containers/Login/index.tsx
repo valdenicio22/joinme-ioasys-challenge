@@ -80,7 +80,7 @@ export default function Login() {
       </S.FormContainer>
       <S.LastInfo>
         Não tem uma conta?&nbsp;
-        <Link href="/singup">Increva-se.</Link>
+        <Link href="/signup">Cadastra-se aqui.</Link>
       </S.LastInfo>
     </S.Wrapper>
   )
