@@ -10,7 +10,6 @@ export function withSSRGuest<P>(fn: GetServerSideProps<P>) {
     ctx: GetServerSidePropsContext
   ): Promise<GetServerSidePropsResult<P>> => {
     const cookies = parseCookies(ctx)
-    console.log(cookies)
     if (cookies.joinMeToken) {
       return {
         redirect: {

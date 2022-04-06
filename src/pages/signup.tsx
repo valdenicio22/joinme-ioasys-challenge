@@ -1,7 +1,7 @@
 import { useReducer, FormEvent } from 'react'
 import { api } from '../service/api'
 import Button from 'components/Button'
-import TextField from 'components/TextField'
+import { TextField } from 'components/TextField'
 import Head from 'next/head'
 import Router from 'next/router'
 
@@ -78,7 +78,7 @@ export default function SignUp() {
 
     try {
       const response = await api.post('users/signup', { ...state })
-      console.log(response.data)
+      console.log(response)
 
       Router.push('/login')
       dispatch({ type: 'resetState' })
