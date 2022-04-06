@@ -74,13 +74,13 @@ export default function Login() {
           <p>Permanecer conectado</p>
         </S.SwitchContainer>
         <S.SignUpLinkContainer>
-          <Link href="/signup">Esqueceu a senha?</Link>
+          <Link href="/forgotPassword">Esqueceu a senha?</Link>
         </S.SignUpLinkContainer>
         <Button>entrar</Button>
       </S.FormContainer>
       <S.LastInfo>
         Não tem uma conta?&nbsp;
-        <Link href={'/singup'}>Increva-se.</Link>
+        <Link href="/singup">Increva-se.</Link>
       </S.LastInfo>
     </S.Wrapper>
   )

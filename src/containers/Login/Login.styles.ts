@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.div`
-  width: 42rem;
+  width: 43rem;
   margin: 0 auto;
 
   display: flex;
@@ -60,9 +60,9 @@ export const SwitchContainer = styled.div`
 `
 
 export const SignUpLinkContainer = styled.div`
-  color: ${({ theme }) => theme.colors.primary};
   margin: 4rem 0 2rem;
   a {
+    color: ${({ theme }) => theme.colors.primary};
     text-decoration: none;
   }
 `
