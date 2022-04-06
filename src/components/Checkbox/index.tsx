@@ -7,8 +7,8 @@ export type CheckboxProps = {
 
 const Checkbox = ({ label, labelFor = '' }: CheckboxProps) => (
   <S.Wrapper>
-    <input id={labelFor} type="checkbox" />
-    {!!label && <label htmlFor={labelFor}>{label}</label>}
+    <S.Input id={labelFor} type="checkbox" />
+    {!!label && <S.Label htmlFor={labelFor}>{label}</S.Label>}
   </S.Wrapper>
 )
 
