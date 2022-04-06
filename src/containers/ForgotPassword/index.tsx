@@ -6,6 +6,9 @@ import * as S from './ForgotPassword'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { api } from 'service/api'
 import Button from 'components/Button'
+
+import Router from 'next/router'
+
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -36,7 +39,7 @@ export default function ForgotPassword() {
   }
   return (
     <S.Wrapper>
-      <S.ArrowContainer>
+      <S.ArrowContainer onClick={() => Router.push('/login')}>
         <Arrow />
       </S.ArrowContainer>
       <S.InfoContainer>

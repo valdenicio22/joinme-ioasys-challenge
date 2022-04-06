@@ -13,6 +13,7 @@ export const Wrapper = styled.div`
 export const ArrowContainer = styled.div`
   width: 100%;
   margin-bottom: 14rem;
+  cursor: pointer;
 `
 
 export const InfoContainer = styled.div`
