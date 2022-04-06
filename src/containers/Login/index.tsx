@@ -1,6 +1,6 @@
-import { FormEvent, useState } from 'react'
+import { useState } from 'react'
 import Button from '../../components/Button'
-import TextField from '../../components/TextField'
+import { TextField } from '../../components/TextField'
 import { useAuth } from '../../context/AuthContext'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
@@ -9,21 +9,24 @@ import * as S from './Login.styles'
 import Logo from 'components/Logo'
 import Link from 'next/link'
 import Switch from 'components/Switch'
+import { useForm, SubmitHandler } from 'react-hook-form'
+
+type SignInFormData = {
+  email: string
+  password: string
+}
 
 export default function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const { signIn } = useAuth()
   const [isConectedChecked, setIsConectedChecked] = useState(true)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<SignInFormData>()
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-    const data = {
-      email,
-      password
-    }
-
-    await signIn(data)
+  const onSubmit: SubmitHandler<SignInFormData> = async (formData) => {
+    await signIn(formData)
   }
 
   return (
@@ -35,35 +38,49 @@ export default function Login() {
       <S.LogoContainer>
         <Logo color="black" />
       </S.LogoContainer>
-      <S.FormContainer onSubmit={handleSubmit}>
+      <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
         <S.TitleContainer>
           <S.H2>Acesse sua conta</S.H2>
         </S.TitleContainer>
         <TextField
-          label="Seu e-mail:"
+          label="Seu e-mail:*"
           type="email"
-          onChange={(event) => setEmail(event.target.value)}
-          value={email}
+          {...register('email', {
+            required: true,
+            pattern: /\S+@\S+\.\S+/
+          })}
+          placeholder="lumasilva@email.com"
         />
+        <S.ErrorMessageContainer>
+          {errors.email?.type === 'pattern' && 'Email inválido'}
+          {errors.email?.type === 'required' && 'Email é um campo obrigatório'}
+        </S.ErrorMessageContainer>
         <TextField
-          label="Digite uma senha:"
+          label="Digite uma senha:*"
           type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
+          {...register('password', {
+            required: true,
+            minLength: 6
+          })}
         />
+        <S.ErrorMessageContainer>
+          {errors.password && 'Password é um campo obrigatório'}
+        </S.ErrorMessageContainer>
+        <S.SwitchContainer>
+          <Switch
+            onCheckedChange={() => setIsConectedChecked(!isConectedChecked)}
+            checked={isConectedChecked}
+          />
+          <p>Permanecer conectado</p>
+        </S.SwitchContainer>
+        <S.SignUpLinkContainer>
+          <Link href="/signup">Esqueceu a senha?</Link>
+        </S.SignUpLinkContainer>
+        <Button>entrar</Button>
       </S.FormContainer>
-      <S.SwitchContainer>
-        <Switch
-          onCheckedChange={() => setIsConectedChecked(!isConectedChecked)}
-          checked={isConectedChecked}
-        />
-        <p>Permanecer conectado</p>
-      </S.SwitchContainer>
-      <S.P>Esqueceu a senha?</S.P>
-      <Button>entrar</Button>
       <S.LastInfo>
         Não tem uma conta?&nbsp;
-        <Link href={'/singup'}>Cadastra-se aqui.</Link>
+        <Link href={'/singup'}>Increva-se.</Link>
       </S.LastInfo>
     </S.Wrapper>
   )

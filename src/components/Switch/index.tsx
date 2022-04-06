@@ -5,9 +5,9 @@ export type SwitchProps = {
   checked: boolean
 }
 
-const Switch = ({ onCheckedChange, checked }: SwitchProps) => {
+const Switch = ({ onCheckedChange, checked, ...props }: SwitchProps) => {
   return (
-    <S.Switch onCheckedChange={onCheckedChange} checked={checked}>
+    <S.Switch onCheckedChange={onCheckedChange} checked={checked} {...props}>
       <S.Thumb />
     </S.Switch>
   )

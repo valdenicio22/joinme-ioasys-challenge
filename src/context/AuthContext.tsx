@@ -10,8 +10,10 @@ import Router from 'next/router'
 import { setCookie, parseCookies, destroyCookie } from 'nookies'
 
 import { AuthenticatedUserData } from '../types/types'
-import { toast } from 'react-toastify'
 import { api } from 'service/api'
+
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 type User = {
   email: string
@@ -67,7 +69,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         password
       })
       if (!response) throw Error
-      console.log(response)
       const { refreshToken, token, user: userData } = response.data
 
       setCookie(undefined, 'joinMeToken', token, {
@@ -86,9 +87,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
       setUser(userData)
       Router.push('/dashboard')
-    } catch (error) {
-      toast('Usuario ou senha invalida, tente novamente')
-      console.log(error)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      if (err.response.status === 404) {
+        toast.error('Usuário não encontrado')
+      }
     }
   }
 

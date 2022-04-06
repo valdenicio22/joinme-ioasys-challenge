@@ -1,9 +1,20 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { TextFieldProps } from '.'
+
+type Props = { isInvalid: boolean } & Pick<TextFieldProps, 'error'>
+
+const wrapperModifiers = {
+  withError: () => css`
+    border-color: red;
+  `
+}
 
 export const Wrapper = styled.div``
 
-export const InputWrapper = styled.div`
-  margin-bottom: 1.5rem;
+export const InputWrapper = styled.div<Props>`
+  ${({ error }) => css`
+    ${!!error && wrapperModifiers.withError()}
+  `}
 `
 
 export const Input = styled.input`
@@ -12,7 +23,7 @@ export const Input = styled.input`
   padding: 1.8rem 1.5rem;
   border-radius: 0.3rem;
   margin-top: 0.8rem;
-  font-size: ${({ theme }) => theme.font.sizes.xlarge};
+  font-size: ${({ theme }) => theme.font.sizes.medium};
   border: 0.2rem solid #cccccc;
 `
 
