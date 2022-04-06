@@ -1,7 +1,7 @@
 import * as S from './styles'
 
 export type ArrowProps = {
-  color?: string
+  color?: 'darkPurple' | 'lightPurple'
 }
 
 const Arrow = ({ color = 'darkPurple' }: ArrowProps) => (
