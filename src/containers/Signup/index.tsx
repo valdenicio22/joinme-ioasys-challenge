@@ -7,7 +7,6 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import Router from 'next/router'
 import { api } from 'service/api'
 import Fakelogo from 'components/Fakelogo'
-import Switch from 'components/Switch'
 import { withSSRGuest } from 'utils/withSSRGuest'
 
 type SignupFormData = {
@@ -76,11 +75,6 @@ export default function Signup() {
           {errors.email?.type === 'required' && 'Email é um campo obrigatório'}
         </S.ErrorMessageContainer>
 
-        <S.SwitchContainer>
-          <Switch onCheckedChange={() => true} checked={true} />
-          <p>Permanecer conectado</p>
-        </S.SwitchContainer>
-
         <TextField
           label="Digite uma senha:*"
           type="password"
@@ -96,7 +90,7 @@ export default function Signup() {
         <TextField
           label="Confirme sua senha:*"
           type="password"
-          {...register('password', {
+          {...register('passwordConfirmation', {
             required: true,
             minLength: 6
           })}
@@ -104,6 +98,14 @@ export default function Signup() {
         <S.ErrorMessageContainer>
           {errors.password && 'Confirmar senha é um campo obrigatório'}
         </S.ErrorMessageContainer>
+
+        <S.SwitchContainer>
+          <input type="checkbox" />
+          <p>
+            Li e concordo com os{' '}
+            <span>Termos e Condições e Política de Privacidade.</span>
+          </p>
+        </S.SwitchContainer>
 
         <Button>criar conta</Button>
       </S.FormContainer>
