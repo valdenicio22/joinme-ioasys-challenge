@@ -28,8 +28,10 @@ export default {
     yellow: '#eba417',
     testeBlack: '#030517',
     lightPurple: '#9C91D3',
+    darkPurple: '#6B5BBE',
     lightGray: '#CACACA',
-    darkGray: '#757678;'
+    darkGray: '#757678;',
+    redError: '#E25C5C'
   },
   containers: {
     mobile: '34.8rem', //428px - 80 = 348px

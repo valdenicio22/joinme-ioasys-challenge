@@ -1,6 +1,6 @@
 import { useReducer, FormEvent, useEffect } from 'react'
 import Button from 'components/Button'
-import TextField from 'components/TextField'
+import { TextField } from 'components/TextField'
 import Head from 'next/head'
 
 import * as S from '../styles/SignUp.styles'
@@ -115,9 +115,6 @@ export default function Events() {
     e.preventDefault()
 
     const formattedData = formatStateData(state)
-
-    console.log({ state })
-    console.log({ formattedData })
 
     try {
       const response = await api.post('events', { ...formattedData })
