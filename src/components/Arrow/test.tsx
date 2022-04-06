@@ -1,13 +1,12 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { renderWithThemeProvider } from 'utils/tests/renderWithThemeProvider'
 
 import Arrow from '.'
 
 describe('<Arrow />', () => {
-  it('should render the heading', () => {
-    const { container } = render(<Arrow />)
+  it('should render the purple arrow', () => {
+    renderWithThemeProvider(<Arrow />)
 
-    expect(screen.getByRole('heading', { name: /Arrow/i })).toBeInTheDocument()
-
-    expect(container.firstChild).toMatchSnapshot()
+    expect(screen.getByLabelText(/Seta voltar tela/i)).toBeInTheDocument()
   })
 })
