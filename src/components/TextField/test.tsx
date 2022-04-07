@@ -9,4 +9,10 @@ describe('<TextField />', () => {
 
     expect(screen.getByRole('textbox')).toBeInTheDocument()
   })
+
+  it('should render without Label', () => {
+    renderWithThemeProvider(<TextField />)
+
+    expect(screen.queryByLabelText('Label')).not.toBeInTheDocument()
+  })
 })

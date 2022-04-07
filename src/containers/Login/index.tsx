@@ -6,10 +6,11 @@ import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 import { withSSRGuest } from '../../utils/withSSRGuest'
 import * as S from './Login.styles'
-import Logo from 'components/Logo'
 import Link from 'next/link'
 import Switch from 'components/Switch'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import EyeIcon from 'components/EyeIcon'
+import Fakelogo from 'components/Fakelogo'
 
 type SignInFormData = {
   email: string
@@ -36,7 +37,7 @@ export default function Login() {
       </Head>
 
       <S.LogoContainer>
-        <Logo color="black" />
+        <Fakelogo />
       </S.LogoContainer>
       <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
         <S.TitleContainer>
@@ -50,6 +51,7 @@ export default function Login() {
             pattern: /\S+@\S+\.\S+/
           })}
           placeholder="lumasilva@email.com"
+          fullWidth={true}
         />
         <S.ErrorMessageContainer>
           {errors.email?.type === 'pattern' && 'Email inválido'}
@@ -58,10 +60,12 @@ export default function Login() {
         <TextField
           label="Digite uma senha:*"
           type="password"
+          icon={<EyeIcon />}
           {...register('password', {
             required: true,
             minLength: 6
           })}
+          fullWidth={true}
         />
         <S.ErrorMessageContainer>
           {errors.password && 'Password é um campo obrigatório'}
@@ -80,7 +84,7 @@ export default function Login() {
       </S.FormContainer>
       <S.LastInfo>
         Não tem uma conta?&nbsp;
-        <Link href="/singup">Increva-se.</Link>
+        <Link href="/signup">Cadastra-se aqui.</Link>
       </S.LastInfo>
     </S.Wrapper>
   )

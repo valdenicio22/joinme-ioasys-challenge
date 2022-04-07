@@ -6,15 +6,15 @@ export const Wrapper = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
+
+  padding: 4rem 3.2rem;
 `
 
 export const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2.5rem 0;
 `
 
 export const FormContainer = styled.form`
@@ -29,13 +29,13 @@ export const FormContainer = styled.form`
 `
 export const TitleContainer = styled.div`
   width: 100%;
-  margin-bottom: 3rem;
+  margin: 3rem 0;
 `
 
 export const H2 = styled.h2`
   font-size: ${({ theme }) => theme.font.sizes.xlarge};
   color: ${({ theme }) => theme.colors.darkPurple};
-  margin-left: 1rem;
+  padding-left: 1.5rem;
 `
 export const ErrorMessageContainer = styled.div`
   width: 100%;
@@ -45,33 +45,17 @@ export const ErrorMessageContainer = styled.div`
 `
 
 export const SwitchContainer = styled.div`
-  width: 35rem;
-  margin: 0 auto;
-
   padding-left: 1rem;
 
   display: flex;
   align-items: center;
   gap: 1rem;
-
-  p {
-    ${({ theme }) => theme.colors.darkGray};
-  }
+  margin-bottom: 1rem;
+`
+export const PTerms = styled.p`
+  margin-bottom: 1rem;
 `
 
-export const SignUpLinkContainer = styled.div`
-  margin: 4rem 0 2rem;
-  a {
-    color: ${({ theme }) => theme.colors.primary};
-    text-decoration: none;
-  }
-`
-
-export const LastInfo = styled.p`
-  margin-top: 4.2rem;
-  ${({ theme }) => theme.colors.darkGray}
-
-  a {
-    color: ${({ theme }) => theme.colors.primary};
-  }
+export const Span = styled.span`
+  ${({ theme }) => theme.colors.darkGray};
 `

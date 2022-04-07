@@ -1,8 +1,15 @@
+import { InputHTMLAttributes } from 'react'
 import * as S from './styles'
 
-const Checkbox = () => (
+export type CheckboxProps = {
+  label?: string
+  labelFor?: string
+} & InputHTMLAttributes<HTMLInputElement>
+
+const Checkbox = ({ label, labelFor = '', ...props }: CheckboxProps) => (
   <S.Wrapper>
-    <h1>Checkbox</h1>
+    <S.Input id={labelFor} type="checkbox" {...props} />
+    {!!label && <S.Label htmlFor={labelFor}>{label}</S.Label>}
   </S.Wrapper>
 )
 

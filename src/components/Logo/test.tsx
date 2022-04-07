@@ -12,7 +12,7 @@ describe('<Logo />', () => {
     renderWithThemeProvider(<Logo />)
 
     expect(screen.getByLabelText(/Logo JoinMe/i).parentElement).toHaveStyle({
-      color: '#FAFAFA'
+      color: '#FFFFFF'
     })
   })
 
