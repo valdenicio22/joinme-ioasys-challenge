@@ -51,10 +51,11 @@ export const SwitchContainer = styled.div`
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
+`
+export const PTerms = styled.p`
+  margin-bottom: 1rem;
+`
 
-  p {
-    span {
-      ${({ theme }) => theme.colors.darkGray};
-    }
-  }
+export const Span = styled.span`
+  ${({ theme }) => theme.colors.darkGray};
 `

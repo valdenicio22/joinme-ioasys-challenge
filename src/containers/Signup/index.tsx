@@ -58,6 +58,7 @@ export default function Signup() {
             required: true
           })}
           placeholder="Luma"
+          fullWidth={true}
         />
         <S.ErrorMessageContainer>
           {errors.email?.type === 'required' && 'Email é um campo obrigatório'}
@@ -70,6 +71,7 @@ export default function Signup() {
             pattern: /\S+@\S+\.\S+/
           })}
           placeholder="lumasilva@email.com"
+          fullWidth={true}
         />
         <S.ErrorMessageContainer>
           {errors.email?.type === 'pattern' && 'Email inválido'}
@@ -83,6 +85,7 @@ export default function Signup() {
             required: true,
             minLength: 6
           })}
+          fullWidth={true}
         />
         <S.ErrorMessageContainer>
           {errors.password && 'Senha é um campo obrigatório'}
@@ -95,6 +98,7 @@ export default function Signup() {
             required: true,
             minLength: 6
           })}
+          fullWidth={true}
         />
         <S.ErrorMessageContainer>
           {errors.password && 'Confirmar senha é um campo obrigatório'}
@@ -102,10 +106,10 @@ export default function Signup() {
 
         <S.SwitchContainer>
           <Checkbox />
-          <p>
+          <S.PTerms>
             Li e concordo com os{' '}
-            <span>Termos e Condições e Política de Privacidade.</span>
-          </p>
+            <S.Span>Termos e Condições e Política de Privacidade.</S.Span>
+          </S.PTerms>
         </S.SwitchContainer>
 
         <Button>criar conta</Button>
