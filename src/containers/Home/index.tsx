@@ -15,10 +15,10 @@ export default function Home() {
         <S.SectionContainer>
           <span>👏 Hey, Bem vindo!</span>
           <h1>JoinMe</h1>
-          <p>Encontre eventos da sua preferencia</p>
+          <p>Encontre eventos da sua preferência ...</p>
 
           <Button onClick={() => Router.push('/signup')}>
-            Inscreve-se aqui
+            Increva-se Aqui
           </Button>
         </S.SectionContainer>
 

@@ -38,6 +38,8 @@ export const SectionContainer = styled.section`
 
   button {
     margin-top: 2.5rem;
+    padding: 2rem;
+    width: 34rem;
   }
   transition: filter 0.2;
   button:hover {

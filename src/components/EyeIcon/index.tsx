@@ -1,7 +1,11 @@
 import * as S from './styles'
 
-const EyeIcon = () => (
-  <S.Wrapper>
+type EyeIconProps = {
+  onClick: () => void
+}
+
+const EyeIcon = ({ onClick }: EyeIconProps) => (
+  <S.Wrapper onClick={onClick}>
     <svg
       width="20"
       height="16"
