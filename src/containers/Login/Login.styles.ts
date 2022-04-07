@@ -14,7 +14,7 @@ export const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 8rem 0 7rem;
+  margin: 2.5rem 0;
 `
 
 export const FormContainer = styled.form`
