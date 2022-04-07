@@ -3,26 +3,36 @@ import {
   InputHTMLAttributes,
   ForwardRefRenderFunction
 } from 'react'
-import { FieldError } from 'react-hook-form'
 
 import * as S from './styles'
 
 export type TextFieldProps = {
   label?: string
   labelFor?: string
-  error?: FieldError
+  error?: string
+  icon?: React.ReactNode
+  fullWidth?: boolean
 } & InputHTMLAttributes<HTMLInputElement>
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, TextFieldProps> = (
-  { label, labelFor = '', error = undefined, ...props }: TextFieldProps,
+  {
+    icon,
+    label,
+    labelFor = '',
+    fullWidth = false,
+    error,
+    ...props
+  }: TextFieldProps,
   ref
 ) => {
   return (
-    <S.Wrapper>
+    <S.Wrapper error={!!error} fullWidth={fullWidth}>
       {!!label && <S.Label htmlFor={labelFor}>{label}</S.Label>}
-      <S.InputWrapper isInvalid={!!error}>
+      <S.InputWrapper>
         <S.Input type="text" {...props} ref={ref} />
+        {!!icon && <S.Icon>{icon}</S.Icon>}
       </S.InputWrapper>
+      {!!error && <S.Error>{error}</S.Error>}
     </S.Wrapper>
   )
 }
