@@ -1,7 +1,7 @@
 import * as S from './styles'
 
 type EyeIconProps = {
-  onClick: () => void
+  onClick?: () => void
 }
 
 const EyeIcon = ({ onClick }: EyeIconProps) => (
