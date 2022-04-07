@@ -22,15 +22,19 @@ export default {
   },
   colors: {
     primary: '#493A92',
-    lightModeBg: '#E8E7E3',
-    white: '#FAFAFA',
-    black: '#2C3131',
-    yellow: '#eba417',
-    testeBlack: '#030517',
     lightPurple: '#9C91D3',
     darkPurple: '#6B5BBE',
+
+    lightModeBg: '#E8E7E3',
+
+    white: '#FFFFFF',
+
+    black: '#2C3131',
+
     lightGray: '#CACACA',
+    mediumGray: '#CCCCCC',
     darkGray: '#757678;',
+
     redError: '#E25C5C'
   },
   containers: {

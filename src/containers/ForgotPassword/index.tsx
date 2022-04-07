@@ -53,6 +53,7 @@ export default function ForgotPassword() {
         <TextField
           label="Seu e-mail:*"
           type="email"
+          fullWidth={true}
           {...register('email', {
             required: true,
             pattern: /\S+@\S+\.\S+/
