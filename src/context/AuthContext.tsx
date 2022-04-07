@@ -19,7 +19,10 @@ type User = {
   email: string
   firstName: string
   id: string
-  lastName: string
+  name: string
+  emergencyName?: string | null
+  emergencyPhone?: string | null
+  phone?: string | null
 }
 
 type SignInCredentials = {
@@ -70,6 +73,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       if (!response) throw Error
       const { refreshToken, token, user: userData } = response.data
+      console.log({ userData })
 
       setCookie(undefined, 'joinMeToken', token, {
         maxAge: 60 * 60 * 24 * 30, //30 days
@@ -89,8 +93,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       Router.push('/dashboard')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      if (err.response.status === 404) {
-        toast.error('Usuário não encontrado')
+      switch (err.response.status) {
+        case 404:
+          toast.error('Usuário não encontrado')
+          break
+        case 409:
+          toast.error('Email e/ou senha inválidos')
+          break
+        default:
+          break
       }
     }
   }
