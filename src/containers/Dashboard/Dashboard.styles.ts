@@ -39,6 +39,16 @@ export const H2 = styled.h2`
   color: ${({ theme }) => theme.colors.darkPurple};
   margin-left: 1rem;
 `
+
+export const InputsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+`
 export const Interests = styled.div`
   width: 43rem;
   margin: 0 auto;
@@ -67,4 +77,19 @@ export const InterestFooter = styled.footer`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`
+export const SkipStep = styled.span`
+  cursor: pointer;
+  ${({ theme }) => css`
+    ${theme.colors.primary}
+  `}
+`
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
 `
