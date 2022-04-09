@@ -51,25 +51,6 @@ const GlobalStyles = createGlobalStyle`
       align-items: center;
       justify-content: center;
     }
-    .react-modal-content {
-      width: 100%;
-      max-width: 43rem;
-      background-color: #f0f2f5;
-      padding: 3rem;
-      position: relative;
-      border-radius: 3rem;
-    }
-    .btn-modal-close {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      border: 0;
-      background: transparent;
-      transition: filter 1s;
-      &:hover {
-        filter: brightness(0.7);
-      }
-    }
   `}
 
   

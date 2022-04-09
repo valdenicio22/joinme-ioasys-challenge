@@ -53,6 +53,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setUser(userData)
     } catch {
       signOut()
+      setUser(undefined)
     }
   }, [])
 

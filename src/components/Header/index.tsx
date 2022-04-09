@@ -1,12 +1,17 @@
 import Button from 'components/Button'
 import Logo from 'components/Logo'
-import { useAuth } from 'context/AuthContext'
+import { useAuth, signOut } from 'context/AuthContext'
 import Link from 'next/link'
 import Router from 'next/router'
 import * as S from './styles'
 
 const Header = () => {
-  const { user } = useAuth()
+  const { user, setUser } = useAuth()
+
+  const handleLogout = () => {
+    setUser(undefined!)
+    signOut()
+  }
 
   return (
     <S.Wrapper>
@@ -17,7 +22,12 @@ const Header = () => {
           <Link href="/">Posts</Link>
         </S.NavContainer>
         {user ? (
-          <div> {` Bem-vindo: ${user.name}`}</div>
+          <>
+            <p>
+              Bem vindo: <span>{user.name}</span>
+            </p>
+            <Button onClick={handleLogout}>Logout</Button>
+          </>
         ) : (
           <Button onClick={() => Router.push('/login')}>Login</Button>
         )}
