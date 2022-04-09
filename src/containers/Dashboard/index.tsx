@@ -7,36 +7,39 @@ import { GetServerSideProps } from 'next'
 
 import { withSSRAuth } from '../../utils/withSSRAuth'
 import { useAuth } from 'context/AuthContext'
-import { User } from 'types/types'
+import { ActivityData, User } from 'types/types'
 
 import * as S from './Dashboard.styles'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { api } from 'service/api'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog } from 'components/Dialog'
+import { setCookie } from 'nookies'
+import Arrow from 'components/Arrow'
+import { toast } from 'react-toastify'
 
 type SecurityContactData = Pick<User, 'emergencyName' | 'emergencyPhone'>
 
+export type Activity = {
+  name: string
+  id: string
+  isSelect: boolean
+}
+
 export default function Dashboard() {
-  const { user } = useAuth()
+  const { user, setUser } = useAuth()
   const [modalStep, setModalStep] = useState(1)
+  const [activities, setActivities] = useState<Activity[]>([])
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(true)
 
-  const handleIsModalOpen = () => setIsModalOpen(true)
   const onCloseModal = () => setIsModalOpen(false)
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<SecurityContactData>()
+  const { register, handleSubmit } = useForm<SecurityContactData>()
 
   const onSubmit: SubmitHandler<SecurityContactData> = async (formData) => {
-    console.log(formData)
-
     if (formData) {
       const updatedUser = {
         ...user!,
@@ -47,23 +50,56 @@ export default function Dashboard() {
       try {
         const response = await api.patch('/users', { updatedUser })
         console.log(response)
-        //setUser(updatedUser)
-        //setCookie(undefined, 'joinMeUser', JSON.stringify(updatedUser), {
-        //  maxAge: 60 * 60 * 24 * 30, //30 days
-        //  path: '/'
-        //})
+        setUser(updatedUser)
+        setCookie(undefined, 'joinMeUser', JSON.stringify(updatedUser), {
+          maxAge: 60 * 60 * 24 * 30, //30 days
+          path: '/'
+        })
+        setModalStep(2)
       } catch (error) {
         console.log(error)
       }
     }
   }
 
-  const handleSkipModalStep = () => {
-    if (modalStep > 1) onCloseModal()
-    else {
-      // logic to updated user security name and number
-      setModalStep(2)
+  const handleSkipModalStep = () =>
+    modalStep > 1 ? onCloseModal() : setModalStep(2)
+
+  useEffect(() => {
+    api
+      .get<Array<ActivityData>>('/activities/list')
+      .then((response) => {
+        const activityData = response.data
+        const updatedActivities = activityData.map((activity) => ({
+          ...activity,
+          isSelect: false
+        }))
+        setActivities(updatedActivities)
+      })
+      .catch((error) => console.log(error))
+  }, [])
+
+  const handleActivitySelected = (selectedActivity: Activity) => {
+    const activitiesUpdated = activities.map((activity) =>
+      activity.id === selectedActivity.id
+        ? { ...activity, isSelect: !selectedActivity.isSelect }
+        : activity
+    )
+    setActivities(activitiesUpdated)
+  }
+
+  const handleUserInterests = async () => {
+    const activityIds = activities.reduce((acc, activity) => {
+      return activity.isSelect === true ? [...acc, activity.id] : acc
+    }, [] as Array<string>)
+    try {
+      await api.post('/users/interests', { activityIds })
+      toast.success('Interesses cadastrado com sucesso')
+    } catch (error) {
+      console.log(error)
+      toast.error('error')
     }
+    onCloseModal()
   }
 
   return (
@@ -71,7 +107,6 @@ export default function Dashboard() {
       <Head>
         <title>Dashboard | joinMe</title>
       </Head>
-      <button onClick={handleIsModalOpen}>Modal</button>
       <Dialog isModalOpen={isModalOpen} onCloseModal={onCloseModal}>
         {modalStep === 1 && (
           <>
@@ -92,17 +127,7 @@ export default function Dashboard() {
                   placeholder="luma silva"
                   fullWidth={true}
                 />
-                <TextField
-                  label="E o telefone?"
-                  type="text"
-                  {...register('emergencyPhone', {
-                    required: true
-                  })}
-                  fullWidth={true}
-                  error={
-                    errors.emergencyPhone?.type === 'required' ? 'Phone' : ''
-                  }
-                />
+                <TextField label="E o telefone?" type="text" fullWidth={true} />
               </S.InputsContainer>
               <S.ButtonsContainer>
                 <S.SkipStep onClick={handleSkipModalStep}>pular</S.SkipStep>
@@ -112,10 +137,27 @@ export default function Dashboard() {
           </>
         )}
         {modalStep === 2 && (
-          <S.ButtonsContainer>
-            <S.SkipStep onClick={handleSkipModalStep}>pular</S.SkipStep>
-            <Button type="submit">Finalizar</Button>
-          </S.ButtonsContainer>
+          <>
+            <S.ArrowContainer onClick={() => setModalStep(1)}>
+              <Arrow />
+            </S.ArrowContainer>
+            <S.H2>Conta pra gente...quais são seus interesses</S.H2>
+            <S.InterestsContainer>
+              {activities.map((activity) => (
+                <S.InterestContent
+                  key={activity.id}
+                  onClick={() => handleActivitySelected(activity)}
+                >
+                  <S.InterestIcon isSelect={activity.isSelect}></S.InterestIcon>
+                  <p>{activity.name}</p>
+                </S.InterestContent>
+              ))}
+            </S.InterestsContainer>
+            <S.ButtonsContainer>
+              <S.SkipStep onClick={handleSkipModalStep}>pular</S.SkipStep>
+              <Button onClick={handleUserInterests}>Cadastrar</Button>
+            </S.ButtonsContainer>
+          </>
         )}
       </Dialog>
     </S.Wrapper>

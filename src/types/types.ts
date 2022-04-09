@@ -12,3 +12,8 @@ export type User = {
   emergencyPhone?: string | null
   phone?: string | null
 }
+
+export type ActivityData = {
+  id: string
+  name: string
+}

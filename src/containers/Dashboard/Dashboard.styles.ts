@@ -1,4 +1,7 @@
-import styled, { css } from 'styled-components'
+import styled, { css, DefaultTheme } from 'styled-components'
+import { Activity } from '.'
+
+type InterestProps = Pick<Activity, 'isSelect'>
 
 export const Wrapper = styled.div``
 
@@ -40,6 +43,12 @@ export const H2 = styled.h2`
   margin-left: 1rem;
 `
 
+export const ArrowContainer = styled.div`
+  margin-left: 1rem;
+  margin-bottom: 2.5rem;
+  cursor: pointer;
+`
+
 export const InputsContainer = styled.div`
   width: 100%;
   display: flex;
@@ -49,20 +58,40 @@ export const InputsContainer = styled.div`
   gap: 1.5rem;
   margin-bottom: 4rem;
 `
-export const Interests = styled.div`
-  width: 43rem;
-  margin: 0 auto;
 
+export const InterestsContainer = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  flex-flow: row wrap;
+  gap: 2rem;
+  margin-top: 3rem;
+  cursor: pointer;
+`
+
+const IconContentModifiers = {
+  isSelect: (theme: DefaultTheme) => css`
+    border: 2px solid ${theme.colors.primary};
+  `
+}
+
+export const InterestContent = styled.main`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   flex-direction: column;
 `
 
-export const InterestsContainer = styled.main`
-  width: 100%;
-  display: flex;
-  flex-flow: row wrap;
+export const InterestIcon = styled.div<InterestProps>`
+  ${({ theme, isSelect }) => css`
+    background-color: #ccc;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    margin-bottom: 1.2rem;
+    ${isSelect && IconContentModifiers.isSelect(theme)}
+  `}
 `
 
 export const Interest = styled.div`
@@ -78,10 +107,11 @@ export const InterestFooter = styled.footer`
   align-items: center;
   justify-content: center;
 `
+
 export const SkipStep = styled.span`
   cursor: pointer;
   ${({ theme }) => css`
-    ${theme.colors.primary}
+    color: ${theme.colors.primary};
   `}
 `
 
@@ -91,5 +121,5 @@ export const ButtonsContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 1rem;
-  margin: 2rem 0;
+  margin-top: 3rem;
 `
