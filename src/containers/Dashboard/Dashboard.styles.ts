@@ -3,8 +3,6 @@ import { Activity } from '.'
 
 type InterestProps = Pick<Activity, 'isSelect'>
 
-export const Wrapper = styled.div``
-
 export const ModalContainer = styled.div`
   width: 43rem;
   margin: 0 auto;
@@ -114,6 +112,12 @@ export const SkipStep = styled.span`
     color: ${theme.colors.primary};
   `}
 `
+export const Wrapper = styled.div`
+  width: 76.8rem;
+  margin: 0 auto;
+  padding: 7rem 3rem;
+  border: 2px solid black;
+`
 
 export const ButtonsContainer = styled.div`
   display: flex;
@@ -122,4 +126,38 @@ export const ButtonsContainer = styled.div`
   flex-direction: column;
   gap: 1rem;
   margin-top: 3rem;
+`
+export const HeaderContainer = styled.header`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  border: 1px solid black;
+`
+
+export const WelcomeContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+export const ProfilePicture = styled.div`
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-right: 1.5rem;
+`
+
+export const Welcome = styled.h2`
+  ${({ theme }) => css`
+    color: ${theme.colors.primary};
+  `}
+`
+
+export const SettingsButton = styled.button`
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background-color: #ccc;
 `

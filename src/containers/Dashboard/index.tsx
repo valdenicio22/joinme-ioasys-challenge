@@ -46,7 +46,6 @@ export default function Dashboard() {
         emergencyName: formData.emergencyName,
         emergencyPhone: formData.emergencyPhone
       }
-      console.log(updatedUser)
       try {
         const response = await api.patch('/users', { updatedUser })
         console.log(response)
@@ -160,6 +159,13 @@ export default function Dashboard() {
           </>
         )}
       </Dialog>
+      <S.HeaderContainer>
+        <S.WelcomeContainer>
+          <S.ProfilePicture />
+          <S.Welcome>Olá, Luma!</S.Welcome>
+        </S.WelcomeContainer>
+        <S.SettingsButton>Icon</S.SettingsButton>
+      </S.HeaderContainer>
     </S.Wrapper>
   )
 }
