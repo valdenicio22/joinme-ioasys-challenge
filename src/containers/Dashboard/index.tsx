@@ -13,7 +13,6 @@ import * as S from './Dashboard.styles'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { api } from 'service/api'
-import { setCookie } from 'nookies'
 
 import { useState } from 'react'
 import { Dialog } from 'components/Dialog'
@@ -21,7 +20,7 @@ import { Dialog } from 'components/Dialog'
 type SecurityContactData = Pick<User, 'emergencyName' | 'emergencyPhone'>
 
 export default function Dashboard() {
-  const { user, setUser } = useAuth()
+  const { user } = useAuth()
   const [modalStep, setModalStep] = useState(1)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -36,19 +35,23 @@ export default function Dashboard() {
   } = useForm<SecurityContactData>()
 
   const onSubmit: SubmitHandler<SecurityContactData> = async (formData) => {
+    console.log(formData)
+
     if (formData) {
       const updatedUser = {
         ...user!,
         emergencyName: formData.emergencyName,
         emergencyPhone: formData.emergencyPhone
       }
+      console.log(updatedUser)
       try {
-        await api.put('/users', { updatedUser })
-        setUser(updatedUser)
-        setCookie(undefined, 'joinMeUser', JSON.stringify(updatedUser), {
-          maxAge: 60 * 60 * 24 * 30, //30 days
-          path: '/'
-        })
+        const response = await api.patch('/users', { updatedUser })
+        console.log(response)
+        //setUser(updatedUser)
+        //setCookie(undefined, 'joinMeUser', JSON.stringify(updatedUser), {
+        //  maxAge: 60 * 60 * 24 * 30, //30 days
+        //  path: '/'
+        //})
       } catch (error) {
         console.log(error)
       }
@@ -58,16 +61,6 @@ export default function Dashboard() {
   const handleSkipModalStep = () => {
     if (modalStep > 1) onCloseModal()
     else {
-      // logic to updated user security name and number
-      setModalStep(2)
-    }
-  }
-  const handleNextModalStep = () => {
-    if (modalStep > 1) {
-      // logic to updated user security name and number
-      // logic to updated user security name and number
-      onCloseModal()
-    } else {
       // logic to updated user security name and number
       setModalStep(2)
     }
@@ -111,13 +104,19 @@ export default function Dashboard() {
                   }
                 />
               </S.InputsContainer>
+              <S.ButtonsContainer>
+                <S.SkipStep onClick={handleSkipModalStep}>pular</S.SkipStep>
+                <Button type="submit">proximo</Button>
+              </S.ButtonsContainer>
             </S.FormContainer>
           </>
         )}
-        <S.ButtonsContainer>
-          <S.SkipStep onClick={handleSkipModalStep}>pular</S.SkipStep>
-          <Button onClick={handleNextModalStep}>proximo</Button>
-        </S.ButtonsContainer>
+        {modalStep === 2 && (
+          <S.ButtonsContainer>
+            <S.SkipStep onClick={handleSkipModalStep}>pular</S.SkipStep>
+            <Button type="submit">Finalizar</Button>
+          </S.ButtonsContainer>
+        )}
       </Dialog>
     </S.Wrapper>
   )
