@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import Modal from 'react-modal'
+import * as S from './styles'
 
 Modal.setAppElement('#modal-root')
 
@@ -14,31 +15,14 @@ export const Dialog = ({
   onCloseModal,
   children
 }: ReactModalProps) => {
-  /* const ReactModal = async (e: FormEvent) => {
-    e.preventDefault()
-
-    await createTransaction({
-      title,
-      category,
-      amount,
-      type
-    })
-
-    setTitle('')
-    setAmount(0)
-    setCategory('')
-    setType('deposit')
-    onCloseNewTransactionModal()
-  }*/
-
   return (
-    <Modal
+    <S.StyledModal
       isOpen={isModalOpen}
       onRequestClose={onCloseModal}
       overlayClassName="react-modal-overlay"
-      className="react-modal react-modal-content"
+      className="react-modal-content"
     >
       {children}
-    </Modal>
+    </S.StyledModal>
   )
 }
