@@ -11,7 +11,7 @@ import { withSSRGuest } from 'utils/withSSRGuest'
 import Checkbox from 'components/Checkbox'
 
 import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+
 import EyeIcon from 'components/EyeIcon'
 import { useState } from 'react'
 
