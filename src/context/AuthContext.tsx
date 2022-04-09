@@ -9,21 +9,11 @@ import Router from 'next/router'
 
 import { setCookie, parseCookies, destroyCookie } from 'nookies'
 
-import { AuthenticatedUserData } from '../types/types'
+import { AuthenticatedUserData, User } from '../types/types'
 import { api } from 'service/api'
+import Axios from 'axios'
 
 import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-
-type User = {
-  email: string
-  firstName: string
-  id: string
-  name: string
-  emergencyName?: string | null
-  emergencyPhone?: string | null
-  phone?: string | null
-}
 
 type SignInCredentials = {
   email: string
@@ -32,6 +22,7 @@ type SignInCredentials = {
 
 type AuthContextData = {
   signIn: (credentials: SignInCredentials) => Promise<void>
+  setUser: (arg: User) => void
   user?: User
   isAuthenticated: boolean
 }
@@ -73,7 +64,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       if (!response) throw Error
       const { refreshToken, token, user: userData } = response.data
-      console.log({ userData })
 
       setCookie(undefined, 'joinMeToken', token, {
         maxAge: 60 * 60 * 24 * 30, //30 days
@@ -91,23 +81,24 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
       setUser(userData)
       Router.push('/dashboard')
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      switch (err.response.status) {
-        case 404:
-          toast.error('Usuário não encontrado')
-          break
-        case 409:
-          toast.error('Email e/ou senha inválidos')
-          break
-        default:
-          break
+    } catch (err) {
+      if (Axios.isAxiosError(err)) {
+        switch (err.response?.status) {
+          case 404:
+            toast.error('Usuário não encontrado')
+            break
+          case 409:
+            toast.error('Email e/ou senha inválidos')
+            break
+          default:
+            break
+        }
       }
     }
   }
 
   return (
-    <AuthContext.Provider value={{ signIn, isAuthenticated, user }}>
+    <AuthContext.Provider value={{ signIn, setUser, isAuthenticated, user }}>
       {children}
     </AuthContext.Provider>
   )
