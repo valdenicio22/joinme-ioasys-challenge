@@ -1,7 +1,9 @@
 import Button from 'components/Button'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Router from 'next/router'
+import { withSSRGuest } from 'utils/withSSRGuest'
 import * as S from './Home.styles'
 
 export default function Home() {
@@ -27,3 +29,9 @@ export default function Home() {
     </S.Wrapper>
   )
 }
+
+export const getServerSideProps: GetServerSideProps = withSSRGuest(async () => {
+  return {
+    props: {}
+  }
+})

@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components'
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div``
+
+export const ModalContainer = styled.div`
   width: 43rem;
   margin: 0 auto;
 
@@ -37,41 +39,32 @@ export const H2 = styled.h2`
   color: ${({ theme }) => theme.colors.darkPurple};
   margin-left: 1rem;
 `
-export const ErrorMessageContainer = styled.div`
-  width: 100%;
-  margin: 1rem 0 1rem 2rem;
-  color: ${({ theme }) => theme.colors.redError};
-  font-size: ${({ theme }) => theme.font.sizes.xsmall};
-`
-
-export const SwitchContainer = styled.div`
-  width: 35rem;
-  margin: 1rem auto;
-
-  padding-left: 1rem;
+export const Interests = styled.div`
+  width: 43rem;
+  margin: 0 auto;
 
   display: flex;
   align-items: center;
-  gap: 1rem;
-
-  p {
-    ${({ theme }) => theme.colors.darkGray};
-  }
+  justify-content: center;
+  flex-direction: column;
 `
 
-export const SignUpLinkContainer = styled.div`
-  margin: 4rem 0 2rem;
-  a {
-    color: ${({ theme }) => theme.colors.primary};
-    text-decoration: none;
-  }
+export const InterestsContainer = styled.main`
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
 `
 
-export const LastInfo = styled.p`
-  margin-top: 4.2rem;
-  ${({ theme }) => theme.colors.darkGray}
+export const Interest = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
 
-  a {
-    color: ${({ theme }) => theme.colors.primary};
-  }
+export const InterestFooter = styled.footer`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `
