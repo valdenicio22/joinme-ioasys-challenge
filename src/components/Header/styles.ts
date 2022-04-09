@@ -43,10 +43,6 @@ export const NavContainer = styled.nav`
     &:hover {
       color: red;
     }
-    &.active {
-      font-weight: ${({ theme }) => theme.font.weight.bold};
-      border-bottom: 0.2rem solid red;
-    }
     & + a {
       margin-left: 2rem;
     }
