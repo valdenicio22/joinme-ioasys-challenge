@@ -1,22 +1,26 @@
 import Button from 'components/Button'
 import Logo from 'components/Logo'
-import { useRouter } from 'next/router'
+import { useAuth } from 'context/AuthContext'
+import Link from 'next/link'
+import Router from 'next/router'
 import * as S from './styles'
 
 const Header = () => {
-  const router = useRouter()
+  const { user } = useAuth()
 
   return (
     <S.Wrapper>
       <S.ContentWrapper>
         <Logo />
         <S.NavContainer>
-          <a href="" className="active">
-            Home
-          </a>
-          <a href="">Posts</a>
+          <Link href="/">Home</Link>
+          <Link href="/">Posts</Link>
         </S.NavContainer>
-        <Button onClick={() => router.push('/login')}>Login</Button>
+        {user ? (
+          <div> {` Bem-vindo: ${user.name}`}</div>
+        ) : (
+          <Button onClick={() => Router.push('/login')}>Login</Button>
+        )}
       </S.ContentWrapper>
     </S.Wrapper>
   )

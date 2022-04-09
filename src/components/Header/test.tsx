@@ -19,7 +19,7 @@ describe('<Header />', () => {
     expect(homeOption).toBeVisible()
     expect(postsOption).toBeVisible()
 
-    expect(homeOption).toHaveAttribute('href', '')
-    expect(postsOption).toHaveAttribute('href', '')
+    expect(homeOption).toHaveAttribute('href', '/')
+    expect(postsOption).toHaveAttribute('href', '/')
   })
 })
