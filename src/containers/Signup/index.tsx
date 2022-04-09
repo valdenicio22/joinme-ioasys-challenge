@@ -10,6 +10,11 @@ import Fakelogo from 'components/Fakelogo'
 import { withSSRGuest } from 'utils/withSSRGuest'
 import Checkbox from 'components/Checkbox'
 
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import EyeIcon from 'components/EyeIcon'
+import { useState } from 'react'
+
 type SignupFormData = {
   name: 'string'
   email: 'string'
@@ -20,7 +25,10 @@ type SignupFormData = {
   emergencyPhone?: 'string'
 }
 
+type isVisibleProps = 'text' | 'password'
+
 export default function Signup() {
+  const [isVisible, setIsVisible] = useState<isVisibleProps>('password')
   const {
     register,
     handleSubmit,
@@ -29,12 +37,15 @@ export default function Signup() {
 
   const onSubmit: SubmitHandler<SignupFormData> = async (formData) => {
     try {
-      const response = await api.post('users/signup', { ...formData })
-      console.log(response)
+      await api.post('users/signup', { ...formData })
+      toast.success('Bem vindo! Sua conta foi criada!')
 
       Router.push('/login')
-    } catch (error) {
-      console.log(error)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      if (err.response.status === 409) {
+        toast.error('E-mail já cadastrado!')
+      }
     }
   }
 
@@ -80,25 +91,40 @@ export default function Signup() {
 
         <TextField
           label="Digite uma senha:*"
-          type="password"
+          type={isVisible}
           {...register('password', {
             required: true,
             minLength: 6
           })}
           fullWidth={true}
+          icon={
+            <EyeIcon
+              onClick={() =>
+                setIsVisible(isVisible === 'password' ? 'text' : 'password')
+              }
+            />
+          }
         />
+
         <S.ErrorMessageContainer>
           {errors.password && 'Senha é um campo obrigatório'}
         </S.ErrorMessageContainer>
 
         <TextField
           label="Confirme sua senha:*"
-          type="password"
+          type={isVisible}
           {...register('passwordConfirmation', {
             required: true,
             minLength: 6
           })}
           fullWidth={true}
+          icon={
+            <EyeIcon
+              onClick={() =>
+                setIsVisible(isVisible === 'password' ? 'text' : 'password')
+              }
+            />
+          }
         />
         <S.ErrorMessageContainer>
           {errors.password && 'Confirmar senha é um campo obrigatório'}

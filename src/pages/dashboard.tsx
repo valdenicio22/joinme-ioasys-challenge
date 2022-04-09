@@ -9,7 +9,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <h1>Bem-vindo: {!!user && `${user.firstName} ${user.lastName}`}</h1>
+      <h1>Bem-vindo: {!!user && `${user.name}`}</h1>
 
       <Link href="/events">
         <a>Events</a>

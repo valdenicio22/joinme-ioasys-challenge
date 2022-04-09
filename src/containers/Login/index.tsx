@@ -52,9 +52,9 @@ export default function Login() {
           })}
           placeholder="lumasilva@email.com"
           fullWidth={true}
+          error={errors.email?.type === 'pattern' ? 'Email inválido' : ''}
         />
         <S.ErrorMessageContainer>
-          {errors.email?.type === 'pattern' && 'Email inválido'}
           {errors.email?.type === 'required' && 'Email é um campo obrigatório'}
         </S.ErrorMessageContainer>
         <TextField
@@ -63,13 +63,11 @@ export default function Login() {
           icon={<EyeIcon />}
           {...register('password', {
             required: true,
-            minLength: 6
+            minLength: 6 //'senha deve conter no mínimo 6 caracteres'
           })}
           fullWidth={true}
+          error={errors.password?.type === 'minLength' ? 'Email inválido' : ''}
         />
-        <S.ErrorMessageContainer>
-          {errors.password && 'Password é um campo obrigatório'}
-        </S.ErrorMessageContainer>
         <S.SwitchContainer>
           <Switch
             onCheckedChange={() => setIsConectedChecked(!isConectedChecked)}

@@ -25,11 +25,12 @@ export default function ForgotPassword() {
 
   const onSubmit: SubmitHandler<ForgotPasswordData> = async (formData) => {
     try {
-      const response = await api.patch<ForgotPasswordData>(
-        '/users/resetpassword',
-        { formData }
-      )
-      console.log(response)
+      console.log(formData)
+      await api.patch<ForgotPasswordData>('/users/resetpassword', {
+        ...formData
+      })
+      toast.success('Uma nova senha foi enviada para seu e-mail')
+      Router.push('/')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err.response.status === 404) {
