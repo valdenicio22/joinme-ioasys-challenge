@@ -22,6 +22,7 @@ type SecurityContactData = Pick<User, 'emergencyName' | 'emergencyPhone'>
 
 export default function Dashboard() {
   const { user, setUser } = useAuth()
+  const [modalStep, setModalStep] = useState(1)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -54,6 +55,24 @@ export default function Dashboard() {
     }
   }
 
+  const handleSkipModalStep = () => {
+    if (modalStep > 1) onCloseModal()
+    else {
+      // logic to updated user security name and number
+      setModalStep(2)
+    }
+  }
+  const handleNextModalStep = () => {
+    if (modalStep > 1) {
+      // logic to updated user security name and number
+      // logic to updated user security name and number
+      onCloseModal()
+    } else {
+      // logic to updated user security name and number
+      setModalStep(2)
+    }
+  }
+
   return (
     <S.Wrapper>
       <Head>
@@ -61,34 +80,44 @@ export default function Dashboard() {
       </Head>
       <button onClick={handleIsModalOpen}>Modal</button>
       <Dialog isModalOpen={isModalOpen} onCloseModal={onCloseModal}>
-        <S.LogoContainer>
-          <Fakelogo />
-        </S.LogoContainer>
-        <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
-          <S.TitleContainer>
-            <S.H2>
-              Gostaria de adiconar <br /> um contato de segurança ?
-            </S.H2>
-          </S.TitleContainer>
-          <TextField
-            label="Qual o nome da pessoa?"
-            type="text"
-            {...register('emergencyName')}
-            placeholder="luma silva"
-            fullWidth={true}
-          />
-          <TextField
-            label="E o telefone?"
-            type="text"
-            {...register('emergencyPhone', {
-              required: true
-            })}
-            fullWidth={true}
-            error={errors.emergencyPhone?.type === 'required' ? 'Phone' : ''}
-          />
-        </S.FormContainer>
-        <Button>Pular</Button>
-        <Button>proximo</Button>
+        {modalStep === 1 && (
+          <>
+            <S.LogoContainer>
+              <Fakelogo />
+            </S.LogoContainer>
+            <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
+              <S.TitleContainer>
+                <S.H2>
+                  Gostaria de adiconar <br /> um contato de segurança ?
+                </S.H2>
+              </S.TitleContainer>
+              <S.InputsContainer>
+                <TextField
+                  label="Qual o nome da pessoa?"
+                  type="text"
+                  {...register('emergencyName')}
+                  placeholder="luma silva"
+                  fullWidth={true}
+                />
+                <TextField
+                  label="E o telefone?"
+                  type="text"
+                  {...register('emergencyPhone', {
+                    required: true
+                  })}
+                  fullWidth={true}
+                  error={
+                    errors.emergencyPhone?.type === 'required' ? 'Phone' : ''
+                  }
+                />
+              </S.InputsContainer>
+            </S.FormContainer>
+          </>
+        )}
+        <S.ButtonsContainer>
+          <S.SkipStep onClick={handleSkipModalStep}>pular</S.SkipStep>
+          <Button onClick={handleNextModalStep}>proximo</Button>
+        </S.ButtonsContainer>
       </Dialog>
     </S.Wrapper>
   )

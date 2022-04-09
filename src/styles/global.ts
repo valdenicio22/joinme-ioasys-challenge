@@ -53,11 +53,11 @@ const GlobalStyles = createGlobalStyle`
     }
     .react-modal-content {
       width: 100%;
-      max-width: 576px;
+      max-width: 43rem;
       background-color: #f0f2f5;
       padding: 3rem;
       position: relative;
-      border-radius: 0.25rem;
+      border-radius: 3rem;
     }
     .btn-modal-close {
       position: absolute;
