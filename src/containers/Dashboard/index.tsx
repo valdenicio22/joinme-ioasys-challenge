@@ -1,6 +1,8 @@
 import Button from '../../components/Button'
 import { TextField } from '../../components/TextField'
-import Fakelogo from 'components/Fakelogo'
+import Fakelogo from '../../components/Fakelogo'
+import { Dialog } from '../../components/Dialog'
+import Arrow from '../../components/Arrow'
 
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
@@ -15,10 +17,10 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { api } from 'service/api'
 
 import { useEffect, useState } from 'react'
-import { Dialog } from 'components/Dialog'
 import { setCookie } from 'nookies'
-import Arrow from 'components/Arrow'
+
 import { toast } from 'react-toastify'
+import Drawer from 'react-modern-drawer'
 
 type SecurityContactData = Pick<User, 'emergencyName' | 'emergencyPhone'>
 
@@ -32,6 +34,11 @@ export default function Dashboard() {
   const { user, setUser } = useAuth()
   const [modalStep, setModalStep] = useState(1)
   const [activities, setActivities] = useState<Activity[]>([])
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen((prevState) => !prevState)
+  }
 
   const [isModalOpen, setIsModalOpen] = useState(true)
 
@@ -106,6 +113,14 @@ export default function Dashboard() {
       <Head>
         <title>Dashboard | joinMe</title>
       </Head>
+      <Drawer
+        open={isDrawerOpen}
+        onClose={toggleDrawer}
+        direction="right"
+        className="react-drawer"
+      >
+        <h2>Profile</h2>
+      </Drawer>
       <Dialog isModalOpen={isModalOpen} onCloseModal={onCloseModal}>
         {modalStep === 1 && (
           <>
@@ -164,7 +179,7 @@ export default function Dashboard() {
           <S.ProfilePicture />
           <S.Welcome>Olá, Luma!</S.Welcome>
         </S.WelcomeContainer>
-        <S.SettingsButton>Icon</S.SettingsButton>
+        <S.SettingsButton onClick={toggleDrawer}>Icon</S.SettingsButton>
       </S.HeaderContainer>
     </S.Wrapper>
   )
