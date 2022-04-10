@@ -21,6 +21,7 @@ import { setCookie } from 'nookies'
 
 import { toast } from 'react-toastify'
 import Drawer from 'react-modern-drawer'
+import Profile from 'components/Profile'
 
 type SecurityContactData = Pick<User, 'emergencyName' | 'emergencyPhone'>
 
@@ -118,8 +119,9 @@ export default function Dashboard() {
         onClose={toggleDrawer}
         direction="right"
         className="react-drawer"
+        size={'350px'}
       >
-        <h2>Profile</h2>
+        <Profile />
       </Drawer>
       <Dialog isModalOpen={isModalOpen} onCloseModal={onCloseModal}>
         {modalStep === 1 && (
