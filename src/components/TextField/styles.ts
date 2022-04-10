@@ -24,7 +24,7 @@ export const Input = styled.input`
     color: ${theme.colors.black};
     font-family: ${theme.font.family};
     font-size: ${theme.font.sizes.medium};
-    padding: 1.5rem 0;
+    margin: 1.5rem 0;
     background: transparent;
     border: 0;
     outline: none;
@@ -42,9 +42,7 @@ export const Label = styled.label`
 `
 
 export const Icon = styled.div`
-  width: 2rem;
-
-  & > svg {
+  & > button > svg {
     width: 100%;
   }
 `
