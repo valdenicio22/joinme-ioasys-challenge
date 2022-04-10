@@ -1,50 +1,44 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const Wrapper = styled.header`
+export const Wrapper = styled.div`
   width: 100%;
-  height: 8rem;
-  background-color: #2f2f33;
-  border: 1px solid ${({ theme }) => theme.colors.lightGray};
-`
-
-export const ContentWrapper = styled.div`
-  width: 112rem;
-  margin: 0 auto;
-  height: 100%;
-
-  padding: 0 2rem;
-
+  height: 7rem;
+  background-color: ${({ theme }) => theme.colors.white};
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
-  button {
-    margin-left: auto;
-  }
+  padding: 2.5rem;
 `
+
+export const LogoBtnContainer = styled.button`
+  max-width: 150px;
+  height: 40px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+`
+
 export const NavContainer = styled.nav`
-  width: 100%;
-  height: 100%;
-  font-size: ${({ theme }) => theme.font.sizes.medium};
-  margin-left: 8rem;
-
   display: flex;
   align-items: center;
+  gap: 15px;
+  transition: filter 0.5s;
+  font-size: 1.5rem;
+`
 
-  a {
-    display: inline-block;
-    height: 100%;
-    line-height: 8rem;
-    padding: 0 0.5rem;
+export const NavButton = styled.button`
+  ${({ theme }) => css`
     text-decoration: none;
-
-    transition: color 0.2s;
-    color: ${({ theme }) => theme.colors.white};
+    color: ${theme.colors.black};
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: ${theme.font.sizes.small};
 
     &:hover {
-      color: red;
+      color: ${theme.colors.primary};
+      font-weight: ${theme.font.weight.bold};
     }
-    & + a {
-      margin-left: 2rem;
-    }
-  }
+  `}
 `
