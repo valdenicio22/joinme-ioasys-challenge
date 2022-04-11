@@ -29,9 +29,13 @@ type isVisibleProps = 'text' | 'password'
 
 type SignUpProps = {
   setIsSignupModalOpen: (arg: boolean) => void
+  setIsSigninModalOpen: (arg: boolean) => void
 }
 
-export default function Signup({ setIsSignupModalOpen }: SignUpProps) {
+export function Signup({
+  setIsSignupModalOpen,
+  setIsSigninModalOpen
+}: SignUpProps) {
   const [isVisible, setIsVisible] = useState<isVisibleProps>('password')
   const {
     register,
@@ -66,6 +70,11 @@ export default function Signup({ setIsSignupModalOpen }: SignUpProps) {
     if (errors.name?.type === 'required') {
       return 'Name é um campo obrigatório'
     }
+  }
+
+  const handleSinginModal = () => {
+    setIsSignupModalOpen(false)
+    setIsSigninModalOpen(true)
   }
 
   return (
@@ -148,7 +157,8 @@ export default function Signup({ setIsSignupModalOpen }: SignUpProps) {
 
         <S.SigninInfo>
           <S.PSignIn>
-            Já tem uma conta? <S.SpanSignin>Entre aqui</S.SpanSignin>
+            Já tem uma conta?{' '}
+            <S.SpanSignin onClick={handleSinginModal}>Entre aqui</S.SpanSignin>
           </S.PSignIn>
         </S.SigninInfo>
       </S.FormContainer>
