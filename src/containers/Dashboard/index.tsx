@@ -9,7 +9,7 @@ import { EmergencyContact } from '../../components/EmergencyContact'
 
 import { withSSRAuth } from '../../utils/withSSRAuth'
 
-import * as S from './Dashboard.styles'
+import * as S from './styles'
 
 import Drawer from 'react-modern-drawer'
 
@@ -53,11 +53,22 @@ export default function Dashboard() {
       </Dialog>
 
       <S.HeaderContainer>
-        <S.WelcomeContainer>
+        <S.MainLinksContainer>
+          <span>Events</span>
+          <span>insights</span>
+          <S.SettingsButton onClick={toggleDrawer}>Icon</S.SettingsButton>
+        </S.MainLinksContainer>
+
+        {/* <S.WelcomeContainer>
           <S.ProfilePicture />
           <S.Welcome>Olá, Luma!</S.Welcome>
-        </S.WelcomeContainer>
-        <S.SettingsButton onClick={toggleDrawer}>Icon</S.SettingsButton>
+        </S.WelcomeContainer> */}
+
+        <S.FiltersContainer>
+          <button>Categoria</button>
+          <button>Tipo</button>
+          <button>Mais recentes</button>
+        </S.FiltersContainer>
       </S.HeaderContainer>
     </S.Wrapper>
   )
