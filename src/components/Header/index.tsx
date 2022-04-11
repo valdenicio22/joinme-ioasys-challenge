@@ -4,13 +4,16 @@ import * as S from './styles'
 import { useState } from 'react'
 import { Dialog } from 'components/Dialog'
 import { Signin } from 'components/Signin'
-import Signup from 'components/Signup'
+import { Signup } from 'components/Signup'
+import { ForgotPassword } from 'components/ForgotPassword'
 import { signOut, useAuth } from 'context/AuthContext'
 import PersonIcon from 'components/PersonIcon'
 
 const Header = () => {
   const [isSigninModalOpen, setIsSigninModalOpen] = useState(false)
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false)
+  const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] =
+    useState(false)
   const { user, setUser } = useAuth()
 
   const handleSignOut = () => {
@@ -28,7 +31,18 @@ const Header = () => {
           <Signin
             setIsSigninModalOpen={setIsSigninModalOpen}
             setIsSignupModalOpen={setIsSignupModalOpen}
-            isSignupModalOpen={isSignupModalOpen}
+            setIsForgotPasswordModalOpen={setIsForgotPasswordModalOpen}
+          />
+        </Dialog>
+      )}
+      {isForgotPasswordModalOpen && (
+        <Dialog
+          isModalOpen={isForgotPasswordModalOpen}
+          onCloseModal={() => setIsForgotPasswordModalOpen(false)}
+        >
+          <ForgotPassword
+            setIsForgotPasswordModalOpen={setIsForgotPasswordModalOpen}
+            setIsSigninModalOpen={setIsSigninModalOpen}
           />
         </Dialog>
       )}
@@ -37,7 +51,10 @@ const Header = () => {
           isModalOpen={isSignupModalOpen}
           onCloseModal={() => setIsSignupModalOpen(false)}
         >
-          <Signup setIsSignupModalOpen={setIsSignupModalOpen} />
+          <Signup
+            setIsSignupModalOpen={setIsSignupModalOpen}
+            setIsSigninModalOpen={setIsSigninModalOpen}
+          />
         </Dialog>
       )}
       <S.LogoBtnContainer onClick={() => Router.push('/')}>
