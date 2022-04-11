@@ -5,10 +5,18 @@ import { useState } from 'react'
 import { Dialog } from 'components/Dialog'
 import { Signin } from 'components/Signin'
 import Signup from 'components/Signup'
+import { signOut, useAuth } from 'context/AuthContext'
+import PersonIcon from 'components/PersonIcon'
 
 const Header = () => {
   const [isSigninModalOpen, setIsSigninModalOpen] = useState(false)
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false)
+  const { user, setUser } = useAuth()
+
+  const handleSignOut = () => {
+    signOut()
+    setUser(undefined!)
+  }
 
   return (
     <S.Wrapper>
@@ -35,14 +43,21 @@ const Header = () => {
       <S.LogoBtnContainer onClick={() => Router.push('/')}>
         <Logo color="black" />
       </S.LogoBtnContainer>
-      <S.NavContainer>
-        <S.NavButton onClick={() => setIsSigninModalOpen(true)}>
-          Entrar
-        </S.NavButton>
-        <S.NavButton onClick={() => setIsSignupModalOpen(true)}>
-          Cadastra-se
-        </S.NavButton>
-      </S.NavContainer>
+      {user ? (
+        <S.LoggedInMenu>
+          <S.NavButton onClick={handleSignOut}>Sair</S.NavButton>
+          <PersonIcon />
+        </S.LoggedInMenu>
+      ) : (
+        <S.NavContainer>
+          <S.NavButton onClick={() => setIsSigninModalOpen(true)}>
+            Entrar
+          </S.NavButton>
+          <S.NavButton onClick={() => setIsSignupModalOpen(true)}>
+            Cadastra-se
+          </S.NavButton>
+        </S.NavContainer>
+      )}
     </S.Wrapper>
   )
 }
