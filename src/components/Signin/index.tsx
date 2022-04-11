@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import Head from 'next/head'
+import Link from 'next/link'
 
 import Button from '../Button'
 import { TextField } from '../TextField'
@@ -10,10 +12,10 @@ import { useAuth } from '../../context/AuthContext'
 
 import * as S from './styles'
 
-import Head from 'next/head'
-import Link from 'next/link'
-
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { isPasswordVisible } from 'utils/isPasswordVisible'
+import { Dialog } from 'components/Dialog'
+import Signup from 'components/Signup'
 
 type SigninFormData = {
   email: string
@@ -21,11 +23,26 @@ type SigninFormData = {
 }
 
 type SigninProps = {
-  isModalOpen: (arg: boolean) => void
+  setIsSigninModalOpen: (arg: boolean) => void
+  setIsSignupModalOpen: (arg: boolean) => void
+  isSignupModalOpen: boolean
 }
 
-export const Signin = ({ isModalOpen }: SigninProps) => {
+type isVisibleProps = 'text' | 'password'
+
+export const Signin = ({
+  setIsSigninModalOpen,
+  setIsSignupModalOpen,
+  isSignupModalOpen
+}: SigninProps) => {
   const { signIn } = useAuth()
+  const [isVisible, setIsVisible] = useState<isVisibleProps>('password')
+
+  const handleSignupModal = () => {
+    setIsSignupModalOpen(!isSignupModalOpen)
+    setIsSigninModalOpen(false)
+  }
+
   const [isConectedChecked, setIsConectedChecked] = useState(true)
   const {
     register,
@@ -35,7 +52,7 @@ export const Signin = ({ isModalOpen }: SigninProps) => {
 
   const onSubmit: SubmitHandler<SigninFormData> = async (formData) => {
     await signIn(formData)
-    isModalOpen(false)
+    setIsSigninModalOpen(false)
   }
 
   return (
@@ -43,55 +60,67 @@ export const Signin = ({ isModalOpen }: SigninProps) => {
       <Head>
         <title>Login | joinMe</title>
       </Head>
-
+      {isSignupModalOpen && (
+        <Dialog
+          isModalOpen={isSignupModalOpen}
+          onCloseModal={() => setIsSignupModalOpen(false)}
+        >
+          <Signup />
+        </Dialog>
+      )}
       <S.LogoContainer>
         <Fakelogo />
       </S.LogoContainer>
       <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <S.TitleContainer>
-          <S.H2>Acesse sua conta</S.H2>
-        </S.TitleContainer>
-        <TextField
-          label="Seu e-mail:*"
-          type="email"
-          {...register('email', {
-            required: true,
-            pattern: /\S+@\S+\.\S+/
-          })}
-          placeholder="lumasilva@email.com"
-          fullWidth={true}
-          error={errors.email?.type === 'pattern' ? 'Email inválido' : ''}
-        />
-        <S.ErrorMessageContainer>
-          {errors.email?.type === 'required' && 'Email é um campo obrigatório'}
-        </S.ErrorMessageContainer>
-        <TextField
-          label="Digite uma senha:*"
-          type="password"
-          icon={<EyeIcon />}
-          {...register('password', {
-            required: true,
-            minLength: 6
-          })}
-          fullWidth={true}
-          error={errors.password?.type === 'minLength' ? 'Email inválido' : ''}
-        />
+        <S.H2>Acesse sua conta</S.H2>
+
+        <S.TextFieldsContainer>
+          <TextField
+            label="Seu e-mail:*"
+            type="email"
+            {...register('email', {
+              required: true,
+              pattern: /\S+@\S+\.\S+/
+            })}
+            placeholder="lumasilva@email.com"
+            fullWidth={true}
+            error={errors.email?.type === 'pattern' ? 'Email inválido' : ''}
+          />
+
+          <TextField
+            label="Digite uma senha:*"
+            type={isVisible}
+            icon={
+              <EyeIcon
+                onClick={(e) => setIsVisible(isPasswordVisible(e, isVisible))}
+              />
+            }
+            {...register('password', {
+              required: true,
+              minLength: 6
+            })}
+            fullWidth={true}
+            error={
+              errors.password?.type === 'minLength' ? 'Email inválido' : ''
+            }
+          />
+        </S.TextFieldsContainer>
         <S.SwitchContainer>
           <Switch
             onCheckedChange={() => setIsConectedChecked(!isConectedChecked)}
             checked={isConectedChecked}
           />
-          <p>Permanecer conectado</p>
+          <span>Permanecer conectado</span>
         </S.SwitchContainer>
-        <S.SignUpLinkContainer>
+        <S.SigninBtnAndForgotPassword>
           <Link href="/forgotPassword">Esqueceu a senha?</Link>
-        </S.SignUpLinkContainer>
-        <Button>entrar</Button>
+          <Button>entrar</Button>
+        </S.SigninBtnAndForgotPassword>
       </S.FormContainer>
-      <S.LastInfo>
+      <S.SignupInfo>
         Não tem uma conta?&nbsp;
-        <Link href="/signup">Cadastra-se aqui.</Link>
-      </S.LastInfo>
+        <S.SignupBtn onClick={handleSignupModal}>Cadastra-se aqui.</S.SignupBtn>
+      </S.SignupInfo>
     </S.Wrapper>
   )
 }
