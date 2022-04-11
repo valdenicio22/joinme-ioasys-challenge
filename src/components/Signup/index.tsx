@@ -6,7 +6,7 @@ import Button from '../Button'
 import { TextField } from '../TextField'
 import EyeIcon from '../EyeIcon'
 import Checkbox from '../Checkbox'
-import Fakelogo from '../Fakelogo'
+import GoogleIcon from '../GoogleIcon'
 
 import * as S from './styles'
 
@@ -74,11 +74,8 @@ export default function Signup({ setIsSignupModalOpen }: SignUpProps) {
         <title>Signup | joinMe</title>
       </Head>
 
-      <S.LogoContainer>
-        <Fakelogo />
-      </S.LogoContainer>
       <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <S.H2>Cadastra-se</S.H2>
+        <S.H3>Olá! Primeiro crie sua conta:</S.H3>
         <S.TextFieldsContainer>
           <TextField
             label="Como podemos te chamar?*"
@@ -142,7 +139,18 @@ export default function Signup({ setIsSignupModalOpen }: SignUpProps) {
           </S.PTerms>
         </S.TermsContainer>
 
-        <Button>criar conta</Button>
+        <S.SignupButtons>
+          <Button icon={<GoogleIcon />} bgColor="darkGray" fullWidth={true}>
+            CONTINUAR COM O GMAIL
+          </Button>
+          <Button fullWidth={true}>CRIAR MINHA CONTA</Button>
+        </S.SignupButtons>
+
+        <S.SigninInfo>
+          <S.PSignIn>
+            Já tem uma conta? <S.SpanSignin>Entre aqui</S.SpanSignin>
+          </S.PSignIn>
+        </S.SigninInfo>
       </S.FormContainer>
     </S.Wrapper>
   )
