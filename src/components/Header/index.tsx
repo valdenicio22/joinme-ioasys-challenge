@@ -4,9 +4,11 @@ import * as S from './styles'
 import { useState } from 'react'
 import { Dialog } from 'components/Dialog'
 import { Signin } from 'components/Signin'
+import Signup from 'components/Signup'
 
 const Header = () => {
   const [isSigninModalOpen, setIsSigninModalOpen] = useState(false)
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false)
 
   return (
     <S.Wrapper>
@@ -15,7 +17,19 @@ const Header = () => {
           isModalOpen={isSigninModalOpen}
           onCloseModal={() => setIsSigninModalOpen(false)}
         >
-          <Signin isModalOpen={setIsSigninModalOpen} />
+          <Signin
+            setIsSigninModalOpen={setIsSigninModalOpen}
+            setIsSignupModalOpen={setIsSignupModalOpen}
+            isSignupModalOpen={isSignupModalOpen}
+          />
+        </Dialog>
+      )}
+      {isSignupModalOpen && (
+        <Dialog
+          isModalOpen={isSignupModalOpen}
+          onCloseModal={() => setIsSignupModalOpen(false)}
+        >
+          <Signup setIsSignupModalOpen={setIsSignupModalOpen} />
         </Dialog>
       )}
       <S.LogoBtnContainer onClick={() => Router.push('/')}>
@@ -25,7 +39,9 @@ const Header = () => {
         <S.NavButton onClick={() => setIsSigninModalOpen(true)}>
           Entrar
         </S.NavButton>
-        <S.NavButton>Cadastra-se</S.NavButton>
+        <S.NavButton onClick={() => setIsSignupModalOpen(true)}>
+          Cadastra-se
+        </S.NavButton>
       </S.NavContainer>
     </S.Wrapper>
   )
