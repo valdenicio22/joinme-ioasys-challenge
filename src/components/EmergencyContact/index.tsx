@@ -79,5 +79,3 @@ export const EmergencyContact = ({ setModalStep }: EmergencyContactProps) => {
     </>
   )
 }
-
-export default EmergencyContact
