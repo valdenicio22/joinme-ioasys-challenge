@@ -8,13 +8,13 @@ import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 
 import { withSSRAuth } from '../../utils/withSSRAuth'
-import { useAuth } from 'context/AuthContext'
-import { ActivityData, User } from 'types/types'
+import { useAuth } from '../../context/AuthContext'
+import { ActivityData, User } from '../../types/types'
 
 import * as S from './Dashboard.styles'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { api } from 'service/api'
+import { api } from '../../service/api'
 
 import { useEffect, useState } from 'react'
 import { setCookie } from 'nookies'
@@ -55,9 +55,11 @@ export default function Dashboard() {
         emergencyPhone: formData.emergencyPhone
       }
       try {
-        const response = await api.patch('/users', { updatedUser })
-        console.log(response)
-        setUser(updatedUser)
+        console.log({ updatedUser })
+        const response = await api.patch<{ updatedUser: User }>('/users', {
+          updatedUser
+        })
+        setUser(response.data.updatedUser)
         setCookie(undefined, 'joinMeUser', JSON.stringify(updatedUser), {
           maxAge: 60 * 60 * 24 * 30, //30 days
           path: '/'
@@ -143,7 +145,13 @@ export default function Dashboard() {
                   placeholder="luma silva"
                   fullWidth={true}
                 />
-                <TextField label="E o telefone?" type="text" fullWidth={true} />
+                <TextField
+                  label="E o telefone?"
+                  type="text"
+                  placeholder="(xx) 9 9999-9999"
+                  fullWidth={true}
+                  {...register('emergencyPhone')}
+                />
               </S.InputsContainer>
               <S.ButtonsContainer>
                 <S.SkipStep onClick={handleSkipModalStep}>pular</S.SkipStep>

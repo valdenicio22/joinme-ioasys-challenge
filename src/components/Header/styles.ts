@@ -42,3 +42,10 @@ export const NavButton = styled.button`
     }
   `}
 `
+
+export const LoggedInMenu = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+`

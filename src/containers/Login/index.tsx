@@ -63,7 +63,7 @@ export default function Login() {
           icon={<EyeIcon />}
           {...register('password', {
             required: true,
-            minLength: 6 //'senha deve conter no mínimo 6 caracteres'
+            minLength: 6
           })}
           fullWidth={true}
           error={errors.password?.type === 'minLength' ? 'Email inválido' : ''}

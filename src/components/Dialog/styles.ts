@@ -6,7 +6,7 @@ export const StyledModal = styled(Modal)`
     width: 100%;
     max-width: 43rem;
     background-color: #f0f2f5;
-    padding: 3rem;
+    padding: 6rem 3rem;
     position: relative;
     border-radius: 3rem;
   }

@@ -1,7 +1,8 @@
+import { MouseEventHandler } from 'react'
 import * as S from './styles'
 
 type EyeIconProps = {
-  onClick?: () => void
+  onClick?: MouseEventHandler<HTMLButtonElement> | undefined
 }
 
 const EyeIcon = ({ onClick }: EyeIconProps) => (
@@ -9,7 +10,7 @@ const EyeIcon = ({ onClick }: EyeIconProps) => (
     <svg
       width="20"
       height="16"
-      viewBox="0 0 20 16"
+      viewBox="0 -2 20 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="button"

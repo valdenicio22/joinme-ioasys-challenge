@@ -33,17 +33,15 @@ export const SectionContainer = styled.section`
   p {
     font-size: 1.5rem;
     line-height: 2.2rem;
-    margin-top: 1.5rem;
+    margin: 1.5rem 0;
   }
 
   button {
-    margin-top: 2.5rem;
-    padding: 2rem;
     width: 34rem;
   }
+
   transition: filter 0.2;
   button:hover {
-    margin-top: 2.5rem;
     filter: brightness(0.8);
   }
 `
