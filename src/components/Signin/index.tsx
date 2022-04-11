@@ -65,7 +65,7 @@ export const Signin = ({
           isModalOpen={isSignupModalOpen}
           onCloseModal={() => setIsSignupModalOpen(false)}
         >
-          <Signup />
+          <Signup setIsSignupModalOpen={setIsSignupModalOpen} />
         </Dialog>
       )}
       <S.LogoContainer>
