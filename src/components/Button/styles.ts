@@ -7,6 +7,7 @@ const wrapperModifiers = {
   fullWidth: () => css`
     width: 100%;
   `,
+
   withIcon: () => css`
     display: inline-flex;
     align-items: center;
@@ -17,23 +18,27 @@ const wrapperModifiers = {
       height: 2rem;
 
       & + span {
-        margin-left: 0.8rem;
+        margin-right: 1rem;
       }
     }
+  `,
+  changeBgColor: (bgColor: 'primary' | 'darkGray') => css`
+    background-color: ${({ theme }) => theme.colors[bgColor]};
   `
 }
 
 export const Wrapper = styled.button<WrapperProps>`
-  ${({ theme, fullWidth, hasIcon }) => css`
-    background-color: ${theme.colors.primary};
+  ${({ theme, fullWidth, hasIcon, bgColor }) => css`
     color: ${theme.colors.white};
     border: 0;
-    padding: 0.65rem 3rem;
+    padding: 1rem 3rem;
     border-radius: ${theme.border.radius.xlarge};
     font-size: ${theme.font.sizes.medium};
     cursor: pointer;
+    height: 4rem;
 
     ${!!fullWidth && wrapperModifiers.fullWidth()}
     ${!!hasIcon && wrapperModifiers.withIcon()}
+    ${!!bgColor && wrapperModifiers.changeBgColor(bgColor)}
   `}
 `
