@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 
-import Button from '../Button'
-import { TextField } from '../TextField'
-import Switch from '../Switch'
-import EyeIcon from '../EyeIcon'
-import Fakelogo from '../Fakelogo'
+import Button from 'components/Button'
+import { TextField } from 'components/TextField'
+import Switch from 'components/Switch'
+import EyeIcon from 'components/EyeIcon'
+import Fakelogo from 'components/Fakelogo'
 
 import { useAuth } from '../../context/AuthContext'
 
@@ -14,8 +13,6 @@ import * as S from './styles'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { isPasswordVisible } from 'utils/isPasswordVisible'
-import { Dialog } from 'components/Dialog'
-import Signup from 'components/Signup'
 
 type SigninFormData = {
   email: string
@@ -25,7 +22,7 @@ type SigninFormData = {
 type SigninProps = {
   setIsSigninModalOpen: (arg: boolean) => void
   setIsSignupModalOpen: (arg: boolean) => void
-  isSignupModalOpen: boolean
+  setIsForgotPasswordModalOpen: (arg: boolean) => void
 }
 
 type isVisibleProps = 'text' | 'password'
@@ -33,14 +30,19 @@ type isVisibleProps = 'text' | 'password'
 export const Signin = ({
   setIsSigninModalOpen,
   setIsSignupModalOpen,
-  isSignupModalOpen
+  setIsForgotPasswordModalOpen
 }: SigninProps) => {
   const { signIn } = useAuth()
   const [isVisible, setIsVisible] = useState<isVisibleProps>('password')
 
   const handleSignupModal = () => {
-    setIsSignupModalOpen(!isSignupModalOpen)
     setIsSigninModalOpen(false)
+    setIsSignupModalOpen(true)
+  }
+
+  const handleForgotPasswordModal = () => {
+    setIsSigninModalOpen(false)
+    setIsForgotPasswordModalOpen(true)
   }
 
   const [isConectedChecked, setIsConectedChecked] = useState(true)
@@ -60,14 +62,7 @@ export const Signin = ({
       <Head>
         <title>Login | joinMe</title>
       </Head>
-      {isSignupModalOpen && (
-        <Dialog
-          isModalOpen={isSignupModalOpen}
-          onCloseModal={() => setIsSignupModalOpen(false)}
-        >
-          <Signup setIsSignupModalOpen={setIsSignupModalOpen} />
-        </Dialog>
-      )}
+
       <S.LogoContainer>
         <Fakelogo />
       </S.LogoContainer>
@@ -86,7 +81,6 @@ export const Signin = ({
             fullWidth={true}
             error={errors.email?.type === 'pattern' ? 'Email inválido' : ''}
           />
-
           <TextField
             label="Digite uma senha:*"
             type={isVisible}
@@ -105,6 +99,7 @@ export const Signin = ({
             }
           />
         </S.TextFieldsContainer>
+
         <S.SwitchContainer>
           <Switch
             onCheckedChange={() => setIsConectedChecked(!isConectedChecked)}
@@ -112,11 +107,15 @@ export const Signin = ({
           />
           <span>Permanecer conectado</span>
         </S.SwitchContainer>
+
         <S.SigninBtnAndForgotPassword>
-          <Link href="/forgotPassword">Esqueceu a senha?</Link>
+          <S.ForgotPasswordBtn onClick={handleForgotPasswordModal}>
+            Esqueceu sua senha?
+          </S.ForgotPasswordBtn>
           <Button>entrar</Button>
         </S.SigninBtnAndForgotPassword>
       </S.FormContainer>
+
       <S.SignupInfo>
         Não tem uma conta?&nbsp;
         <S.SignupBtn onClick={handleSignupModal}>Cadastra-se aqui.</S.SignupBtn>

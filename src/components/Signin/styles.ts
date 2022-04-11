@@ -77,6 +77,21 @@ export const SignupInfo = styled.p`
   ${({ theme }) => theme.colors.darkGray}
 `
 
+export const ForgotPasswordBtn = styled.span`
+  ${({ theme }) => css`
+    color: ${theme.colors.primary};
+    font-size: ${theme.font.sizes.medium};
+    transform: filter 1.5s;
+    cursor: pointer;
+
+    &:hover {
+      font-weight: ${theme.font.weight.semiBold};
+      text-decoration: none;
+      filter: brightness(0.8);
+    }
+  `}
+`
+
 export const SignupBtn = styled.span`
   ${({ theme }) => css`
     text-decoration: underline;
