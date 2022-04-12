@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 
@@ -12,10 +12,13 @@ import { withSSRAuth } from '../../utils/withSSRAuth'
 import * as S from './styles'
 
 import Drawer from 'react-modern-drawer'
+import { EventCard } from 'components/EventCard'
+import { api } from 'service/api'
+import { EventData } from 'types/types'
 
 export default function Dashboard() {
   const [modalStep, setModalStep] = useState(1)
-
+  const [events, setEvents] = useState<EventData[]>([])
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   const toggleDrawer = () => {
@@ -25,6 +28,10 @@ export default function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(true)
 
   const onCloseModal = () => setIsModalOpen(false)
+
+  useEffect(() => {
+    api.get('events/list').then((response) => setEvents(response.data))
+  }, [])
 
   return (
     <S.Wrapper>
@@ -59,16 +66,16 @@ export default function Dashboard() {
           <S.SettingsButton onClick={toggleDrawer}>Icon</S.SettingsButton>
         </S.MainLinksContainer>
 
-        {/* <S.WelcomeContainer>
-          <S.ProfilePicture />
-          <S.Welcome>Olá, Luma!</S.Welcome>
-        </S.WelcomeContainer> */}
-
         <S.FiltersContainer>
           <button>Categoria</button>
           <button>Tipo</button>
           <button>Mais recentes</button>
         </S.FiltersContainer>
+        <S.EventCardContainer>
+          {events.map((event) => (
+            <EventCard key={event.id} />
+          ))}
+        </S.EventCardContainer>
       </S.HeaderContainer>
     </S.Wrapper>
   )
