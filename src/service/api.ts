@@ -14,7 +14,7 @@ let failedRequestQueue = Array<FailedRequestQueue>()
 export const api = axios.create({
   baseURL: 'https://thiagosgdev.com/'
 })
-api.defaults.headers.common['Authorization'] = `Bearer ${cookies.joinMeToken}}`
+api.defaults.headers.common['Authorization'] = `Bearer ${cookies.joinMeToken}`
 
 api.interceptors.response.use(
   (response) => {
