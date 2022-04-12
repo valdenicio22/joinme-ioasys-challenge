@@ -73,5 +73,4 @@ export const SettingsButton = styled.button`
 
 export const EventCardContainer = styled.main`
   width: 54rem;
-  border: 1px solid black;
 `

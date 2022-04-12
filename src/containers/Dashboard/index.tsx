@@ -73,7 +73,15 @@ export default function Dashboard() {
         </S.FiltersContainer>
         <S.EventCardContainer>
           {events.map((event) => (
-            <EventCard key={event.id} />
+            <EventCard
+              key={event.id}
+              date={event.date}
+              name={event.name}
+              city={event.city}
+              description={event.description}
+              activity_id={event.activity_id}
+              max_participants={event.max_participants}
+            />
           ))}
         </S.EventCardContainer>
       </S.HeaderContainer>
