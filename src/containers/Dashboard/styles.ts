@@ -13,7 +13,6 @@ export const HeaderContainer = styled.header`
   justify-content: center;
   flex-flow: column nowrap;
   margin-bottom: 3rem;
-  border-bottom: 1px solid black;
 `
 
 export const MainLinksContainer = styled.div`
@@ -70,4 +69,9 @@ export const SettingsButton = styled.button`
   height: 5rem;
   border-radius: 50%;
   background-color: #ccc;
+`
+
+export const EventCardContainer = styled.main`
+  width: 54rem;
+  border: 1px solid black;
 `
