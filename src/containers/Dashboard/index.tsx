@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 
-import Profile from 'components/Profile'
+import Profile from '../../components/Profile'
 import { Dialog } from '../../components/Dialog'
 import { Interests } from '../../components/Interests'
 import { EmergencyContact } from '../../components/EmergencyContact'
@@ -12,9 +12,9 @@ import { withSSRAuth } from '../../utils/withSSRAuth'
 import * as S from './styles'
 
 import Drawer from 'react-modern-drawer'
-import { EventCard } from 'components/EventCard'
-import { api } from 'service/api'
-import { EventData } from 'types/types'
+import { EventCard } from '../../components/EventCard'
+import { api } from '../../service/api'
+import { EventData } from '../../types/types'
 
 export default function Dashboard() {
   const [modalStep, setModalStep] = useState(1)
@@ -30,7 +30,11 @@ export default function Dashboard() {
   const onCloseModal = () => setIsModalOpen(false)
 
   useEffect(() => {
-    api.get('events/list').then((response) => setEvents(response.data))
+    try {
+      api.get('events/list').then((response) => setEvents(response.data))
+    } catch (error) {
+      console.log(error)
+    }
   }, [])
 
   return (
@@ -72,17 +76,19 @@ export default function Dashboard() {
           <button>Mais recentes</button>
         </S.FiltersContainer>
         <S.EventCardContainer>
-          {events.map((event) => (
-            <EventCard
-              key={event.id}
-              date={event.date}
-              name={event.name}
-              city={event.city}
-              description={event.description}
-              activity_id={event.activity_id}
-              max_participants={event.max_participants}
-            />
-          ))}
+          {events
+            ? events.map((event) => (
+                <EventCard
+                  key={event.event_id}
+                  date={event.date}
+                  name={event.name}
+                  city={event.city}
+                  description={event.description}
+                  activity_id={event.activity_id}
+                  max_participants={event.max_participants}
+                />
+              ))
+            : 'Loading...'}
         </S.EventCardContainer>
       </S.HeaderContainer>
     </S.Wrapper>
