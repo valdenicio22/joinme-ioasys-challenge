@@ -1,6 +1,6 @@
 import Button from 'components/Button'
+import Logo from 'components/Logo'
 import { TextField } from 'components/TextField'
-import Fakelogo from 'components/Fakelogo'
 
 import { useAuth } from '../../context/AuthContext'
 
@@ -49,7 +49,7 @@ export const EmergencyContact = ({ setModalStep }: EmergencyContactProps) => {
   return (
     <>
       <S.LogoContainer>
-        <Fakelogo />
+        <Logo />
       </S.LogoContainer>
       <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
         <S.H2>Adicione um contato de segurança</S.H2>
