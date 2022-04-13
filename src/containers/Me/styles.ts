@@ -69,30 +69,28 @@ export const SmallInfoCard = styled.div`
   }
 `
 
-export const Level = styled.div`
-  width: 100%;
-  height: 8rem;
-  background-color: '#ccc';
-  border: 1px solid black;
-
+export const LabelContainer = styled.div`
   display: flex;
   align-items: center;
+  gap: 1rem;
+`
+export const AboutMe = styled.div`
+  display: flex;
   justify-content: center;
-  border-radius: 1.6rem;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.lighterBlue};
+  margin-top: 3.5rem;
 `
 
-export const Minuts = styled.div`
-  width: 100%;
-  height: 8rem;
-  background-color: '#ccc';
-  border: 1px solid black;
-  border-radius: 1.6rem;
-
+export const InterestsContainer = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.lighterBlue};
+  margin-top: 3.5rem;
+`
+
+export const Interests = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
 `

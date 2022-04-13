@@ -18,6 +18,14 @@ export type ActivityData = {
   name: string
 }
 
+export type UserInterests = {
+  id: string
+  name: string
+  active: boolean
+  url_active: string
+  url_inactive: string
+}
+
 export type EventData = {
   activity_id: string
   address_id?: string
