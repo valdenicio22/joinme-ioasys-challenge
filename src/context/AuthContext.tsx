@@ -23,6 +23,7 @@ type SignInCredentials = {
 type AuthContextData = {
   signIn: (credentials: SignInCredentials) => Promise<void>
   setUser: (arg: User) => void
+  logout: () => void
   user?: User
   isAuthenticated: boolean
 }
@@ -44,6 +45,15 @@ const AuthContext = createContext({} as AuthContextData)
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User>()
   const isAuthenticated = !!user
+
+  const logout = () => {
+    destroyCookie(undefined, 'joinMeToken')
+    destroyCookie(undefined, 'joinMeRefreshToken')
+    destroyCookie(undefined, 'joinMeUser')
+
+    setUser(undefined)
+    Router.push('/')
+  }
 
   useEffect(() => {
     const { joinMeToken, joinMeUser } = parseCookies()
@@ -99,7 +109,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }
 
   return (
-    <AuthContext.Provider value={{ signIn, setUser, isAuthenticated, user }}>
+    <AuthContext.Provider
+      value={{ signIn, setUser, logout, isAuthenticated, user }}
+    >
       {children}
     </AuthContext.Provider>
   )

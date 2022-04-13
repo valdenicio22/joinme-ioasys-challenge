@@ -24,6 +24,8 @@
   },
   "dependencies": {
     "@radix-ui/react-switch": "^0.1.5",
+    "@styled-icons/boxicons-regular": "^10.38.0",
+    "@styled-icons/material-outlined": "^10.34.0",
     "axios": "^0.26.1",
     "next": "12.0.10",
     "next-pwa": "^5.3.1",
@@ -32,7 +34,6 @@
     "react-dom": "17.0.2",
     "react-hook-form": "^7.29.0",
     "react-modal": "^3.14.4",
-    "react-modern-drawer": "^1.1.1",
     "react-toastify": "^8.2.0",
     "styled-components": "5.3.3"
   },

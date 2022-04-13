@@ -35,7 +35,14 @@ export default {
     mediumGray: '#CCCCCC',
     darkGray: '#757678;',
 
-    redError: '#E25C5C'
+    redError: '#E25C5C',
+
+    lighterBlue: '#D2CCFE',
+    lightBlue: '#A599FE',
+    mediumBlue: '#7966FD',
+
+    lightPink: '#F6C1DA',
+    mediumPink: '#EA78AE'
   },
   containers: {
     mobile: '34.8rem', //428px - 80 = 348px

@@ -8,7 +8,6 @@ import { ThemeProvider } from 'styled-components'
 import theme from 'styles/theme'
 import Header from 'components/Header'
 import 'react-toastify/dist/ReactToastify.css'
-import 'react-modern-drawer/dist/index.css'
 
 function App({ Component, pageProps }: AppProps) {
   return (

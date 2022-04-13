@@ -6,20 +6,15 @@ import { Dialog } from 'components/Dialog'
 import { Signin } from 'components/Signin'
 import { Signup } from 'components/Signup'
 import { ForgotPassword } from 'components/ForgotPassword'
-import { signOut, useAuth } from 'context/AuthContext'
-import PersonIcon from 'components/PersonIcon'
+import { useAuth } from 'context/AuthContext'
+import UserDropdown from 'components/UserDropdown'
 
 const Header = () => {
   const [isSigninModalOpen, setIsSigninModalOpen] = useState(false)
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false)
   const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] =
     useState(false)
-  const { user, setUser } = useAuth()
-
-  const handleSignOut = () => {
-    signOut()
-    setUser(undefined!)
-  }
+  const { user } = useAuth()
 
   return (
     <S.Wrapper>
@@ -61,10 +56,7 @@ const Header = () => {
         <Logo color="black" />
       </S.LogoBtnContainer>
       {user ? (
-        <S.LoggedInMenu>
-          <S.NavButton onClick={handleSignOut}>Sair</S.NavButton>
-          <PersonIcon />
-        </S.LoggedInMenu>
+        <UserDropdown username={user.name} />
       ) : (
         <S.NavContainer>
           <S.NavButton onClick={() => setIsSigninModalOpen(true)}>

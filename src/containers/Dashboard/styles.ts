@@ -50,25 +50,10 @@ export const WelcomeContainer = styled.div`
   align-items: center;
 `
 
-export const ProfilePicture = styled.div`
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  background-color: #ccc;
-  margin-right: 1.5rem;
-`
-
 export const Welcome = styled.h2`
   ${({ theme }) => css`
     color: ${theme.colors.primary};
   `}
-`
-
-export const SettingsButton = styled.button`
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  background-color: #ccc;
 `
 
 export const EventCardContainer = styled.main`
