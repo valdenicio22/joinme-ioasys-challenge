@@ -10,7 +10,7 @@ import Link from 'next/link'
 import Switch from 'components/Switch'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import EyeIcon from 'components/EyeIcon'
-import Fakelogo from 'components/Fakelogo'
+import Logo from 'components/Logo'
 
 type SignInFormData = {
   email: string
@@ -37,7 +37,7 @@ export default function Login() {
       </Head>
 
       <S.LogoContainer>
-        <Fakelogo />
+        <Logo />
       </S.LogoContainer>
       <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
         <S.TitleContainer>

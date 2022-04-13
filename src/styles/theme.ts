@@ -21,7 +21,7 @@ export default {
     }
   },
   colors: {
-    primary: '#493A92',
+    darkerPurple: '#493A92',
     lightPurple: '#9C91D3',
     darkPurple: '#6B5BBE',
 
@@ -40,6 +40,8 @@ export default {
     lighterBlue: '#D2CCFE',
     lightBlue: '#A599FE',
     mediumBlue: '#7966FD',
+    darkBlue: '#4C33FD',
+    primary: '#1A00D0',
 
     lightPink: '#F6C1DA',
     mediumPink: '#EA78AE'

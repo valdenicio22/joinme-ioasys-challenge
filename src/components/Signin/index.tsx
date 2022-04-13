@@ -5,7 +5,7 @@ import Button from 'components/Button'
 import { TextField } from 'components/TextField'
 import Switch from 'components/Switch'
 import EyeIcon from 'components/EyeIcon'
-import Fakelogo from 'components/Fakelogo'
+import Logo from 'components/Logo'
 
 import { useAuth } from '../../context/AuthContext'
 
@@ -64,7 +64,7 @@ export const Signin = ({
       </Head>
 
       <S.LogoContainer>
-        <Fakelogo />
+        <Logo />
       </S.LogoContainer>
       <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
         <S.H2>Acesse sua conta</S.H2>

@@ -15,7 +15,7 @@ describe('<Switch />', () => {
     )
 
     expect(screen.getByRole('switch')).toHaveStyle({
-      'background-color': '#493A92'
+      'background-color': '#1A00D0'
     })
   })
 })

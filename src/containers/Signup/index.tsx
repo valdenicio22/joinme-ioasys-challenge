@@ -6,7 +6,6 @@ import * as S from './Signup.styles'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import Router from 'next/router'
 import { api } from 'service/api'
-import Fakelogo from 'components/Fakelogo'
 import { withSSRGuest } from 'utils/withSSRGuest'
 import Checkbox from 'components/Checkbox'
 
@@ -55,9 +54,6 @@ export default function Signup() {
         <title>Signup | joinMe</title>
       </Head>
 
-      <S.LogoContainer>
-        <Fakelogo />
-      </S.LogoContainer>
       <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
         <S.TitleContainer>
           <S.H2>Cadastra-se</S.H2>
