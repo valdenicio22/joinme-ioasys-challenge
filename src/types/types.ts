@@ -17,9 +17,11 @@ export type User = {
   isPremium?: boolean
 }
 
-export type ActivityData = {
-  id: string
+export type Activity = {
   name: string
+  id: string
+  urlActive: string
+  urlInactive: string
 }
 
 export type UserInterests = {

@@ -10,6 +10,7 @@ import { User } from '../../types/types'
 import { setCookie } from 'nookies'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { api } from '../../service/api'
+import { toast } from 'react-toastify'
 
 type SecurityContactData = Pick<User, 'emergencyName' | 'emergencyPhone'>
 
@@ -30,7 +31,6 @@ export const EmergencyContact = ({ setModalStep }: EmergencyContactProps) => {
         emergencyPhone: formData.emergencyPhone
       }
       try {
-        console.log({ updatedUser })
         const response = await api.patch<{ updatedUser: User }>('/users', {
           updatedUser
         })
@@ -39,6 +39,7 @@ export const EmergencyContact = ({ setModalStep }: EmergencyContactProps) => {
           maxAge: 60 * 60 * 24 * 30, //30 days
           path: '/'
         })
+        toast.success('Contato salvo com sucesso')
         setModalStep(2)
       } catch (error) {
         console.log(error)
