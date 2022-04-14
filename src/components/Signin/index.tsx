@@ -128,7 +128,7 @@ export const Signin = ({
           >
             CONTINUAR COM O GMAIL
           </Button>
-          <Button fullWidth={true}>CRIAR MINHA CONTA</Button>
+          <Button fullWidth={true}>ENTRAR</Button>
         </S.SigninButtons>
       </S.FormContainer>
 

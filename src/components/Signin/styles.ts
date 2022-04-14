@@ -26,7 +26,7 @@ export const FormContainer = styled.form`
 export const H2 = styled.h2`
   ${({ theme }) => css`
     width: 100%;
-    font-size: ${theme.font.sizes.xlarge};
+    font-size: ${theme.font.sizes.large};
     color: ${theme.colors.black};
   `}
 `
