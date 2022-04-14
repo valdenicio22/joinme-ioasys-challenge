@@ -21,19 +21,13 @@ export default {
     }
   },
   colors: {
-    darkerPurple: '#493A92',
-    lightPurple: '#9C91D3',
-    darkPurple: '#6B5BBE',
-
     lightModeBg: '#E8E7E3',
-
     white: '#FFFFFF',
-
     black: '#252627',
 
     lighterGray: '#DEDAF0',
-    lightGray: '#CACACA',
-    mediumGray: '#CCCCCC',
+    lightGray: '#EBEEF2',
+    mediumGray: '#E8E7E3',
     darkGray: '#757678;',
 
     redError: '#E25C5C',
@@ -45,7 +39,8 @@ export default {
     primary: '#1E00FC',
 
     lightPink: '#F6C1DA',
-    mediumPink: '#EA78AE'
+    mediumPink: '#EA78AE',
+    secondary: '#DF3083'
   },
   containers: {
     mobile: '36rem', //360px

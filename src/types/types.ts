@@ -32,34 +32,7 @@ export type UserInterests = {
   url_inactive: string
 }
 
-export type EventData = {
-  activity_id: string
-  address_id?: string
-  city?: string
-  date: Date
-  description: string
-  end_time: string
-  event_id: string
-  id: string
-  is_online: boolean
-  is_pet_friendly: boolean
-  is_promoted: boolean
-  max_participants: number
-  name: string
-  number: number
-  price?: number
-  reference_point?: string
-  startTime?: string
-  state?: string
-  street?: string
-  url?: string
-  userId?: string
-  userIdentity: string
-  zip_code?: string
-  accessibilities?: Array<string>
-}
-
-export type InPersonEvent = {
+export type EventAddress = {
   id?: string
   street?: string
   number?: number
@@ -69,4 +42,33 @@ export type InPersonEvent = {
   referencePoint?: string
   userId?: string
   eventId?: string
+}
+
+export type EventAcessibilities = {
+  id?: string
+  acessibilities: {
+    id?: string
+    name?: string
+    description?: string
+  }
+}
+
+export type EventData = {
+  id?: string
+  name?: string
+  description?: string
+  date?: Date
+  isPetFriendly?: boolean
+  maxParticipants?: number
+  numParticipants?: number
+  createdAt?: string
+  startTime?: string
+  activityId?: string
+  userId?: string
+  price?: number
+  isPromoted?: boolean
+  userIdentity?: string
+  addresses?: Array<EventAddress>
+  activities?: Activity
+  eventAccessibilities?: EventAcessibilities
 }
