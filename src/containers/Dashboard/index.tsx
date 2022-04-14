@@ -16,7 +16,7 @@ import { EventData } from '../../types/types'
 
 export default function Dashboard() {
   const [modalStep, setModalStep] = useState(1)
-  const [events, setEvents] = useState<EventData[]>([])
+  const [eventsCard, setEventsCard] = useState<EventData[]>([])
 
   const [isModalOpen, setIsModalOpen] = useState(true)
 
@@ -24,11 +24,15 @@ export default function Dashboard() {
 
   useEffect(() => {
     try {
-      api.get('events/list').then((response) => setEvents(response.data))
+      api
+        .get<Array<EventData>>('events/list')
+        .then((response) => setEventsCard(response.data))
     } catch (error) {
       console.log(error)
     }
   }, [])
+
+  console.log({ eventsCard })
 
   return (
     <S.Wrapper>
@@ -59,16 +63,15 @@ export default function Dashboard() {
           <button>Mais recentes</button>
         </S.FiltersContainer>
         <S.EventCardContainer>
-          {events
-            ? events.map((event) => (
+          {eventsCard
+            ? eventsCard.map((event) => (
                 <EventCard
-                  key={event.event_id}
+                  key={event.id}
                   date={event.date}
                   name={event.name}
-                  city={event.city}
-                  description={event.description}
-                  activity_id={event.activity_id}
-                  max_participants={event.max_participants}
+                  addresses={event.addresses}
+                  numParticipants={event.numParticipants}
+                  activities={event.activities}
                 />
               ))
             : 'Loading...'}
