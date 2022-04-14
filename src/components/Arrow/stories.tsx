@@ -1,9 +1,9 @@
 import { Story, Meta } from '@storybook/react'
-import Arrow, { ArrowProps } from '.'
+import Arrow from '.'
 
 export default {
   title: 'Arrow',
   component: Arrow
 } as Meta
 
-export const Default: Story<ArrowProps> = (args) => <Arrow {...args} />
+export const Default: Story = (args) => <Arrow {...args} />

@@ -1,8 +1,3 @@
-import styled, { css } from 'styled-components'
-import { ArrowProps } from '.'
+import styled from 'styled-components'
 
-export const Wrapper = styled.div<ArrowProps>`
-  ${({ theme, color }) => css`
-    color: ${theme.colors[color!]};
-  `}
-`
+export const Wrapper = styled.div``
