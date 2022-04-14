@@ -57,6 +57,22 @@ export const SwitchAndForgotPassword = styled.div`
   justify-content: space-between;
   font-size: ${({ theme }) => theme.font.sizes.small};
 `
+export const ForgotPasswordBtn = styled.span`
+  ${({ theme }) => css`
+    width: 25rem;
+    color: ${theme.colors.primary};
+    transform: filter 0.2s;
+    cursor: pointer;
+    text-align: end;
+    text-decoration: none;
+
+    &:hover {
+      font-weight: ${theme.font.weight.semiBold};
+      filter: brightness(0.8);
+    }
+  `}
+`
+
 export const SigninButtons = styled.div`
   width: 100%;
   display: flex;
@@ -66,44 +82,27 @@ export const SigninButtons = styled.div`
   gap: 1.5rem;
 
   margin-top: 5.5rem;
-  a {
-    color: ${({ theme }) => theme.colors.primary};
-    text-decoration: none;
-  }
+  ${({ theme }) => css`
+    font-weight: ${theme.font.weight.bold};
+  `}
 `
 
 export const SignupInfo = styled.p`
   margin-top: 2rem;
-  ${({ theme }) => theme.colors.darkGray}
-`
-
-export const ForgotPasswordBtn = styled.span`
   ${({ theme }) => css`
-    width: 25rem;
-    color: ${theme.colors.primary};
-    transform: filter 0.3s;
-    cursor: pointer;
-    text-align: end;
-
-    &:hover {
-      font-weight: ${theme.font.weight.semiBold};
-      text-decoration: none;
-      filter: brightness(0.8);
-    }
+    font-size: ${theme.font.sizes.small};
   `}
 `
 
 export const SignupBtn = styled.span`
   ${({ theme }) => css`
-    text-decoration: underline;
-    color: ${theme.colors.primary};
-    font-size: ${theme.font.sizes.medium};
-    transform: filter 1.5s;
+    text-decoration: none;
+    color: ${theme.colors.darkBlue};
+    transform: filter 0.3s;
     cursor: pointer;
 
     &:hover {
       font-weight: ${theme.font.weight.semiBold};
-      text-decoration: none;
       filter: brightness(0.8);
     }
   `}

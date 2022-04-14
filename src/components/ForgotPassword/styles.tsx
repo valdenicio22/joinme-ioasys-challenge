@@ -18,7 +18,7 @@ export const IconLogoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
 `
 
 export const InfoContainer = styled.div`
@@ -51,7 +51,9 @@ export const BtnAndLastInfoContainer = styled.div`
   margin-top: 10rem;
 `
 
-export const PInfoAccount = styled.p``
+export const PInfoAccount = styled.p`
+  font-size: ${({ theme }) => theme.font.sizes.small};
+`
 
 export const YourAccount = styled.span`
   color: ${({ theme }) => theme.colors.primary};
