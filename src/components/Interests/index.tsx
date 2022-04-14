@@ -5,7 +5,7 @@ import Button from 'components/Button'
 
 import * as S from './styles'
 
-import { ActivityData } from '../../types/types'
+import { Activity } from '../../types/types'
 
 import { api } from '../../service/api'
 import { toast } from 'react-toastify'
@@ -16,32 +16,23 @@ type InterestsProps = {
   modalStep: number
 }
 
-export type Activity = {
-  name: string
-  id: string
+type ActivityData = {
   isSelect: boolean
-}
+} & Activity
 
 export const Interests = ({
   setModalStep,
   onCloseModal,
   modalStep
 }: InterestsProps) => {
-  const [activities, setActivities] = useState<Activity[]>([])
+  const [activities, setActivities] = useState<ActivityData[]>([])
   const handleSkipModalStep = () =>
     modalStep > 1 ? onCloseModal() : setModalStep(2)
 
   useEffect(() => {
     api
       .get<Array<ActivityData>>('/activities/list')
-      .then((response) => {
-        const activityData = response.data
-        const updatedActivities = activityData.map((activity) => ({
-          ...activity,
-          isSelect: false
-        }))
-        setActivities(updatedActivities)
-      })
+      .then((response) => setActivities(response.data))
       .catch((error) => console.log(error))
   }, [])
 
@@ -59,7 +50,7 @@ export const Interests = ({
     onCloseModal()
   }
 
-  const handleActivitySelected = (selectedActivity: Activity) => {
+  const handleActivitySelected = (selectedActivity: ActivityData) => {
     const activitiesUpdated = activities.map((activity) =>
       activity.id === selectedActivity.id
         ? { ...activity, isSelect: !selectedActivity.isSelect }
@@ -73,22 +64,32 @@ export const Interests = ({
       <S.ArrowContainer onClick={() => setModalStep(1)}>
         <Arrow />
       </S.ArrowContainer>
-      <S.H2>Conta pra gente...quais são seus interesses</S.H2>
+      <S.H1>
+        Agora conta pra gente, quais são os seus principais interesses?
+      </S.H1>
       <S.InterestsContainer>
         {activities.map((activity) => (
           <S.InterestContent
             key={activity.id}
             onClick={() => handleActivitySelected(activity)}
           >
-            <S.InterestIcon isSelect={activity.isSelect}></S.InterestIcon>
+            <S.InterestsImg
+              src={
+                activity.isSelect ? activity.urlActive : activity.urlInactive
+              }
+              alt={activity.name}
+            />
+
             <p>{activity.name}</p>
           </S.InterestContent>
         ))}
       </S.InterestsContainer>
-      <S.ButtonsContainer>
-        <S.SkipStep onClick={handleSkipModalStep}>pular</S.SkipStep>
-        <Button onClick={handleUserInterests}>Cadastrar</Button>
-      </S.ButtonsContainer>
+      <S.FinalizarButton>
+        <Button fullWidth={true} onClick={handleUserInterests}>
+          FINALIZAR
+        </Button>
+        <S.SkipStep onClick={handleSkipModalStep}>PULAR</S.SkipStep>
+      </S.FinalizarButton>
     </>
   )
 }

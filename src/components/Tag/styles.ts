@@ -1,18 +1,30 @@
 import styled, { css, DefaultTheme } from 'styled-components'
 import { TagProps } from '.'
 
-type WrapperProps = Pick<TagProps, 'fill'>
+type WrapperProps = Omit<TagProps, 'children'>
 
 const wrapperModifiers = {
-  fill: (theme: DefaultTheme) => css`
-    background-color: ${theme.colors.primary};
+  fill: (theme: DefaultTheme, background: 'primary') => css`
+    background-color: ${theme.colors[background]};
     color: ${theme.colors.white};
+  `,
+  colorText: (
+    theme: DefaultTheme,
+    colorText: 'primary' | 'secondary' | 'darkGray'
+  ) => css`
+    color: ${theme.colors[colorText]};
+  `,
+  smallSize: (theme: DefaultTheme) => css`
+    width: fit-content;
+    height: 2rem;
+    padding: 0.5rem;
+    border: 1px solid ${theme.colors.darkGray};
   `
 }
 
 export const Wrapper = styled.div<WrapperProps>`
-  ${({ theme, fill }) => css`
-    width: 8rem;
+  ${({ theme, background, colorText, size }) => css`
+    width: fit-content;
     height: 4rem;
     border: 1px solid ${theme.colors.primary};
     border-radius: ${theme.border.radius.xlarge};
@@ -21,6 +33,8 @@ export const Wrapper = styled.div<WrapperProps>`
     align-items: center;
     justify-content: center;
 
-    ${fill && wrapperModifiers.fill(theme)}
+    ${background && wrapperModifiers.fill(theme, background)}
+    ${colorText && wrapperModifiers.colorText(theme, colorText)}
+    ${size && wrapperModifiers.smallSize(theme)}
   `}
 `

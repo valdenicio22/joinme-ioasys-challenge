@@ -70,7 +70,6 @@ export default function Me() {
   }, [])
 
   const onSubmit: SubmitHandler<UserDataForm> = async (formData) => {
-    console.log({ formData })
     try {
       await api.patch('users', { ...formData })
       toast.success('Usuário atualizado com sucesso')
@@ -134,7 +133,9 @@ export default function Me() {
 
           <S.Interests>
             {userInterests.map((interest) => (
-              <Tag key={interest.id}>{interest.name}</Tag>
+              <Tag colorText="primary" key={interest.id}>
+                {interest.name}
+              </Tag>
             ))}
           </S.Interests>
         </S.InterestsContainer>

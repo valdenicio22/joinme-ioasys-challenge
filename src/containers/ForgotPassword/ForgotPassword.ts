@@ -22,8 +22,8 @@ export const InfoContainer = styled.div`
 `
 
 export const H1 = styled.h1`
-  color: ${({ theme }) => theme.colors.darkPurple};
-  font-size: ${({ theme }) => theme.colors.darkPurple};
+  color: ${({ theme }) => theme.colors.darkBlue};
+  font-size: ${({ theme }) => theme.colors.darkBlue};
   margin-bottom: 3.2rem;
 `
 

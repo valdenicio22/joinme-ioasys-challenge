@@ -39,7 +39,6 @@ export const LabelContainer = styled.div`
 
 export const Label = styled.label`
   ${({ theme }) => css`
-    margin-left: 1.5rem;
     font-size: ${theme.font.sizes.small};
     color: ${theme.colors.black};
     cursor: pointer;
@@ -73,7 +72,6 @@ export const Error = styled.p`
     color: ${theme.colors.redError};
     font-size: ${theme.font.sizes.xsmall};
     margin-top: 0.2rem;
-    margin-left: 1.5rem;
   `}
 `
 

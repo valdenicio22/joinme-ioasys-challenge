@@ -22,14 +22,16 @@ const wrapperModifiers = {
       }
     }
   `,
-  changeBgColor: (bgColor: 'primary' | 'darkGray') => css`
+  changeBgColor: (bgColor: 'primary' | 'lighterGray') => css`
     background-color: ${({ theme }) => theme.colors[bgColor]};
+  `,
+  changeColor: (colorText: 'white' | 'primary') => css`
+    color: ${({ theme }) => theme.colors[colorText]};
   `
 }
 
 export const Wrapper = styled.button<WrapperProps>`
-  ${({ theme, fullWidth, hasIcon, bgColor }) => css`
-    color: ${theme.colors.white};
+  ${({ theme, fullWidth, hasIcon, bgColor, colorText }) => css`
     border: 0;
     padding: 1rem 3rem;
     border-radius: ${theme.border.radius.xlarge};
@@ -40,5 +42,6 @@ export const Wrapper = styled.button<WrapperProps>`
     ${!!fullWidth && wrapperModifiers.fullWidth()}
     ${!!hasIcon && wrapperModifiers.withIcon()}
     ${!!bgColor && wrapperModifiers.changeBgColor(bgColor)}
+    ${!!colorText && wrapperModifiers.changeColor(colorText)}
   `}
 `

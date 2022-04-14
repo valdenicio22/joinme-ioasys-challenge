@@ -1,6 +1,6 @@
 import Button from 'components/Button'
-import Logo from 'components/Logo'
 import { TextField } from 'components/TextField'
+import SirenIcon from 'components/SirenIcon'
 
 import { useAuth } from '../../context/AuthContext'
 
@@ -10,6 +10,7 @@ import { User } from '../../types/types'
 import { setCookie } from 'nookies'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { api } from '../../service/api'
+import { toast } from 'react-toastify'
 
 type SecurityContactData = Pick<User, 'emergencyName' | 'emergencyPhone'>
 
@@ -30,7 +31,6 @@ export const EmergencyContact = ({ setModalStep }: EmergencyContactProps) => {
         emergencyPhone: formData.emergencyPhone
       }
       try {
-        console.log({ updatedUser })
         const response = await api.patch<{ updatedUser: User }>('/users', {
           updatedUser
         })
@@ -39,6 +39,7 @@ export const EmergencyContact = ({ setModalStep }: EmergencyContactProps) => {
           maxAge: 60 * 60 * 24 * 30, //30 days
           path: '/'
         })
+        toast.success('Contato salvo com sucesso')
         setModalStep(2)
       } catch (error) {
         console.log(error)
@@ -49,21 +50,29 @@ export const EmergencyContact = ({ setModalStep }: EmergencyContactProps) => {
   return (
     <>
       <S.LogoContainer>
-        <Logo />
+        <SirenIcon />
       </S.LogoContainer>
-      <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <S.H2>Adicione um contato de segurança</S.H2>
 
+      <S.TitleAndDescription>
+        <S.H1>Você gostaria de adicionar um contato para emergências?</S.H1>
+        <S.Description>
+          Esse contato serve para enviarmos uma mensagem para alguém que você
+          confia, caso você não se sinta segura ou confortável em alguma
+          situação, através do botão de ajuda.
+        </S.Description>
+      </S.TitleAndDescription>
+
+      <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
         <S.InputsContainer>
           <TextField
-            label="Qual o nome da pessoa?"
+            label="Qual é o nome do seu contato?"
             type="text"
             {...register('emergencyName')}
             placeholder="luma silva"
             fullWidth={true}
           />
           <TextField
-            label="E o telefone?"
+            label="Qual é o telefone do seu contato?"
             type="text"
             placeholder="(99) 9 9999-9999"
             fullWidth={true}
@@ -72,8 +81,10 @@ export const EmergencyContact = ({ setModalStep }: EmergencyContactProps) => {
         </S.InputsContainer>
 
         <S.ButtonsContainer>
-          <S.SkipStep onClick={() => setModalStep(2)}>pular</S.SkipStep>
-          <Button type="submit">proximo</Button>
+          <Button type="submit" fullWidth={true}>
+            ADICIONAR CONTATO
+          </Button>
+          <S.SkipStep onClick={() => setModalStep(2)}>PULAR</S.SkipStep>
         </S.ButtonsContainer>
       </S.FormContainer>
     </>

@@ -52,7 +52,5 @@ const GlobalStyles = createGlobalStyle`
       justify-content: center;
     }
   `}
-
-  
 `
 export default GlobalStyles

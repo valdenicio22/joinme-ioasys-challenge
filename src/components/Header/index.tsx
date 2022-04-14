@@ -53,7 +53,7 @@ const Header = () => {
         </Dialog>
       )}
       <S.LogoBtnContainer onClick={() => Router.push('/')}>
-        <Logo />
+        <Logo color="blue" />
       </S.LogoBtnContainer>
       {user ? (
         <UserDropdown username={user.name} />

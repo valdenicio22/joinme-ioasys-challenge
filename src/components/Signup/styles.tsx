@@ -17,12 +17,11 @@ export const FormContainer = styled.form`
   `}
 `
 
-export const H3 = styled.h3`
+export const H1 = styled.h1`
   ${({ theme }) => css`
     width: 100%;
     font-size: ${theme.font.sizes.large};
-    color: ${theme.colors.darkPurple};
-    padding-left: 1.5rem;
+    color: ${theme.colors.black};
   `}
 `
 export const TextFieldsContainer = styled.div`
@@ -43,7 +42,7 @@ export const TermsContainer = styled.div`
 export const PTerms = styled.p``
 
 export const Span = styled.span`
-  color: ${({ theme }) => theme.colors.darkPurple};
+  color: ${({ theme }) => theme.colors.primary};
 `
 export const SignupButtons = styled.div`
   width: 100%;
@@ -58,19 +57,19 @@ export const SignupButtons = styled.div`
   }
 `
 
-export const SigninInfo = styled.div``
+export const SigninInfo = styled.div`
+  font-size: ${({ theme }) => theme.font.sizes.small};
+`
 
 export const PSignIn = styled.p``
 
 export const SpanSignin = styled.span`
   ${({ theme }) => css`
     color: ${theme.colors.primary};
-    text-decoration: underline;
     cursor: pointer;
 
     &:hover {
-      text-decoration: none;
-      font-weight: ${theme.font.weight.semiBold};
+      font-weight: ${theme.font.weight.bold};
     }
   `}
 `

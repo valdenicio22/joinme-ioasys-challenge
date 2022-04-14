@@ -84,7 +84,7 @@ export function Signup({
       </Head>
 
       <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <S.H3>Olá! Primeiro crie sua conta:</S.H3>
+        <S.H1>Olá! Primeiro crie sua conta:</S.H1>
         <S.TextFieldsContainer>
           <TextField
             label="Como podemos te chamar?*"
@@ -143,13 +143,18 @@ export function Signup({
         <S.TermsContainer>
           <Checkbox />
           <S.PTerms>
-            Li e concordo com os{' '}
-            <S.Span>Termos e Condições e Política de Privacidade.</S.Span>
+            Li e concordo com os <S.Span>Termos e Condições</S.Span> e{' '}
+            <S.Span>Política de Privacidade.</S.Span>
           </S.PTerms>
         </S.TermsContainer>
 
         <S.SignupButtons>
-          <Button icon={<GoogleIcon />} bgColor="darkGray" fullWidth={true}>
+          <Button
+            icon={<GoogleIcon />}
+            bgColor="lighterGray"
+            fullWidth={true}
+            colorText={'primary'}
+          >
             CONTINUAR COM O GMAIL
           </Button>
           <Button fullWidth={true}>CRIAR MINHA CONTA</Button>

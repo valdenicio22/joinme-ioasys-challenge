@@ -16,6 +16,11 @@ export const LogoBtnContainer = styled.button`
   outline: none;
   border: none;
   margin-top: 1rem;
+
+  div > svg {
+    width: 15rem;
+    height: 7rem;
+  }
 `
 
 export const NavContainer = styled.nav`

@@ -5,7 +5,7 @@ import Button from 'components/Button'
 import { TextField } from 'components/TextField'
 import Switch from 'components/Switch'
 import EyeIcon from 'components/EyeIcon'
-import Logo from 'components/Logo'
+import IconLogo from 'components/IconLogo'
 
 import { useAuth } from '../../context/AuthContext'
 
@@ -13,6 +13,8 @@ import * as S from './styles'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { isPasswordVisible } from 'utils/isPasswordVisible'
+import GoogleIcon from 'components/GoogleIcon'
+import { toast } from 'react-toastify'
 
 type SigninFormData = {
   email: string
@@ -64,14 +66,15 @@ export const Signin = ({
       </Head>
 
       <S.LogoContainer>
-        <Logo />
+        <IconLogo />
       </S.LogoContainer>
+
       <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <S.H2>Acesse sua conta</S.H2>
+        <S.H2>Olá! Acesse sua conta:</S.H2>
 
         <S.TextFieldsContainer>
           <TextField
-            label="Seu e-mail:*"
+            label="Seu e-mail*"
             type="email"
             {...register('email', {
               required: true,
@@ -82,8 +85,9 @@ export const Signin = ({
             error={errors.email?.type === 'pattern' ? 'Email inválido' : ''}
           />
           <TextField
-            label="Digite uma senha:*"
+            label="Digite uma senha*"
             type={isVisible}
+            placeholder="Digite sua senha"
             icon={
               <EyeIcon
                 onClick={(e) => setIsVisible(isPasswordVisible(e, isVisible))}
@@ -100,20 +104,33 @@ export const Signin = ({
           />
         </S.TextFieldsContainer>
 
-        <S.SwitchContainer>
-          <Switch
-            onCheckedChange={() => setIsConectedChecked(!isConectedChecked)}
-            checked={isConectedChecked}
-          />
-          <span>Permanecer conectado</span>
-        </S.SwitchContainer>
-
-        <S.SigninBtnAndForgotPassword>
+        <S.SwitchAndForgotPassword>
+          <S.SwitchContainer>
+            <Switch
+              onCheckedChange={() => setIsConectedChecked(!isConectedChecked)}
+              checked={isConectedChecked}
+            />
+            <span>Permanecer conectado</span>
+          </S.SwitchContainer>
           <S.ForgotPasswordBtn onClick={handleForgotPasswordModal}>
             Esqueceu sua senha?
           </S.ForgotPasswordBtn>
-          <Button>entrar</Button>
-        </S.SigninBtnAndForgotPassword>
+        </S.SwitchAndForgotPassword>
+
+        <S.SigninButtons>
+          <Button
+            icon={<GoogleIcon />}
+            bgColor="lighterGray"
+            fullWidth={true}
+            colorText={'primary'}
+            onClick={() =>
+              toast.info('Essa funcionalidade será liberada em breve!')
+            }
+          >
+            CONTINUAR COM O GMAIL
+          </Button>
+          <Button fullWidth={true}>ENTRAR</Button>
+        </S.SigninButtons>
       </S.FormContainer>
 
       <S.SignupInfo>

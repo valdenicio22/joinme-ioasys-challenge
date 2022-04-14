@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 `
 
 export const LogoContainer = styled.div`
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
 `
 
 export const FormContainer = styled.form`
@@ -26,9 +26,8 @@ export const FormContainer = styled.form`
 export const H2 = styled.h2`
   ${({ theme }) => css`
     width: 100%;
-    font-size: ${theme.font.sizes.xlarge};
-    color: ${theme.colors.darkPurple};
-    padding-left: 1.5rem;
+    font-size: ${theme.font.sizes.large};
+    color: ${theme.colors.black};
   `}
 `
 export const TextFieldsContainer = styled.div`
@@ -41,7 +40,6 @@ export const TextFieldsContainer = styled.div`
 `
 export const SwitchContainer = styled.div`
   width: 100%;
-  padding-left: 1.5rem;
 
   display: flex;
   align-items: center;
@@ -52,54 +50,59 @@ export const SwitchContainer = styled.div`
   }
 `
 
-export const SigninBtnAndForgotPassword = styled.div`
+export const SwitchAndForgotPassword = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: ${({ theme }) => theme.font.sizes.small};
+`
+export const ForgotPasswordBtn = styled.span`
+  ${({ theme }) => css`
+    width: 25rem;
+    color: ${theme.colors.primary};
+    transform: filter 0.2s;
+    cursor: pointer;
+    text-align: end;
+    text-decoration: none;
+
+    &:hover {
+      font-weight: ${theme.font.weight.semiBold};
+      filter: brightness(0.8);
+    }
+  `}
+`
+
+export const SigninButtons = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 1.5rem;
 
-  margin-top: 2.5rem;
-  a {
-    color: ${({ theme }) => theme.colors.primary};
-    text-decoration: none;
-  }
-  button {
-    width: 18rem;
-  }
+  margin-top: 5.5rem;
+  ${({ theme }) => css`
+    font-weight: ${theme.font.weight.bold};
+  `}
 `
 
 export const SignupInfo = styled.p`
-  margin-top: 5rem;
-  ${({ theme }) => theme.colors.darkGray}
-`
-
-export const ForgotPasswordBtn = styled.span`
+  margin-top: 2rem;
   ${({ theme }) => css`
-    color: ${theme.colors.primary};
-    font-size: ${theme.font.sizes.medium};
-    transform: filter 1.5s;
-    cursor: pointer;
-
-    &:hover {
-      font-weight: ${theme.font.weight.semiBold};
-      text-decoration: none;
-      filter: brightness(0.8);
-    }
+    font-size: ${theme.font.sizes.small};
   `}
 `
 
 export const SignupBtn = styled.span`
   ${({ theme }) => css`
-    text-decoration: underline;
-    color: ${theme.colors.primary};
-    font-size: ${theme.font.sizes.medium};
-    transform: filter 1.5s;
+    text-decoration: none;
+    color: ${theme.colors.darkBlue};
+    transform: filter 0.3s;
     cursor: pointer;
 
     &:hover {
       font-weight: ${theme.font.weight.semiBold};
-      text-decoration: none;
       filter: brightness(0.8);
     }
   `}

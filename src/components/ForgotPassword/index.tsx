@@ -9,6 +9,7 @@ import * as S from './styles'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { api } from 'service/api'
 import { toast } from 'react-toastify'
+import IconLogo from 'components/IconLogo'
 
 type ForgotPasswordData = {
   email: string
@@ -52,11 +53,15 @@ export const ForgotPassword = ({
         <Arrow />
       </S.ArrowContainer>
 
+      <S.IconLogoContainer>
+        <IconLogo />
+      </S.IconLogoContainer>
+
       <S.InfoContainer>
-        <S.H1>Esqueci minha senha</S.H1>
+        <S.H1>Esqueceu a senha?</S.H1>
         <S.PInfo>
-          Enviaremos uma senha para o e-mail cadastra-do, para que você possa
-          redefinir sua senha.
+          Não se preocupe, acontece! Digite seu e-mail abaixo que vamos enviar
+          uma nova senha.
         </S.PInfo>
       </S.InfoContainer>
 
@@ -72,9 +77,13 @@ export const ForgotPassword = ({
           placeholder="lumasilva@email.com"
         />
 
-        <S.BtnContainer>
-          <Button>enviar para email</Button>
-        </S.BtnContainer>
+        <S.BtnAndLastInfoContainer>
+          <Button fullWidth={true}>ENVIAR</Button>
+          <S.PInfoAccount>
+            Lembrou qual era?&nbsp;
+            <S.YourAccount>Acesse sua conta aqui!</S.YourAccount>
+          </S.PInfoAccount>
+        </S.BtnAndLastInfoContainer>
       </S.Form>
     </S.Wrapper>
   )

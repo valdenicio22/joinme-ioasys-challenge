@@ -6,11 +6,11 @@ export default {
     }
   },
   font: {
-    family: 'Libre Franklin, sans-serif',
+    family: 'Source Sans Pro, sans-serif',
     weight: {
       regular: 400,
-      semiBold: 500,
-      bold: 600
+      semiBold: 600,
+      bold: 700
     },
     sizes: {
       xsmall: '1.2rem', // 12px
@@ -21,18 +21,13 @@ export default {
     }
   },
   colors: {
-    darkerPurple: '#493A92',
-    lightPurple: '#9C91D3',
-    darkPurple: '#6B5BBE',
-
     lightModeBg: '#E8E7E3',
-
     white: '#FFFFFF',
+    black: '#252627',
 
-    black: '#2C3131',
-
-    lightGray: '#CACACA',
-    mediumGray: '#CCCCCC',
+    lighterGray: '#DEDAF0',
+    lightGray: '#EBEEF2',
+    mediumGray: '#E8E7E3',
     darkGray: '#757678;',
 
     redError: '#E25C5C',
@@ -41,10 +36,11 @@ export default {
     lightBlue: '#A599FE',
     mediumBlue: '#7966FD',
     darkBlue: '#4C33FD',
-    primary: '#1A00D0',
+    primary: '#1E00FC',
 
     lightPink: '#F6C1DA',
-    mediumPink: '#EA78AE'
+    mediumPink: '#EA78AE',
+    secondary: '#DF3083'
   },
   containers: {
     mobile: '36rem', //360px

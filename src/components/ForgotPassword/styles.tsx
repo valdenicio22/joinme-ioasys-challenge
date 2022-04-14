@@ -10,36 +10,51 @@ export const Wrapper = styled.div`
 
 export const ArrowContainer = styled.div`
   width: 100%;
-  margin-bottom: 14rem;
+  margin-bottom: 2rem;
   cursor: pointer;
 `
 
-export const InfoContainer = styled.div`
-  margin-bottom: 4.8rem;
-  margin-left: 1rem;
+export const IconLogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5rem;
 `
 
+export const InfoContainer = styled.div`
+  width: 100%;
+  font-size: ${({ theme }) => theme.font.sizes.small};
+  margin-bottom: 3rem;
+`
+export const H1 = styled.h1`
+  color: ${({ theme }) => theme.colors.black};
+  font-size: ${({ theme }) => theme.font.sizes.large};
+  margin-bottom: 1.5rem;
+`
 export const PInfo = styled.p``
 
-export const H1 = styled.h1`
-  color: ${({ theme }) => theme.colors.darkPurple};
-  font-size: ${({ theme }) => theme.colors.darkPurple};
-  margin-bottom: 3.2rem;
-`
-
 export const Form = styled.form`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-flow: column nowrap;
 `
-export const ErrorMessageContainer = styled.div`
+
+export const BtnAndLastInfoContainer = styled.div`
   width: 100%;
-  margin: 1rem 0 1rem 2rem;
-  color: ${({ theme }) => theme.colors.redError};
-  font-size: ${({ theme }) => theme.font.sizes.xsmall};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 10rem;
 `
 
-export const BtnContainer = styled.div`
-  margin-top: 14rem;
+export const PInfoAccount = styled.p`
+  font-size: ${({ theme }) => theme.font.sizes.small};
+`
+
+export const YourAccount = styled.span`
+  color: ${({ theme }) => theme.colors.primary};
 `
