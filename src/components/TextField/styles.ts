@@ -31,6 +31,11 @@ export const Input = styled.input`
     width: 100%;
   `}
 `
+export const LabelContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`
 
 export const Label = styled.label`
   ${({ theme }) => css`
@@ -40,6 +45,7 @@ export const Label = styled.label`
     cursor: pointer;
   `}
 `
+export const LabelIcon = styled.div``
 
 export const Icon = styled.div`
   & > button > svg {
