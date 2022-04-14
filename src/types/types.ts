@@ -11,11 +11,23 @@ export type User = {
   emergencyName?: string | null
   emergencyPhone?: string | null
   phone?: string | null
+  password?: string
+  city?: string
+  aboutMe: string
+  isPremium?: boolean
 }
 
 export type ActivityData = {
   id: string
   name: string
+}
+
+export type UserInterests = {
+  id: string
+  name: string
+  active: boolean
+  url_active: string
+  url_inactive: string
 }
 
 export type EventData = {

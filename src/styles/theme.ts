@@ -47,7 +47,7 @@ export default {
     mediumPink: '#EA78AE'
   },
   containers: {
-    mobile: '34.8rem', //428px - 80 = 348px
-    desktop: '65rem' //650px
+    mobile: '36rem', //360px
+    desktop: '66rem' //660px
   }
 } as const

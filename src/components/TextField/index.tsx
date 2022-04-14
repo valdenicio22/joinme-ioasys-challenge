@@ -11,6 +11,7 @@ export type TextFieldProps = {
   labelFor?: string
   error?: string
   icon?: React.ReactNode
+  labelIcon?: React.ReactNode
   fullWidth?: boolean
 } & InputHTMLAttributes<HTMLInputElement>
 
@@ -18,6 +19,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, TextFieldProps> = (
   {
     icon,
     label,
+    labelIcon,
     labelFor = '',
     fullWidth = false,
     error,
@@ -27,7 +29,10 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, TextFieldProps> = (
 ) => {
   return (
     <S.Wrapper error={!!error} fullWidth={fullWidth}>
-      {!!label && <S.Label htmlFor={labelFor}>{label}</S.Label>}
+      <S.LabelContainer>
+        {!!label && <S.Label htmlFor={labelFor}>{label}</S.Label>}
+        {!!labelIcon && <S.LabelIcon>{labelIcon}</S.LabelIcon>}
+      </S.LabelContainer>
       <S.InputWrapper>
         <S.Input type="text" {...props} ref={ref} />
         {!!icon && <S.Icon>{icon}</S.Icon>}
