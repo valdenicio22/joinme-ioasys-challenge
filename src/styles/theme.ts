@@ -6,11 +6,11 @@ export default {
     }
   },
   font: {
-    family: 'Libre Franklin, sans-serif',
+    family: 'Source Sans Pro, sans-serif',
     weight: {
       regular: 400,
-      semiBold: 500,
-      bold: 600
+      semiBold: 600,
+      bold: 700
     },
     sizes: {
       xsmall: '1.2rem', // 12px
@@ -31,6 +31,7 @@ export default {
 
     black: '#252627',
 
+    lighterGray: '#DEDAF0',
     lightGray: '#CACACA',
     mediumGray: '#CCCCCC',
     darkGray: '#757678;',
@@ -41,7 +42,7 @@ export default {
     lightBlue: '#A599FE',
     mediumBlue: '#7966FD',
     darkBlue: '#4C33FD',
-    primary: '#1A00D0',
+    primary: '#1E00FC',
 
     lightPink: '#F6C1DA',
     mediumPink: '#EA78AE'
