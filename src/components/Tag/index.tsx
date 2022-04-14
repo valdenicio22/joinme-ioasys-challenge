@@ -2,11 +2,20 @@ import * as S from './styles'
 
 export type TagProps = {
   children: React.ReactNode
-  fill?: boolean | undefined
+  background?: 'primary'
+  colorText: 'primary' | 'secondary' | 'darkGray'
+  size?: 'small'
 }
 
-const Tag = ({ children, fill }: TagProps) => (
-  <S.Wrapper fill={fill}>{children}</S.Wrapper>
+const Tag = ({
+  children,
+  background,
+  colorText = 'primary',
+  size
+}: TagProps) => (
+  <S.Wrapper background={background} colorText={colorText} size={size}>
+    {children}
+  </S.Wrapper>
 )
 
 export default Tag
