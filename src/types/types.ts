@@ -11,6 +11,10 @@ export type User = {
   emergencyName?: string | null
   emergencyPhone?: string | null
   phone?: string | null
+  password?: string
+  city?: string
+  aboutMe: string
+  isPremium?: boolean
 }
 
 export type ActivityData = {

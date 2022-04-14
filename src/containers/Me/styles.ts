@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
     width: ${theme.containers.mobile};
     margin: 2rem auto;
   `}
-  border: 1px solid black;
 `
 export const Header = styled.header`
   display: flex;
@@ -38,6 +37,7 @@ export const PersonName = styled.p`
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.large};
     line-height: 3rem;
+    margin-bottom: 1rem;
   `}
 `
 
@@ -69,6 +69,26 @@ export const SmallInfoCard = styled.div`
   }
 `
 
+export const FormContainer = styled.form`
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+
+  ${({ theme }) => css`
+    font-size: ${theme.font.sizes.medium};
+  `}
+`
+
+export const TextFieldsContainer = styled.div`
+  width: 100%;
+  margin-top: 3rem;
+
+  & > div {
+    margin-bottom: 1.5rem;
+  }
+`
+
 export const LabelContainer = styled.div`
   display: flex;
   align-items: center;
@@ -78,7 +98,6 @@ export const AboutMe = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin-top: 3.5rem;
 `
 
 export const InterestsContainer = styled.div`
@@ -86,6 +105,8 @@ export const InterestsContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   margin-top: 3.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
 `
 
 export const Interests = styled.div`
