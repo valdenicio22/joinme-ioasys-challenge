@@ -34,7 +34,7 @@ export const TitleContainer = styled.div`
 
 export const H2 = styled.h2`
   font-size: ${({ theme }) => theme.font.sizes.xlarge};
-  color: ${({ theme }) => theme.colors.darkPurple};
+  color: ${({ theme }) => theme.colors.darkBlue};
   padding-left: 1.5rem;
 `
 export const ErrorMessageContainer = styled.div`
