@@ -120,8 +120,9 @@ export const Signin = ({
         <S.SigninButtons>
           <Button
             icon={<GoogleIcon />}
-            bgColor="darkGray"
+            bgColor="lighterGray"
             fullWidth={true}
+            colorText={'primary'}
             onClick={() =>
               toast.info('Essa funcionalidade será liberada em breve!')
             }
