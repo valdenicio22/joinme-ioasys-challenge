@@ -134,7 +134,7 @@ export default function Events() {
   return (
     <S.Wrapper>
       <Head>
-        <title>SignUp | joinMe</title>
+        <title>Events | joinMe</title>
       </Head>
       <form onSubmit={handleNewUserSubmit}>
         <TextField
