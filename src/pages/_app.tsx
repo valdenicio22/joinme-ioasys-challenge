@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components'
 import theme from 'styles/theme'
 import Header from 'components/Header'
 import 'react-toastify/dist/ReactToastify.css'
+import { Footer } from 'components/Footer'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -26,6 +27,7 @@ function App({ Component, pageProps }: AppProps) {
       <AuthProvider>
         <Header />
         <Component {...pageProps} />
+        <Footer />
       </AuthProvider>
 
       <ToastContainer />
