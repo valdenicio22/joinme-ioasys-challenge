@@ -1,13 +1,16 @@
 import { useReducer, FormEvent, useEffect } from 'react'
+import Head from 'next/head'
+import Router from 'next/router'
+import { GetServerSideProps } from 'next'
+
 import Button from 'components/Button'
 import { TextField } from 'components/TextField'
-import Head from 'next/head'
 
-import * as S from '../styles/SignUp.styles'
+import * as S from './styles'
 import { api } from 'service/api'
-import Router from 'next/router'
 
 import { useAuth } from 'context/AuthContext'
+import { withSSRAuth } from 'utils/withSSRAuth'
 
 type State = {
   name: string
@@ -129,7 +132,7 @@ export default function Events() {
 
   const today = new Date().toLocaleString('pt-Br').slice(0, 10)
   return (
-    <S.wrapper>
+    <S.Wrapper>
       <Head>
         <title>SignUp | joinMe</title>
       </Head>
@@ -264,6 +267,12 @@ export default function Events() {
             : ''}
         </select>
       </form>
-    </S.wrapper>
+    </S.Wrapper>
   )
 }
+export const getServerSideProps: GetServerSideProps = withSSRAuth(async () => {
+  //Make the Events info request on server side
+  return {
+    props: {}
+  }
+})
