@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 
@@ -11,28 +11,21 @@ import { withSSRAuth } from '../../utils/withSSRAuth'
 import * as S from './styles'
 
 import { EventCard } from '../../components/EventCard'
-import { api } from '../../service/api'
 import { EventData } from '../../types/types'
+import Router from 'next/router'
+import axios from 'axios'
+import { parseCookies } from 'nookies'
 
-export default function Dashboard() {
+type DashboardProps = {
+  eventsCard: Array<EventData>
+}
+
+export default function Dashboard({ eventsCard }: DashboardProps) {
   const [modalStep, setModalStep] = useState(1)
-  const [eventsCard, setEventsCard] = useState<EventData[]>([])
 
   const [isModalOpen, setIsModalOpen] = useState(true)
 
   const onCloseModal = () => setIsModalOpen(false)
-
-  useEffect(() => {
-    try {
-      api
-        .get<Array<EventData>>('events/list')
-        .then((response) => setEventsCard(response.data))
-    } catch (error) {
-      console.log(error)
-    }
-  }, [])
-
-  console.log({ eventsCard })
 
   return (
     <S.Wrapper>
@@ -65,14 +58,18 @@ export default function Dashboard() {
         <S.EventCardContainer>
           {eventsCard
             ? eventsCard.map((event) => (
-                <EventCard
+                <S.CardButton
                   key={event.id}
-                  date={event.date}
-                  name={event.name}
-                  addresses={event.addresses}
-                  numParticipants={event.numParticipants}
-                  activities={event.activities}
-                />
+                  onClick={() => Router.push(`/events/${event.id}`)}
+                >
+                  <EventCard
+                    date={event.date}
+                    name={event.name}
+                    addresses={event.addresses}
+                    numParticipants={event.numParticipants}
+                    activities={event.activities}
+                  />
+                </S.CardButton>
               ))
             : 'Loading...'}
         </S.EventCardContainer>
@@ -81,8 +78,22 @@ export default function Dashboard() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = withSSRAuth(async () => {
-  return {
-    props: {}
+export const getServerSideProps: GetServerSideProps = withSSRAuth(
+  async (ctx) => {
+    const cookies = parseCookies(ctx)
+
+    const response = await axios.get<Array<EventData>>(
+      'https://thiagosgdev.com/events/list',
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.joinMeToken}`
+        }
+      }
+    )
+    return {
+      props: {
+        eventsCard: response.data
+      }
+    }
   }
-})
+)
