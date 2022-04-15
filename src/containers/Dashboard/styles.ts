@@ -59,3 +59,11 @@ export const Welcome = styled.h2`
 export const EventCardContainer = styled.main`
   width: 54rem;
 `
+
+export const CardButton = styled.button`
+  background-color: transparent;
+  outline: none;
+  border: none;
+
+  cursor: pointer;
+`
