@@ -25,6 +25,7 @@ export default {
     white: '#FFFFFF',
     black: '#252627',
 
+    textGray: '#d9d9d9',
     lighterGray: '#DEDAF0',
     lightGray: '#EBEEF2',
     mediumGray: '#E8E7E3',
@@ -44,6 +45,6 @@ export default {
   },
   containers: {
     mobile: '36rem', //360px
-    desktop: '66rem' //660px
+    desktop: '112rem' //1120px
   }
 } as const
