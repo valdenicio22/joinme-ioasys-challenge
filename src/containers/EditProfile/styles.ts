@@ -6,25 +6,7 @@ export const Wrapper = styled.div`
     margin: 2rem auto;
   `}
 `
-export const Header = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
 
-export const ArrowContainer = styled.button`
-  background: transparent;
-  outline: none;
-  border: none;
-
-  color: ${({ theme }) => theme.colors.primary};
-`
-
-export const Page = styled.h2`
-  ${({ theme }) => css`
-    font-size: ${theme.font.sizes.medium};
-  `}
-`
 export const LogoAndName = styled.div`
   width: 100%;
   display: flex;
@@ -37,6 +19,7 @@ export const PersonName = styled.p`
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.large};
     line-height: 3rem;
+    margin-top: 3rem;
     margin-bottom: 1rem;
   `}
 `

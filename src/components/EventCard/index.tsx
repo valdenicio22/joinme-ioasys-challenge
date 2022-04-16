@@ -19,7 +19,12 @@ export const EventCard = ({
   return (
     <S.Wrapper>
       <S.ImgContainer>
-        <Image width={120} height={160} src="/testImg.svg" alt="Default Img" />
+        <Image
+          width={120}
+          height={160}
+          src="/defaultImg.png"
+          alt="Default Img"
+        />
         <S.Schedule>28 abril</S.Schedule>
       </S.ImgContainer>
       <S.EventDetailsContainer>

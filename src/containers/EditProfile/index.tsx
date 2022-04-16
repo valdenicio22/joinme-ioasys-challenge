@@ -5,8 +5,6 @@ import Router from 'next/router'
 import { withSSRAuth } from 'utils/withSSRAuth'
 import { useAuth } from 'context/AuthContext'
 
-import Arrow from 'components/Arrow'
-import Logo from 'components/Logo'
 import { TextField } from 'components/TextField'
 import EyeIcon from 'components/EyeIcon'
 import Tag from 'components/Tag'
@@ -20,16 +18,21 @@ import { Edit } from '@styled-icons/material-outlined'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { api } from 'service/api'
 import { toast } from 'react-toastify'
-import { setCookie } from 'nookies'
+import { parseCookies, setCookie } from 'nookies'
+import IconLogo from 'components/IconLogo'
+import axios from 'axios'
 
 type isVisibleProps = 'text' | 'password'
 
 type UpdateUserInterests = Pick<UserInterests, 'name' | 'id'>
 type UserDataForm = Omit<User, 'id' | 'email' | 'isPremium'>
 
-export default function Me() {
+type EditProfileProps = {
+  userInterests: UpdateUserInterests[]
+}
+
+export default function EditProfile({ userInterests }: EditProfileProps) {
   const { user, setUser } = useAuth()
-  const [userInterests, setUserInterests] = useState<UpdateUserInterests[]>([])
   const [isVisible, setIsVisible] = useState<isVisibleProps>('password')
 
   const { register, handleSubmit, setValue } = useForm<UserDataForm>()
@@ -59,16 +62,6 @@ export default function Me() {
     userFields.forEach((field) => setValue(field, userDataForm[field]))
   }, [setValue, user])
 
-  useEffect(() => {
-    try {
-      api
-        .get('users/interests/list')
-        .then((response) => setUserInterests(response.data))
-    } catch (error) {
-      console.log(error)
-    }
-  }, [])
-
   const onSubmit: SubmitHandler<UserDataForm> = async (formData) => {
     try {
       await api.patch('users', { ...formData })
@@ -85,7 +78,7 @@ export default function Me() {
         maxAge: 60 * 60 * 24 * 30, //30 days
         path: '/'
       })
-      Router.push('/login')
+      Router.push('/home')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err.response.status === 409) {
@@ -97,18 +90,11 @@ export default function Me() {
   return (
     <S.Wrapper>
       <Head>
-        <title>Signup | joinMe</title>
+        <title>Edit Profile | joinMe</title>
       </Head>
 
-      <S.Header>
-        <S.ArrowContainer onClick={() => Router.push('/home')}>
-          <Arrow />
-        </S.ArrowContainer>
-        <S.Page>Perfil</S.Page>
-      </S.Header>
-
       <S.LogoAndName>
-        <Logo />
+        <IconLogo />
         <S.PersonName>{user?.name}</S.PersonName>
       </S.LogoAndName>
 
@@ -194,7 +180,6 @@ export default function Me() {
             label="Digite uma senha"
             type={isVisible}
             {...register('password', {
-              required: true,
               minLength: 6
             })}
             fullWidth={true}
@@ -211,9 +196,22 @@ export default function Me() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = withSSRAuth(async () => {
-  //Make the interests user info request on server side
-  return {
-    props: {}
+export const getServerSideProps: GetServerSideProps = withSSRAuth(
+  async (ctx) => {
+    const cookies = parseCookies(ctx)
+
+    const response = await axios.get<Array<UpdateUserInterests>>(
+      'https://thiagosgdev.com/users/interests/list',
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.joinMeToken}`
+        }
+      }
+    )
+    return {
+      props: {
+        userInterests: response.data
+      }
+    }
   }
-})
+)

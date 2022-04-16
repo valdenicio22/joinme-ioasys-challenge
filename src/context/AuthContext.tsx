@@ -23,7 +23,7 @@ type SignInCredentials = {
 type AuthContextData = {
   signIn: (credentials: SignInCredentials) => Promise<void>
   setUser: (arg: User) => void
-  logout: () => void
+  signOut: () => void
   user?: User
   isAuthenticated: boolean
 }
@@ -32,21 +32,13 @@ type AuthProviderProps = {
   children: ReactNode
 }
 
-export const signOut = () => {
-  destroyCookie(undefined, 'joinMeToken')
-  destroyCookie(undefined, 'joinMeRefreshToken')
-  destroyCookie(undefined, 'joinMeUser')
-
-  Router.push('/')
-}
-
 const AuthContext = createContext({} as AuthContextData)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User>()
   const isAuthenticated = !!user
 
-  const logout = () => {
+  const signOut = () => {
     destroyCookie(undefined, 'joinMeToken')
     destroyCookie(undefined, 'joinMeRefreshToken')
     destroyCookie(undefined, 'joinMeUser')
@@ -63,7 +55,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setUser(userData)
     } catch {
       signOut()
-      setUser(undefined)
     }
   }, [])
 
@@ -110,7 +101,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <AuthContext.Provider
-      value={{ signIn, setUser, logout, isAuthenticated, user }}
+      value={{ signIn, setUser, signOut, isAuthenticated, user }}
     >
       {children}
     </AuthContext.Provider>
