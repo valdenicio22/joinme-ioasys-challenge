@@ -5,8 +5,10 @@ export type ButtonProps = {
   children: React.ReactNode
   fullWidth?: boolean
   icon?: React.ReactNode
-  bgColor?: 'primary' | 'lighterGray'
-  colorText?: 'primary' | 'white'
+  bgColor?: 'primary' | 'lighterGray' | 'white'
+  colorText?: 'primary' | 'white' | 'secondary'
+  size?: 'large'
+  borderColor?: 'secondary'
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
 const Button = ({
@@ -15,6 +17,8 @@ const Button = ({
   fullWidth = false,
   bgColor = 'primary',
   colorText = 'white',
+  size,
+  borderColor,
   ...props
 }: ButtonProps) => (
   <S.Wrapper
@@ -22,6 +26,8 @@ const Button = ({
     hasIcon={!!icon}
     bgColor={bgColor}
     colorText={colorText}
+    size={size}
+    borderColor={borderColor}
     {...props}
   >
     <span>{children}</span>
