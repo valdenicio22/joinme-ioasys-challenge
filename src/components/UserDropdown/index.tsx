@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Link from 'next/link'
 import {
   AccountCircle,
@@ -16,7 +17,11 @@ export type UserDropdownProps = {
 }
 
 const UserDropdown = ({ username }: UserDropdownProps) => {
-  const { logout } = useAuth()
+  const [isDropdrowOpen, setIsDropdrowOpen] = useState(false)
+  const { signOut } = useAuth()
+
+  const handleIsDropdownOpen = () => setIsDropdrowOpen(!isDropdrowOpen)
+
   return (
     <Dropdown
       title={
@@ -26,21 +31,23 @@ const UserDropdown = ({ username }: UserDropdownProps) => {
           <ChevronDown size={24} />
         </>
       }
+      isDropdrowOpen={isDropdrowOpen}
+      handleIsDropdownOpen={handleIsDropdownOpen}
     >
       <S.Nav>
-        <Link href="/profile/me" passHref>
-          <S.Link>
+        <Link href="/profile/editprofile" passHref>
+          <S.Link title="EditProfile" onClick={handleIsDropdownOpen}>
             <AccountCircle />
             <span>Editar Perfil</span>
           </S.Link>
         </Link>
-        <Link href="/wishlist" passHref>
+        <Link href="#" passHref>
           <S.Link title="Wishlist">
             <FavoriteBorder />
             <span>Meus Eventos</span>
           </S.Link>
         </Link>
-        <Link href="/logout" passHref>
+        <Link href="#" passHref>
           <S.Link title="Ajuda">
             <HelpCircle />
             <span>Ajuda</span>
@@ -48,7 +55,7 @@ const UserDropdown = ({ username }: UserDropdownProps) => {
         </Link>
 
         <Link href="#" passHref>
-          <S.Link title="Sign out" onClick={() => logout()}>
+          <S.Link title="Sign out" onClick={signOut}>
             <ExitToApp />
             <span>Sign out</span>
           </S.Link>

@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
 import { parseCookies, setCookie } from 'nookies'
-import { signOut } from '../context/AuthContext'
+import { useAuth } from '../context/AuthContext'
 
 type FailedRequestQueue = {
   onSuccess: (token: string) => void
@@ -21,6 +21,7 @@ api.interceptors.response.use(
     return response
   },
   (error: AxiosError) => {
+    const { signOut } = useAuth()
     if (error.response?.status === 401) {
       if (error.response?.data.code === 'token.expired') {
         cookies = parseCookies()
