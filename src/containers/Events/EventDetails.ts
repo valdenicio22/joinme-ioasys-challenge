@@ -137,7 +137,7 @@ export const ScheduleContainer = styled.div`
 export const DateTimeContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 3rem;
+  gap: 5rem;
 
   width: fit-content;
 `
@@ -164,7 +164,7 @@ export const AttendEventContainer = styled.div`
   width: fit-content;
   display: flex;
   align-items: center;
-  gap: 4rem;
+  gap: 3rem;
 `
 export const Price = styled.div`
   display: flex;
@@ -190,4 +190,8 @@ export const SaveEvent = styled.button`
   background: transparent;
   outline: none;
   border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `

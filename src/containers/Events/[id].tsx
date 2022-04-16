@@ -6,6 +6,7 @@ import { GetServerSideProps } from 'next'
 import Image from 'next/image'
 import { EventData } from 'types/types'
 import * as S from './EventDetails'
+import { Share } from '@styled-icons/feather'
 
 type EventsDetailsProps = {
   eventData: EventData
@@ -102,8 +103,18 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
             <S.SaveEvent>
               <BookMark />
             </S.SaveEvent>
-            <Button>Compartilhar</Button>
-            <Button>Participar</Button>
+            <Button
+              icon={<Share size={24} />}
+              bgColor="white"
+              size="large"
+              colorText="secondary"
+              borderColor="secondary"
+            >
+              Compartilhar
+            </Button>
+            <Button bgColor="primary" size="large" colorText="white">
+              Participar
+            </Button>
           </S.AttendEventContainer>
         </S.ScheduleContainer>
       </S.FloatingInfo>
