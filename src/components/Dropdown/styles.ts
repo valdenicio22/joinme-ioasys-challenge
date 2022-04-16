@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 export const Title = styled.div`
   ${({ theme }) => css`
     cursor: pointer;
-    color: ${theme.colors.black};
+    color: ${theme.colors.white};
     position: relative;
     display: flex;
     align-items: center;
