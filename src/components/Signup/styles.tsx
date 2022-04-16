@@ -51,6 +51,12 @@ export const SignupButtons = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 1.5rem;
+
+  ${({ theme }) => css`
+    button {
+      font-weight: ${theme.font.weight.bold};
+    }
+  `};
 `
 
 export const SigninInfo = styled.div`

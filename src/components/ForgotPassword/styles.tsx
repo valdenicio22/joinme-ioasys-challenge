@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -49,6 +49,12 @@ export const BtnAndLastInfoContainer = styled.div`
   flex-direction: column;
   gap: 2.5rem;
   margin-top: 10rem;
+
+  ${({ theme }) => css`
+    button {
+      font-weight: ${theme.font.weight.bold};
+    }
+  `};
 `
 
 export const PInfoAccount = styled.p`

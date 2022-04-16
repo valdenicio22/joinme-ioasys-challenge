@@ -83,8 +83,10 @@ export const SigninButtons = styled.div`
 
   margin-top: 5.5rem;
   ${({ theme }) => css`
-    font-weight: ${theme.font.weight.bold};
-  `}
+    button {
+      font-weight: ${theme.font.weight.bold};
+    }
+  `};
 `
 
 export const SignupInfo = styled.p`
