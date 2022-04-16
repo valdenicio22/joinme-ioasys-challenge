@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.div`
-  max-width: 76.8rem;
-  height: 25rem;
+  width: ${({ theme }) => theme.containers.desktop};
+  height: 100%;
   margin: 0 auto;
 `
 
@@ -57,7 +57,11 @@ export const Welcome = styled.h2`
 `
 
 export const EventCardContainer = styled.main`
-  width: 54rem;
+  border: 1px solid black;
+  width: 100%;
+  gap: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 `
 
 export const CardButton = styled.button`

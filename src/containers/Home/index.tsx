@@ -64,25 +64,25 @@ export default function Home({ eventsCard }: HomeProps) {
           <button>Tipo</button>
           <button>Mais recentes</button>
         </S.FiltersContainer>
-        <S.EventCardContainer>
-          {eventsCard
-            ? eventsCard.map((event) => (
-                <S.CardButton
-                  key={event.id}
-                  onClick={() => Router.push(`/events/${event.id}`)}
-                >
-                  <EventCard
-                    date={event.date}
-                    name={event.name}
-                    addresses={event.addresses}
-                    numParticipants={event.numParticipants}
-                    activities={event.activities}
-                  />
-                </S.CardButton>
-              ))
-            : 'Loading...'}
-        </S.EventCardContainer>
       </S.HeaderContainer>
+      <S.EventCardContainer>
+        {eventsCard
+          ? eventsCard.map((event) => (
+              <S.CardButton
+                key={event.id}
+                onClick={() => Router.push(`/events/${event.id}`)}
+              >
+                <EventCard
+                  date={event.date}
+                  name={event.name}
+                  addresses={event.addresses}
+                  numParticipants={event.numParticipants}
+                  activities={event.activities}
+                />
+              </S.CardButton>
+            ))
+          : 'Loading...'}
+      </S.EventCardContainer>
     </S.Wrapper>
   )
 }
