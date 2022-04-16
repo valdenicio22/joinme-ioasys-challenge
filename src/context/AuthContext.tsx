@@ -1,13 +1,7 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState
-} from 'react'
+import { createContext, ReactNode, useContext, useState } from 'react'
 import Router from 'next/router'
 
-import { setCookie, parseCookies, destroyCookie } from 'nookies'
+import { setCookie, destroyCookie } from 'nookies'
 
 import { AuthenticatedUserData, User } from '../types/types'
 import { api } from 'service/api'
@@ -46,17 +40,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setUser(undefined)
     Router.push('/')
   }
-
-  useEffect(() => {
-    const { joinMeToken, joinMeUser } = parseCookies()
-    try {
-      if (!joinMeToken) throw Error
-      const userData = JSON.parse(joinMeUser)
-      setUser(userData)
-    } catch {
-      signOut()
-    }
-  }, [])
 
   const signIn = async ({ email, password }: SignInCredentials) => {
     try {
