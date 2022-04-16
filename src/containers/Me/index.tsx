@@ -101,7 +101,7 @@ export default function Me() {
       </Head>
 
       <S.Header>
-        <S.ArrowContainer onClick={() => Router.push('/dashboard')}>
+        <S.ArrowContainer onClick={() => Router.push('/home')}>
           <Arrow />
         </S.ArrowContainer>
         <S.Page>Perfil</S.Page>

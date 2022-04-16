@@ -52,7 +52,9 @@ const Header = () => {
           />
         </Dialog>
       )}
-      <S.LogoBtnContainer onClick={() => Router.push('/')}>
+      <S.LogoBtnContainer
+        onClick={() => (user ? Router.push('/home') : Router.push('/'))}
+      >
         <Logo color="blue" />
       </S.LogoBtnContainer>
       {user ? (

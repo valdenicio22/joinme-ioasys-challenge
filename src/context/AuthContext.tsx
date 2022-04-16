@@ -91,7 +91,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
       setUser(userData)
-      Router.push('/dashboard')
+      Router.push('/home')
     } catch (err) {
       if (Axios.isAxiosError(err)) {
         switch (err.response?.status) {
