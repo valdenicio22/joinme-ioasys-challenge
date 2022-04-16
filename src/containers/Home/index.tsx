@@ -12,8 +12,8 @@ import * as S from './styles'
 
 import { EventCard } from '../../components/EventCard'
 import { EventData } from '../../types/types'
-import Router from 'next/router'
 import axios from 'axios'
+import Link from 'next/link'
 
 type HomeProps = {
   eventsCard: Array<EventData>
@@ -65,24 +65,24 @@ export default function Home({ eventsCard }: HomeProps) {
           <button>Mais recentes</button>
         </S.FiltersContainer>
       </S.HeaderContainer>
-      <S.EventCardContainer>
+      <S.EventsCardsListContainer>
         {eventsCard
           ? eventsCard.map((event) => (
-              <S.CardButton
-                key={event.id}
-                onClick={() => Router.push(`/events/${event.id}`)}
-              >
-                <EventCard
-                  date={event.date}
-                  name={event.name}
-                  addresses={event.addresses}
-                  numParticipants={event.numParticipants}
-                  activities={event.activities}
-                />
-              </S.CardButton>
+              <Link href={`/events/${event.id}`} key={event.id} passHref>
+                <a>
+                  <EventCard
+                    date={event.date}
+                    name={event.name}
+                    addresses={event.addresses}
+                    numParticipants={event.numParticipants}
+                    activities={event.activities}
+                    users={event.users}
+                  />
+                </a>
+              </Link>
             ))
           : 'Loading...'}
-      </S.EventCardContainer>
+      </S.EventsCardsListContainer>
     </S.Wrapper>
   )
 }
