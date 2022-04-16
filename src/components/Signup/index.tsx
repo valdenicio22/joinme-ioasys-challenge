@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, MouseEvent } from 'react'
 import Head from 'next/head'
 
 import Button from '../Button'
@@ -74,6 +74,11 @@ export function Signup({
   const handleSinginModal = () => {
     setIsSignupModalOpen(false)
     setIsSigninModalOpen(true)
+  }
+
+  const handleFakeButtonClick = (e: MouseEvent) => {
+    e.preventDefault()
+    toast.info('Essa funcionalidade será liberada em breve!')
   }
 
   return (
@@ -153,6 +158,7 @@ export function Signup({
             bgColor="lighterGray"
             fullWidth={true}
             colorText={'primary'}
+            onClick={handleFakeButtonClick}
           >
             CONTINUAR COM O GMAIL
           </Button>

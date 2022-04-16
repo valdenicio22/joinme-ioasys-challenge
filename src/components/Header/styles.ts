@@ -2,8 +2,8 @@ import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.header`
   width: 100%;
-  height: 7rem;
-  background-color: ${({ theme }) => theme.colors.white};
+  height: 7.2rem;
+  background-color: ${({ theme }) => theme.colors.black};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,11 +15,10 @@ export const LogoBtnContainer = styled.button`
   background-color: transparent;
   outline: none;
   border: none;
-  margin-top: 1rem;
 
   div > svg {
-    width: 15rem;
-    height: 7rem;
+    width: 13rem;
+    height: 5rem;
   }
 `
 
@@ -33,16 +32,14 @@ export const NavContainer = styled.nav`
 
 export const NavButton = styled.button`
   ${({ theme }) => css`
-    text-decoration: none;
-    color: ${theme.colors.black};
+    color: ${theme.colors.white};
     background-color: transparent;
     outline: none;
     border: none;
-    font-size: ${theme.font.sizes.small};
+    font-size: ${theme.font.sizes.medium};
 
     &:hover {
       color: ${theme.colors.primary};
-      font-weight: ${theme.font.weight.bold};
     }
   `}
 `

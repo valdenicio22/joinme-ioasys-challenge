@@ -52,13 +52,16 @@ export const SignupButtons = styled.div`
   flex-direction: column;
   gap: 1.5rem;
 
-  button + button {
-    margin-bottom: 2rem;
-  }
+  ${({ theme }) => css`
+    button {
+      font-weight: ${theme.font.weight.bold};
+    }
+  `};
 `
 
 export const SigninInfo = styled.div`
   font-size: ${({ theme }) => theme.font.sizes.small};
+  margin-top: 2rem;
 `
 
 export const PSignIn = styled.p``
