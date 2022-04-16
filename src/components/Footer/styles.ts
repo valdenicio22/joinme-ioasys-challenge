@@ -7,7 +7,8 @@ export const Wrapper = styled.footer`
   padding: 1.5rem;
 `
 export const FotterContent = styled.div`
-  width: min(100%, ${({ theme }) => theme.containers.desktop});
+  max-width: ${({ theme }) => theme.containers.desktop};
+  width: 100%;
   margin: 0 auto;
 `
 
