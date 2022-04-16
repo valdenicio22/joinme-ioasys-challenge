@@ -1,37 +1,99 @@
-import Button from 'components/Button'
+import { useState } from 'react'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import Router from 'next/router'
-import { withSSRGuest } from 'utils/withSSRGuest'
-import * as S from './Home.styles'
 
-export default function Home() {
+import { Dialog } from '../../components/Dialog'
+import { Interests } from '../../components/Interests'
+import { EmergencyContact } from '../../components/EmergencyContact'
+
+import { useAuth } from 'context/AuthContext'
+
+import * as S from './styles'
+
+import { EventCard } from '../../components/EventCard'
+import { EventData } from '../../types/types'
+import Router from 'next/router'
+import axios from 'axios'
+
+type HomeProps = {
+  eventsCard: Array<EventData>
+}
+
+export default function Home({ eventsCard }: HomeProps) {
+  const { user } = useAuth()
+  const [modalStep, setModalStep] = useState(1)
+  const [isModalOpen, setIsModalOpen] = useState(true)
+  const onCloseModal = () => setIsModalOpen(false)
+
+  const hasUpdatedInfo = (): boolean => {
+    if (user) {
+      if (user.emergencyName === null && user.emergencyPhone === null)
+        return true
+      return false
+    }
+    return false
+  }
+
   return (
     <S.Wrapper>
       <Head>
         <title>Home | joinMe</title>
       </Head>
 
-      <S.MainContainer>
-        <S.SectionContainer>
-          <span>👏 Hey, Bem vindo!</span>
-          <h1>JoinMe</h1>
-          <p>Encontre eventos da sua preferência ...</p>
+      {hasUpdatedInfo() && (
+        <Dialog isModalOpen={isModalOpen} onCloseModal={onCloseModal}>
+          {modalStep === 1 && <EmergencyContact setModalStep={setModalStep} />}
+          {modalStep === 2 && (
+            <Interests
+              setModalStep={setModalStep}
+              onCloseModal={onCloseModal}
+              modalStep={modalStep}
+            />
+          )}
+        </Dialog>
+      )}
 
-          <Button onClick={() => Router.push('/signup')}>
-            Increva-se Aqui
-          </Button>
-        </S.SectionContainer>
+      <S.HeaderContainer>
+        <S.MainLinksContainer>
+          <span>Events</span>
+          <span>insights</span>
+        </S.MainLinksContainer>
 
-        <Image src="/img/avatar.svg" width={334} height={520} />
-      </S.MainContainer>
+        <S.FiltersContainer>
+          <button>Categoria</button>
+          <button>Tipo</button>
+          <button>Mais recentes</button>
+        </S.FiltersContainer>
+        <S.EventCardContainer>
+          {eventsCard
+            ? eventsCard.map((event) => (
+                <S.CardButton
+                  key={event.id}
+                  onClick={() => Router.push(`/events/${event.id}`)}
+                >
+                  <EventCard
+                    date={event.date}
+                    name={event.name}
+                    addresses={event.addresses}
+                    numParticipants={event.numParticipants}
+                    activities={event.activities}
+                  />
+                </S.CardButton>
+              ))
+            : 'Loading...'}
+        </S.EventCardContainer>
+      </S.HeaderContainer>
     </S.Wrapper>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = withSSRGuest(async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
+  const response = await axios.get<Array<EventData>>(
+    'https://thiagosgdev.com/events/list'
+  )
   return {
-    props: {}
+    props: {
+      eventsCard: response.data
+    }
   }
-})
+}

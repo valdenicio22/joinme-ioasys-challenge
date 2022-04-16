@@ -13,7 +13,7 @@ export function withSSRGuest<P>(fn: GetServerSideProps<P>) {
     if (cookies.joinMeToken) {
       return {
         redirect: {
-          destination: '/dashboard',
+          destination: '/home',
           permanent: false
         }
       }

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import Head from 'next/head'
-import Router from 'next/router'
 
 import Button from '../Button'
 import { TextField } from '../TextField'
@@ -48,7 +47,7 @@ export function Signup({
       await api.post('users/signup', { ...formData })
       toast.success('Bem vindo! Sua conta foi criada!')
       setIsSignupModalOpen(false)
-      Router.push('/login')
+      setIsSigninModalOpen(true)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err.response.status === 409) {

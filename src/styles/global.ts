@@ -21,7 +21,7 @@ const GlobalStyles = createGlobalStyle`
     }
     body {
       font-size: ${theme.font.sizes.medium};
-      -webkit-font-smoothing: anatialiased;
+      -webkit-font-smoothing: antialiased;
     }
     body,
     input,
