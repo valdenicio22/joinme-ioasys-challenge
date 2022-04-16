@@ -4,10 +4,10 @@ export const Wrapper = styled.footer`
   width: 100%;
   background-color: ${({ theme }) => theme.colors.black};
   margin-top: auto;
-  padding: 1.5rem 0;
+  padding: 1.5rem;
 `
 export const FotterContent = styled.div`
-  width: ${({ theme }) => theme.containers.desktop};
+  width: min(100%, ${({ theme }) => theme.containers.desktop});
   margin: 0 auto;
 `
 
