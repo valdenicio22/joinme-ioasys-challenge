@@ -1,11 +1,6 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
-export const Wrapper = styled.div`
-  ${({ theme }) => css`
-    background-color: ${theme.colors.lightModeBg};
-    width: 100vw;
-  `}
-`
+export const Wrapper = styled.div``
 
 export const MainContainer = styled.main`
   max-width: 112rem;
@@ -27,17 +22,11 @@ export const SectionContainer = styled.section`
     font-size: 4.5rem;
     line-height: 4.5rem;
     font-weight: ${({ theme }) => theme.font.weight.bold};
-    margin-top: 2.5rem;
-  }
-
-  p {
-    font-size: 1.5rem;
-    line-height: 2.2rem;
-    margin: 1.5rem 0;
+    margin: 2.5rem 0;
   }
 
   button {
-    width: 34rem;
+    width: 32rem;
   }
 
   transition: filter 0.2;

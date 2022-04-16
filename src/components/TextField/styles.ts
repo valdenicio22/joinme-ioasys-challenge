@@ -33,7 +33,7 @@ export const InputWrapper = styled.div`
     display: flex;
     align-items: center;
     background: ${theme.colors.white};
-    border: 2px solid ${theme.colors.lightGray};
+    border: 1px solid ${theme.colors.darkGray};
     &:focus-within {
       border-color: #2072ac;
     }
