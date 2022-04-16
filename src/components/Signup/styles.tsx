@@ -51,14 +51,11 @@ export const SignupButtons = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 1.5rem;
-
-  button + button {
-    margin-bottom: 2rem;
-  }
 `
 
 export const SigninInfo = styled.div`
   font-size: ${({ theme }) => theme.font.sizes.small};
+  margin-top: 2rem;
 `
 
 export const PSignIn = styled.p``

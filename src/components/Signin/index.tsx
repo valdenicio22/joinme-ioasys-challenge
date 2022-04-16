@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { MouseEvent, useState } from 'react'
 import Head from 'next/head'
 
 import Button from 'components/Button'
@@ -59,6 +59,11 @@ export const Signin = ({
     setIsSigninModalOpen(false)
   }
 
+  const handleFakeButtonClick = (e: MouseEvent) => {
+    e.preventDefault()
+    toast.info('Essa funcionalidade será liberada em breve!')
+  }
+
   return (
     <S.Wrapper>
       <Head>
@@ -76,17 +81,18 @@ export const Signin = ({
           <TextField
             label="Seu e-mail*"
             type="email"
+            fullWidth={true}
             {...register('email', {
               required: true,
               pattern: /\S+@\S+\.\S+/
             })}
             placeholder="lumasilva@email.com"
-            fullWidth={true}
             error={errors.email?.type === 'pattern' ? 'Email inválido' : ''}
           />
           <TextField
             label="Digite uma senha*"
             type={isVisible}
+            fullWidth={true}
             placeholder="Digite sua senha"
             icon={
               <EyeIcon
@@ -97,7 +103,6 @@ export const Signin = ({
               required: true,
               minLength: 6
             })}
-            fullWidth={true}
             error={
               errors.password?.type === 'minLength' ? 'Email inválido' : ''
             }
@@ -123,9 +128,7 @@ export const Signin = ({
             bgColor="lighterGray"
             fullWidth={true}
             colorText={'primary'}
-            onClick={() =>
-              toast.info('Essa funcionalidade será liberada em breve!')
-            }
+            onClick={handleFakeButtonClick}
           >
             CONTINUAR COM O GMAIL
           </Button>
