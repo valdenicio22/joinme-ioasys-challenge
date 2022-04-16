@@ -10,7 +10,6 @@ import * as S from './styles'
 import { api } from 'service/api'
 
 import { useAuth } from 'context/AuthContext'
-import { withSSRAuth } from 'utils/withSSRAuth'
 
 type State = {
   name: string
@@ -129,7 +128,6 @@ export default function Events() {
       console.log(error)
     }
   }
-
   const today = new Date().toLocaleString('pt-Br').slice(0, 10)
   return (
     <S.Wrapper>
@@ -270,9 +268,8 @@ export default function Events() {
     </S.Wrapper>
   )
 }
-export const getServerSideProps: GetServerSideProps = withSSRAuth(async () => {
-  //Make the Events info request on server side
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {}
   }
-})
+}
