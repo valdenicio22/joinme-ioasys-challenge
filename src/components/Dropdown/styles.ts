@@ -27,7 +27,7 @@ export const Content = styled.div`
       position: absolute;
       border-right: 1.2rem solid transparent;
       border-left: 1.2rem solid transparent;
-      border-bottom: 1.2rem solid ${theme.colors.lighterBlue};
+      border-bottom: 1.2rem solid ${theme.colors.secondary};
       top: -1.2rem;
       right: 2.4rem;
     }

@@ -25,7 +25,7 @@ export const Link = styled.a`
     padding: 1.6rem 2.4rem;
     transition: background, color, 0.3s ease-in-out;
     &:hover {
-      background: ${theme.colors.lighterBlue};
+      background: ${theme.colors.lightPink};
     }
     > svg {
       width: 2.4rem;
