@@ -1,22 +1,85 @@
-import axios from 'axios'
+import Axios from 'axios'
 import BookMark from 'components/BookMark'
 import Button from 'components/Button'
 import MeditationIcon from 'components/MeditationIcon'
 import { GetServerSideProps } from 'next'
 import Image from 'next/image'
-import { EventData } from 'types/types'
+import { CurrentModal, EventData } from 'types/types'
 import * as S from './EventDetails'
 import { Share } from '@styled-icons/feather'
+import { toast } from 'react-toastify'
+import { useAuth } from 'context/AuthContext'
+import React, { MouseEvent, useState } from 'react'
+import { api } from 'service/api'
+import Router from 'next/router'
+import { UserDialog } from 'components/UserDialog'
 
 type EventsDetailsProps = {
   eventData: EventData
 }
 
 export default function EventsDetails({ eventData }: EventsDetailsProps) {
-  const { description, date, name, isOnline, users } = eventData
+  const { description, date, name, isOnline, users, id } = eventData
+  const [currentModal, setCurrentModal] = useState<CurrentModal>('idle')
+
+  const { user } = useAuth()
+
+  const hasUSer = (type: string) => {
+    toast.info(
+      `Faça login para ${type} ${type === 'compartilhar' ? 'o' : 'do'} evento`
+    )
+    setCurrentModal('signin')
+  }
+
+  const handleAttendButton = async (e: MouseEvent) => {
+    e.preventDefault()
+    if (!user) {
+      hasUSer('participar')
+    } else {
+      try {
+        await api.post('/events/attendees', {
+          status: 'confirmed',
+          eventId: id
+        })
+        toast.info('Participação confirmada')
+        Router.push('/home')
+      } catch (err) {
+        if (Axios.isAxiosError(err)) {
+          if (err.response?.status === 409) {
+            console.log('err', err)
+            toast.info('Sua particição nesse evento já foi confirmada')
+          }
+        } else console.log(err)
+      }
+    }
+  }
+
+  const handleShareButton = (e: MouseEvent) => {
+    e.preventDefault()
+    if (!user) {
+      hasUSer('compartilhar')
+    } else {
+      toast.info('Essa funcionalidade será liberada em breve')
+    }
+  }
+
+  const handleSaveButton = (e: MouseEvent) => {
+    e.preventDefault()
+    if (!user) {
+      hasUSer('salvar')
+    } else {
+      toast.success('to do - salvar evento')
+    }
+  }
 
   return (
     <S.Wrapper>
+      {currentModal === 'signin' && (
+        <UserDialog
+          currentModal={currentModal}
+          setCurrentModal={setCurrentModal}
+        />
+      )}
       <S.HeaderContainer>
         <S.DesktopContainer>
           <S.DateHeader>{date}</S.DateHeader>
@@ -101,7 +164,7 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
               <S.PriceTitle>Price</S.PriceTitle>
               <S.PriceValue>RS: 600</S.PriceValue>
             </S.Price>
-            <S.SaveEvent>
+            <S.SaveEvent onClick={handleSaveButton}>
               <BookMark />
             </S.SaveEvent>
             <Button
@@ -110,10 +173,16 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
               size="large"
               colorText="secondary"
               borderColor="secondary"
+              onClick={handleShareButton}
             >
               Compartilhar
             </Button>
-            <Button bgColor="primary" size="large" colorText="white">
+            <Button
+              bgColor="primary"
+              size="large"
+              colorText="white"
+              onClick={handleAttendButton}
+            >
               Participar
             </Button>
           </S.AttendEventContainer>
@@ -125,7 +194,7 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const eventId = ctx.params?.id
-  const response = await axios.get<EventData[]>(
+  const response = await Axios.get<EventData[]>(
     `https://thiagosgdev.com/events/list?eventId=${eventId}`
   )
 
