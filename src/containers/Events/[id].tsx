@@ -1,9 +1,8 @@
-import Axios from 'axios'
+import axios from 'axios'
 import BookMark from 'components/BookMark'
 import Button from 'components/Button'
 import MeditationIcon from 'components/MeditationIcon'
 import { GetServerSideProps } from 'next'
-import Image from 'next/image'
 import { CurrentModal, EventData } from 'types/types'
 import * as S from './EventDetails'
 import { Share } from '@styled-icons/feather'
@@ -35,22 +34,17 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
     e.preventDefault()
     if (!user) {
       hasUSer('participar')
-    } else {
-      try {
-        await api.post('/events/attendees', {
-          status: 'confirmed',
-          eventId: id
-        })
-        toast.info('Participação confirmada')
-        Router.push('/home')
-      } catch (err) {
-        if (Axios.isAxiosError(err)) {
-          if (err.response?.status === 409) {
-            console.log('err', err)
-            toast.info('Sua particição nesse evento já foi confirmada')
-          }
-        } else console.log(err)
-      }
+      return
+    }
+    try {
+      await api.post('/events/attendees', {
+        status: 'confirmed',
+        eventId: id
+      })
+      toast.info('Participação confirmada')
+      Router.push('/home')
+    } catch {
+      toast.info('Sua participação já está confirmada neste evento')
     }
   }
 
@@ -90,7 +84,7 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
         <S.MainInfoContainer>
           <S.EventInfoContainer>
             <S.EventImgContainer>
-              <Image
+              <img
                 width={660}
                 height={370}
                 src="/img/eventFake.png"
@@ -194,7 +188,7 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const eventId = ctx.params?.id
-  const response = await Axios.get<EventData[]>(
+  const response = await axios.get<EventData[]>(
     `https://thiagosgdev.com/events/list?eventId=${eventId}`
   )
 
