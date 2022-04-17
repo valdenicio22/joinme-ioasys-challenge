@@ -16,7 +16,7 @@ export default function LandingPage() {
         <S.SectionContainer>
           <span>👏 Hey, Bem vindo!</span>
           <h1>JoinMe</h1>
-          <h1>Landing Page ...</h1>
+          <h1>Landing Page</h1>
 
           <Button onClick={() => Router.push('/home')}>
             Conheça a plataforma

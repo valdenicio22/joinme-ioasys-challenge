@@ -74,3 +74,5 @@ export type EventData = {
   eventAccessibilities?: EventAcessibilities
   users: Pick<User, 'name' | 'aboutMe'>
 }
+
+export type CurrentModal = 'signin' | 'signup' | 'forgotPassword' | 'idle'
