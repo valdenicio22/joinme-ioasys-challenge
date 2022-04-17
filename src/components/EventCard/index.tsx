@@ -1,7 +1,6 @@
 import BookMark from 'components/BookMark'
 import LocationIcon from 'components/LocationIcon'
 import Tag from 'components/Tag'
-import Image from 'next/image'
 import { useState } from 'react'
 import { EventData } from 'types/types'
 import * as S from './styles'
@@ -19,7 +18,7 @@ export const EventCard = ({
   return (
     <S.Wrapper>
       <S.ImgContainer>
-        <Image
+        <img
           width={120}
           height={160}
           src="/img/defaultImg.png"

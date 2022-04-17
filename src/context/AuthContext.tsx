@@ -48,13 +48,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }
 
   useEffect(() => {
-    const { joinMeToken, joinMeUser } = parseCookies()
-    try {
-      if (!joinMeToken) throw Error
+    const { joinMeUser } = parseCookies()
+
+    if (joinMeUser) {
       const userData = JSON.parse(joinMeUser)
       setUser(userData)
-    } catch (error) {
-      console.log(error)
     }
   }, [])
 
