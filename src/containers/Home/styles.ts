@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.div`
-  width: ${({ theme }) => theme.containers.desktop};
+  max-width: ${({ theme }) => theme.containers.desktop};
+  width: 100%;
   height: 100%;
   margin: 0 auto;
 `
@@ -56,18 +57,9 @@ export const Welcome = styled.h2`
   `}
 `
 
-export const EventCardContainer = styled.main`
-  border: 1px solid black;
+export const EventsCardsListContainer = styled.main`
   width: 100%;
-  gap: 2.5rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-`
-
-export const CardButton = styled.button`
-  background-color: transparent;
-  outline: none;
-  border: none;
-
-  cursor: pointer;
+  grid-template-columns: repeat(auto-fit, minmax(33rem, 1fr));
+  gap: 0 2.5rem;
 `

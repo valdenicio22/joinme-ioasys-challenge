@@ -7,7 +7,7 @@ import {
 } from 'react'
 import Router from 'next/router'
 
-import { setCookie, parseCookies, destroyCookie } from 'nookies'
+import { setCookie, destroyCookie, parseCookies } from 'nookies'
 
 import { AuthenticatedUserData, User } from '../types/types'
 import { api } from 'service/api'
@@ -53,8 +53,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       if (!joinMeToken) throw Error
       const userData = JSON.parse(joinMeUser)
       setUser(userData)
-    } catch {
-      signOut()
+    } catch (error) {
+      console.log(error)
     }
   }, [])
 

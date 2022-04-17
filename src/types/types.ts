@@ -66,9 +66,13 @@ export type EventData = {
   activityId?: string
   userId?: string
   price?: number
+  isOnline?: boolean
   isPromoted?: boolean
   userIdentity?: string
   addresses?: Array<EventAddress>
   activities?: Activity
   eventAccessibilities?: EventAcessibilities
+  users: Pick<User, 'name' | 'aboutMe'>
 }
+
+export type CurrentModal = 'signin' | 'signup' | 'forgotPassword' | 'idle'

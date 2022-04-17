@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css, DefaultTheme } from 'styled-components'
 import { ButtonProps } from '.'
 
 type WrapperProps = { hasIcon: boolean } & Omit<ButtonProps, 'children'>
@@ -16,22 +16,36 @@ const wrapperModifiers = {
     svg {
       width: 2rem;
       height: 2rem;
-
-      & + span {
-        margin-right: 1rem;
-      }
+      margin-left: 1rem;
     }
   `,
-  changeBgColor: (bgColor: 'primary' | 'lighterGray') => css`
+  changeBgColor: (bgColor: 'primary' | 'lighterGray' | 'white') => css`
     background-color: ${({ theme }) => theme.colors[bgColor]};
   `,
-  changeColor: (colorText: 'white' | 'primary') => css`
+  changeColor: (colorText: 'white' | 'primary' | 'secondary') => css`
     color: ${({ theme }) => theme.colors[colorText]};
+  `,
+  largeButton: (theme: DefaultTheme) => css`
+    width: 18rem;
+    height: 5rem;
+    border-radius: 1.3rem;
+    font-weight: ${theme.font.weight.semiBold};
+  `,
+  changeBorderColor: (borderColor: 'secondary') => css`
+    border: 1px solid ${({ theme }) => theme.colors[borderColor]};
   `
 }
 
 export const Wrapper = styled.button<WrapperProps>`
-  ${({ theme, fullWidth, hasIcon, bgColor, colorText }) => css`
+  ${({
+    theme,
+    fullWidth,
+    hasIcon,
+    bgColor,
+    colorText,
+    size,
+    borderColor
+  }) => css`
     border: 0;
     padding: 1rem 3rem;
     border-radius: ${theme.border.radius.xlarge};
@@ -43,5 +57,7 @@ export const Wrapper = styled.button<WrapperProps>`
     ${!!hasIcon && wrapperModifiers.withIcon()}
     ${!!bgColor && wrapperModifiers.changeBgColor(bgColor)}
     ${!!colorText && wrapperModifiers.changeColor(colorText)}
+    ${!!size && wrapperModifiers.largeButton(theme)}
+    ${!!borderColor && wrapperModifiers.changeBorderColor(borderColor)}
   `}
 `

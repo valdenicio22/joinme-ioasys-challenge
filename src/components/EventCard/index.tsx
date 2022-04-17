@@ -22,7 +22,7 @@ export const EventCard = ({
         <Image
           width={120}
           height={160}
-          src="/defaultImg.png"
+          src="/img/defaultImg.png"
           alt="Default Img"
         />
         <S.Schedule>28 abril</S.Schedule>
