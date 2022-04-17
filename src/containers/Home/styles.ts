@@ -58,7 +58,6 @@ export const Welcome = styled.h2`
 `
 
 export const EventsCardsListContainer = styled.main`
-  border: 1px solid black;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(33rem, 1fr));

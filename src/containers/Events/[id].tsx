@@ -17,12 +17,13 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
 
   return (
     <S.Wrapper>
-      <S.DesktopContainer>
-        <S.HeaderContainer>
+      <S.HeaderContainer>
+        <S.DesktopContainer>
           <S.DateHeader>{date}</S.DateHeader>
-          <S.EventTitle>{`${isOnline && '[Online]'} ${name}`}</S.EventTitle>
-        </S.HeaderContainer>
-
+          <S.EventTitle>{`${isOnline ? '[Online]' : ''} ${name}`}</S.EventTitle>
+        </S.DesktopContainer>
+      </S.HeaderContainer>
+      <S.DesktopContainer>
         <S.MainInfoContainer>
           <S.EventInfoContainer>
             <S.EventImgContainer>

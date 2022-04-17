@@ -24,8 +24,8 @@ export const EventTitle = styled.h1`
   ${({ theme }) => css`
     font-weight: ${theme.font.weight.bold};
     font-size: ${theme.font.sizes.xlarge};
-    padding-top: 0.3rem;
-    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 1.8rem;
   `}
 `
 
