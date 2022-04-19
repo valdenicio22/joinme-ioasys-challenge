@@ -2,13 +2,26 @@ import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.header`
   width: 100%;
-  height: 7.2rem;
-  background-color: ${({ theme }) => theme.colors.black};
+  height: 8rem;
+
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 
-  padding: 2.5rem;
+  padding: 2rem 1rem;
+  background-color: ${({ theme }) => theme.colors.primary};
+`
+
+export const HeaderContainer = styled.div`
+  ${({ theme }) => css`
+    max-width: ${theme.containers.desktop};
+    width: 100%;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  `}
 `
 
 export const LogoBtnContainer = styled.button`
@@ -16,18 +29,26 @@ export const LogoBtnContainer = styled.button`
   outline: none;
   border: none;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   div > svg {
     width: 13rem;
-    height: 5rem;
+    height: 4rem;
   }
 `
 
 export const NavContainer = styled.nav`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  transition: filter 0.5s;
-  font-size: 1.5rem;
+  ${({ theme }) => css`
+    font-weight: ${theme.font.weight.bold};
+    font-size: ${theme.font.sizes.large};
+    line-height: 2.7rem;
+    color: ${theme.colors.white};
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  `}
 `
 
 export const NavButton = styled.button`
@@ -36,10 +57,11 @@ export const NavButton = styled.button`
     background-color: transparent;
     outline: none;
     border: none;
-    font-size: ${theme.font.sizes.medium};
+    font-size: ${theme.font.sizes.large};
 
     &:hover {
-      color: ${theme.colors.primary};
+      color: ${theme.colors.secondary};
+      font-weight: ${theme.font.weight.semiBold};
     }
   `}
 `

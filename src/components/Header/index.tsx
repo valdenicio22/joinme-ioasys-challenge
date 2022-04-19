@@ -6,6 +6,7 @@ import { useAuth } from 'context/AuthContext'
 import UserDropdown from 'components/UserDropdown'
 import { UserDialog } from 'components/UserDialog'
 import { CurrentModal } from 'types/types'
+import Button from 'components/Button'
 
 const Header = () => {
   const { user } = useAuth()
@@ -31,24 +32,29 @@ const Header = () => {
           setCurrentModal={setCurrentModal}
         />
       )}
-
-      <S.LogoBtnContainer
-        onClick={() => (user ? Router.push('/home') : Router.push('/'))}
-      >
-        <Logo />
-      </S.LogoBtnContainer>
-      {user ? (
-        <UserDropdown username={user.name} />
-      ) : (
+      <S.HeaderContainer>
+        <S.LogoBtnContainer
+          onClick={() => (user ? Router.push('/home') : Router.push('/'))}
+        >
+          <Logo />
+        </S.LogoBtnContainer>
         <S.NavContainer>
-          <S.NavButton onClick={() => setCurrentModal('signin')}>
-            Entrar
-          </S.NavButton>
-          <S.NavButton onClick={() => setCurrentModal('signup')}>
-            Cadastra-se
-          </S.NavButton>
+          <S.NavButton onClick={() => Router.push('/home')}>Home</S.NavButton>
+          <S.NavButton onClick={() => Router.push('/about')}>Sobre</S.NavButton>
+          {user ? (
+            <UserDropdown username={user.name} />
+          ) : (
+            <>
+              <S.NavButton onClick={() => setCurrentModal('signin')}>
+                Blog
+              </S.NavButton>
+              <Button onClick={() => setCurrentModal('signup')}>
+                Cadastra-se
+              </Button>
+            </>
+          )}
         </S.NavContainer>
-      )}
+      </S.HeaderContainer>
     </S.Wrapper>
   )
 }
