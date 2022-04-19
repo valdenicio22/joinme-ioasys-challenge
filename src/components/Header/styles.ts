@@ -40,30 +40,28 @@ export const LogoBtnContainer = styled.button`
 `
 
 export const NavContainer = styled.nav`
-  ${({ theme }) => css`
-    font-weight: ${theme.font.weight.bold};
-    font-size: ${theme.font.sizes.large};
-    line-height: 2.7rem;
-    color: ${theme.colors.white};
-    display: flex;
-    align-items: center;
-    gap: 3rem;
-  `}
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+
+  button {
+    ${({ theme }) => css`
+      color: ${theme.colors.white};
+      font-weight: ${theme.font.weight.bold};
+      font-size: ${theme.font.sizes.large};
+      line-height: 2.7rem;
+      transition: filter 0.2s;
+
+      &:hover {
+        filter: brightness(0.8);
+      }
+    `}
+  }
 `
-
 export const NavButton = styled.button`
-  ${({ theme }) => css`
-    color: ${theme.colors.white};
-    background-color: transparent;
-    outline: none;
-    border: none;
-    font-size: ${theme.font.sizes.large};
-
-    &:hover {
-      color: ${theme.colors.secondary};
-      font-weight: ${theme.font.weight.semiBold};
-    }
-  `}
+  background-color: transparent;
+  outline: none;
+  border: none;
 `
 
 export const LoggedInMenu = styled.div`

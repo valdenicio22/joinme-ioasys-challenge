@@ -40,13 +40,14 @@ const Header = () => {
         </S.LogoBtnContainer>
         <S.NavContainer>
           <S.NavButton onClick={() => Router.push('/home')}>Home</S.NavButton>
-          <S.NavButton onClick={() => Router.push('/about')}>Sobre</S.NavButton>
+          <S.NavButton>Sobre</S.NavButton>
+          <S.NavButton onClick={() => Router.push('/blog')}>Blog</S.NavButton>
           {user ? (
             <UserDropdown username={user.name} />
           ) : (
             <>
               <S.NavButton onClick={() => setCurrentModal('signin')}>
-                Blog
+                Entrar
               </S.NavButton>
               <Button onClick={() => setCurrentModal('signup')}>
                 Cadastra-se
