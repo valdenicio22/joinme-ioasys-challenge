@@ -40,7 +40,8 @@ const Header = () => {
         </S.LogoBtnContainer>
         <S.NavContainer>
           <S.NavButton onClick={() => Router.push('/home')}>Home</S.NavButton>
-          <S.NavButton>Sobre</S.NavButton>
+          {!user && <S.NavButton>Sobre</S.NavButton>}
+
           <S.NavButton onClick={() => Router.push('/blog')}>Blog</S.NavButton>
           {user ? (
             <UserDropdown username={user.name} />
