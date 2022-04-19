@@ -25,7 +25,7 @@ export const FooterContent = styled.div`
 
 export const FooterItemsContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  align-items: flex-start;
   flex-direction: column;
   gap: 1.5rem;
 `
@@ -59,6 +59,14 @@ export const FooterMediasContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
+
+  button {
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
 `
 
 export const FooterItem = styled.p`
@@ -66,73 +74,23 @@ export const FooterItem = styled.p`
     font-size: ${theme.font.sizes.medium};
     line-height: 2.4rem;
     color: ${theme.colors.white};
-    cursor: pointer;
   `}
 `
-
-export const BottomInfo = styled.ul`
+export const FooterItemButton = styled.button`
   ${({ theme }) => css`
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    color: ${theme.colors.white};
-    font-weight: ${theme.font.weight.bold};
+    background-color: transparent;
+    outline: none;
+    border: none;
+
     font-size: ${theme.font.sizes.medium};
     line-height: 2.4rem;
+    color: ${theme.colors.white};
+    cursor: pointer;
+
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
   `}
-`
-
-export const OutsideConnections = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-`
-
-export const SocialMediasContainer = styled.div``
-
-export const FollowUs = styled.p`
-  color: ${({ theme }) => theme.colors.white};
-`
-
-export const SocialMedias = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 0.5rem;
-  cursor: pointer;
-`
-
-export const MobileButtonsContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
-  gap: 0.3rem;
-
-  color: ${({ theme }) => theme.colors.textGray};
-`
-
-export const ButtonsLabel = styled.span`
-  color: ${({ theme }) => theme.colors.textGray};
-`
-
-export const MobileButton = styled.button`
-  width: 7rem;
-  height: 3.5rem;
-  border-radius: 1rem;
-  background-color: #000;
-  text-align: center;
-  outline: none;
-  border: 1px solid ${({ theme }) => theme.colors.textGray};
-  color: ${({ theme }) => theme.colors.textGray};
-`
-
-export const BottomLink = styled.li`
-  transition: filter 0.2s;
-  cursor: pointer;
-
-  &:hover {
-    filter: brightness(0.8);
-  }
 `
