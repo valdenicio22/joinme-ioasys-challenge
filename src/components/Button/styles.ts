@@ -52,9 +52,9 @@ export const Wrapper = styled.button<WrapperProps>`
     borderColor,
     format
   }) => css`
-    width: 15rem;
-    height: 4rem;
-    padding: 0.8rem 2.8rem;
+    width: 15.3rem;
+    height: 4.2rem;
+    padding: 0.8rem 2.5rem;
     border: 0.2rem solid;
     border-radius: ${theme.border.radius.large};
     border-color: ${theme.colors.white};
