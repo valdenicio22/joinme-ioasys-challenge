@@ -19,9 +19,7 @@ type SignupFormData = {
   email: 'string'
   password: 'string'
   passwordConfirmation: 'string'
-  phone?: 'string'
-  emergencyName?: 'string'
-  emergencyPhone?: 'string'
+  termsConfirmation: boolean | undefined
 }
 
 type isVisibleProps = 'text' | 'password'
@@ -31,18 +29,20 @@ type SignUpProps = {
   setIsSigninModalOpen: (arg: boolean) => void
 }
 
-export function Signup({
+export const Signup = ({
   setIsSignupModalOpen,
   setIsSigninModalOpen
-}: SignUpProps) {
+}: SignUpProps) => {
   const [isVisible, setIsVisible] = useState<isVisibleProps>('password')
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors }
   } = useForm<SignupFormData>()
 
   const onSubmit: SubmitHandler<SignupFormData> = async (formData) => {
+    console.log({ formData })
     try {
       await api.post('users/signup', { ...formData })
       toast.success('Bem vindo! Sua conta foi criada!')
@@ -50,25 +50,15 @@ export function Signup({
       setIsSigninModalOpen(true)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      if (err.response.status === 409) {
-        toast.error('E-mail já cadastrado!')
-      }
+      console.log({ err })
+      console.log(err.response)
     }
   }
 
-  const handleFormError = (): string | undefined => {
-    if (errors.email?.type === 'pattern') {
-      return 'Email inválido'
-    }
-    if (errors.passwordConfirmation?.type === 'minLength') {
-      return 'A senha deve ter pelo menos 6 caracteres'
-    }
-    if (errors.email?.type === 'required') {
-      return 'Email é um campo obrigatório'
-    }
-    if (errors.name?.type === 'required') {
-      return 'Name é um campo obrigatório'
-    }
+  const handleFormError = (
+    fieldName: keyof typeof errors
+  ): string | undefined => {
+    return errors[fieldName]?.message
   }
 
   const handleSinginModal = () => {
@@ -94,31 +84,46 @@ export function Signup({
             label="Como podemos te chamar?*"
             type="text"
             {...register('name', {
-              required: true
+              required: {
+                value: true,
+                message: 'O campo nome é obrigatório'
+              }
             })}
             placeholder="Luma"
             fullWidth={true}
-            error={handleFormError()}
+            error={handleFormError('name')}
           />
           <TextField
             label="Seu e-mail:*"
             type="email"
             {...register('email', {
-              required: true,
-              pattern: /\S+@\S+\.\S+/
+              required: {
+                value: true,
+                message: 'O campo e-mail é obrigatório'
+              },
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: 'Email inválido'
+              }
             })}
             placeholder="lumasilva@email.com"
             fullWidth={true}
-            error={handleFormError()}
+            error={handleFormError('email')}
           />
           <TextField
             label="Digite uma senha:*"
             type={isVisible}
-            error={handleFormError()}
             {...register('password', {
-              required: true,
-              minLength: 6
+              required: {
+                value: true,
+                message: 'O campo senha é obrigatório'
+              },
+              minLength: {
+                value: 6,
+                message: 'A senha deve conter pelo menos 6 caracteres'
+              }
             })}
+            error={handleFormError('password')}
             fullWidth={true}
             icon={
               <EyeIcon
@@ -130,11 +135,22 @@ export function Signup({
           <TextField
             label="Confirme sua senha:*"
             type={isVisible}
-            error={handleFormError()}
             {...register('passwordConfirmation', {
-              required: true,
-              minLength: 6
+              required: {
+                value: true,
+                message: 'O campo confirmar a senha é obrigatório'
+              },
+              minLength: {
+                value: 6,
+                message: 'A senha deve conter pelo menos 6 caracteres'
+              },
+              validate: (value: string) => {
+                if (watch('password') !== value) {
+                  return 'Suas senhas não correspondem'
+                }
+              }
             })}
+            error={handleFormError('passwordConfirmation')}
             fullWidth={true}
             icon={
               <EyeIcon
