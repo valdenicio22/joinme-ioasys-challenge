@@ -78,7 +78,9 @@ export const ForgotPassword = ({
         />
 
         <S.BtnAndLastInfoContainer>
-          <Button fullWidth={true}>ENVIAR</Button>
+          <Button fullWidth={true} bgColor="primary">
+            ENVIAR
+          </Button>
           <S.PInfoAccount>
             Lembrou qual era?&nbsp;
             <S.YourAccount>Acesse sua conta aqui!</S.YourAccount>
