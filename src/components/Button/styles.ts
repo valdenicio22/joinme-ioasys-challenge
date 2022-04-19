@@ -10,9 +10,7 @@ const wrapperModifiers = {
 
   withIcon: () => css`
     svg {
-      width: 2rem;
-      height: 2rem;
-      margin-right: 0.5rem;
+      margin-right: 1rem;
     }
   `,
   changeBgColor: (bgColor: 'primary' | 'lighterGray' | 'white') => css`
@@ -27,8 +25,19 @@ const wrapperModifiers = {
     border-radius: 1.3rem;
     font-weight: ${theme.font.weight.semiBold};
   `,
+  smallButton: (theme: DefaultTheme) => css`
+    width: 13rem;
+    height: 4rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 1.3rem;
+    font-size: ${theme.font.sizes.medium};
+    line-height: 2.4rem;
+  `,
   changeBorderColor: (borderColor: 'secondary') => css`
     border: 1px solid ${({ theme }) => theme.colors[borderColor]};
+  `,
+  squareButton: (theme: DefaultTheme) => css`
+    border-radius: ${theme.border.radius.medium};
   `
 }
 
@@ -40,7 +49,8 @@ export const Wrapper = styled.button<WrapperProps>`
     bgColor,
     colorText,
     size,
-    borderColor
+    borderColor,
+    format
   }) => css`
     width: 15rem;
     height: 4rem;
@@ -60,7 +70,9 @@ export const Wrapper = styled.button<WrapperProps>`
     ${!!hasIcon && wrapperModifiers.withIcon()}
     ${!!bgColor && wrapperModifiers.changeBgColor(bgColor)}
     ${!!colorText && wrapperModifiers.changeColor(colorText)}
-    ${!!size && wrapperModifiers.largeButton(theme)}
+    ${size === 'large' && wrapperModifiers.largeButton(theme)}
+    ${size === 'small' && wrapperModifiers.smallButton(theme)}
     ${!!borderColor && wrapperModifiers.changeBorderColor(borderColor)}
+    ${!!format && wrapperModifiers.squareButton(theme)}
   `}
 `
