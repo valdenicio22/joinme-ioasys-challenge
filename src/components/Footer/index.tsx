@@ -1,41 +1,68 @@
 import * as S from './styles'
-import {
-  Twitter,
-  Instagram,
-  Google,
-  Youtube
-} from '@styled-icons/boxicons-logos'
+import { Twitter, Instagram, Facebook } from '@styled-icons/boxicons-logos'
+import Logo from 'components/Logo'
+import Button from 'components/Button'
+import PlayStoreIcon from 'components/PlayStoreIcon'
+import FlutterIcon from 'components/FlutterIcon'
 
 export const Footer = () => {
   return (
     <S.Wrapper>
-      <S.FotterContent>
-        <S.OutsideConnections>
-          <S.SocialMediasContainer>
-            <S.FollowUs>Siga-nos</S.FollowUs>
-            <S.SocialMedias>
-              <Twitter size={30} color="#d9d9d9" />
-              <Instagram size={30} color="#d9d9d9" />
-              <Google size={30} color="#d9d9d9" />
-              <Youtube size={30} color="#d9d9d9" />
-            </S.SocialMedias>
-          </S.SocialMediasContainer>
+      <S.FooterContainer>
+        <S.FooterContent>
+          <S.LogoContainer>
+            <Logo />
+          </S.LogoContainer>
+          <S.CopyRight>
+            © CopyRight 2022 <br /> All Rights Reserved.
+          </S.CopyRight>
+        </S.FooterContent>
 
-          <S.MobileButtonsContainer>
-            <S.ButtonsLabel>Disponível em:</S.ButtonsLabel>
-            <S.SocialMedias>
-              <S.MobileButton>Android</S.MobileButton>
-              <S.MobileButton>Flutter</S.MobileButton>
-            </S.SocialMedias>
-          </S.MobileButtonsContainer>
-        </S.OutsideConnections>
+        <S.FooterContent>
+          <S.FooterTitle>Sua conta</S.FooterTitle>
+          <S.FooterItemsContainer>
+            <S.FooterItem>Cadastra-se</S.FooterItem>
+            <S.FooterItem>Entrar</S.FooterItem>
+          </S.FooterItemsContainer>
+        </S.FooterContent>
 
-        <S.BottomInfo>
-          <S.BottomLink>© 2022 joinMe</S.BottomLink>
-          <S.BottomLink>Termos de serviço</S.BottomLink>
-          <S.BottomLink>Ajuda</S.BottomLink>
-        </S.BottomInfo>
-      </S.FotterContent>
+        <S.FooterContent>
+          <S.FooterTitle>Sobre</S.FooterTitle>
+          <S.FooterItemsContainer>
+            <S.FooterItem>Sobre</S.FooterItem>
+            <S.FooterItem>Ajuda</S.FooterItem>
+          </S.FooterItemsContainer>
+        </S.FooterContent>
+
+        <S.FooterContent>
+          <S.FooterTitle>Descubra</S.FooterTitle>
+          <S.FooterItemsContainer>
+            <S.FooterItem>Eventos</S.FooterItem>
+            <S.FooterItem>Bem-estar</S.FooterItem>
+          </S.FooterItemsContainer>
+        </S.FooterContent>
+
+        <S.FooterContent>
+          <S.FooterTitle>Social Medias</S.FooterTitle>
+          <S.FooterMediasContainer>
+            <Twitter size={30} color="#FFFFFF" />
+            <Instagram size={30} color="#FFFFFF" />
+            <Facebook size={30} color="#FFFFFF" />
+          </S.FooterMediasContainer>
+        </S.FooterContent>
+
+        <S.FooterContent>
+          <S.FooterTitle>Disponível em:</S.FooterTitle>
+          <S.FooterMediasContainer>
+            <Button icon={<PlayStoreIcon />} format="square" size="small">
+              Android
+            </Button>
+            <Button icon={<FlutterIcon />} format="square" size="small">
+              Flutter
+            </Button>
+          </S.FooterMediasContainer>
+        </S.FooterContent>
+      </S.FooterContainer>
     </S.Wrapper>
   )
 }
