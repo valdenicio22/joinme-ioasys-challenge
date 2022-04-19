@@ -9,14 +9,10 @@ const wrapperModifiers = {
   `,
 
   withIcon: () => css`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
     svg {
       width: 2rem;
       height: 2rem;
-      margin-left: 1rem;
+      margin-right: 0.5rem;
     }
   `,
   changeBgColor: (bgColor: 'primary' | 'lighterGray' | 'white') => css`
@@ -46,12 +42,19 @@ export const Wrapper = styled.button<WrapperProps>`
     size,
     borderColor
   }) => css`
-    border: 0;
-    padding: 1rem 3rem;
-    border-radius: ${theme.border.radius.xlarge};
-    font-size: ${theme.font.sizes.medium};
-    cursor: pointer;
+    width: 15rem;
     height: 4rem;
+    padding: 0.8rem 2.8rem;
+    border: 0.2rem solid;
+    border-radius: ${theme.border.radius.large};
+    border-color: ${theme.colors.white};
+    font-size: ${theme.font.sizes.large};
+    line-height: 2.7rem;
+    background-color: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     ${!!fullWidth && wrapperModifiers.fullWidth()}
     ${!!hasIcon && wrapperModifiers.withIcon()}

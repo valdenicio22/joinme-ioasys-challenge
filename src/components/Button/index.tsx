@@ -15,7 +15,7 @@ const Button = ({
   children,
   icon,
   fullWidth = false,
-  bgColor = 'primary',
+  bgColor,
   colorText = 'white',
   size,
   borderColor,
@@ -30,8 +30,8 @@ const Button = ({
     borderColor={borderColor}
     {...props}
   >
-    <span>{children}</span>
     {!!icon && icon}
+    <span>{children}</span>
   </S.Wrapper>
 )
 export default Button
