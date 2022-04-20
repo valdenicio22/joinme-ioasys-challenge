@@ -17,7 +17,6 @@ const wrapperModifiers = {
   smallSize: (theme: DefaultTheme) => css`
     width: fit-content;
     height: 2rem;
-    padding: 0.5rem;
     border: 1px solid ${theme.colors.darkGray};
   `
 }
@@ -25,9 +24,9 @@ const wrapperModifiers = {
 export const Wrapper = styled.div<WrapperProps>`
   ${({ theme, background, colorText, size }) => css`
     width: fit-content;
-    height: 4rem;
+    padding: 1.2rem 1rem;
     border: 1px solid ${theme.colors.primary};
-    border-radius: ${theme.border.radius.xlarge};
+    border-radius: ${theme.border.radius.large};
     color: ${theme.colors.primary};
     display: flex;
     align-items: center;

@@ -1,41 +1,39 @@
 import BookMark from 'components/BookMark'
-import LocationIcon from 'components/LocationIcon'
 import Tag from 'components/Tag'
 import { useState } from 'react'
 import { EventData } from 'types/types'
 import * as S from './styles'
+import { LocationOn } from '@styled-icons/material'
+type EventCardProps = {
+  event: EventData
+}
 
-type EventCardProps = Omit<EventData, 'eventAccessibilities'>
-
-export const EventCard = ({
-  addresses,
-  name,
-  numParticipants,
-  activities
-}: EventCardProps) => {
+export const EventCard = ({ event }: EventCardProps) => {
   const [isBooked, setIsBooked] = useState(false)
+  const { name, isOnline, numParticipants, addresses, activities } = event
 
   return (
     <S.Wrapper>
       <S.ImgContainer>
-        <img
-          width={120}
-          height={160}
-          src="/img/defaultImg.png"
-          alt="Default Img"
-        />
+        <img width={360} height={304} src="/img/events.png" alt="Default Img" />
         <S.Schedule>28 abril</S.Schedule>
       </S.ImgContainer>
       <S.EventDetailsContainer>
         <S.EventTitle>{name}</S.EventTitle>
 
-        <S.LocationContainer>
-          <S.Location>
-            <LocationIcon />
-            <S.Street>{addresses && 'Gramado do Centro'}</S.Street>
-          </S.Location>
-          <S.City>{addresses && 'Campus II, UFMG'}</S.City>
-        </S.LocationContainer>
+        {isOnline ? (
+          <S.IsOnlineContainer>Online</S.IsOnlineContainer>
+        ) : (
+          <S.LocationContainer>
+            <S.Location>
+              <LocationOn fill="#1E00FC" width={22} height={22} />
+              <S.Street>{addresses && addresses[0].street}</S.Street>
+            </S.Location>
+            <S.City>
+              {addresses && `${addresses[0].city}, ${addresses[0].state}`}
+            </S.City>
+          </S.LocationContainer>
+        )}
 
         <S.Participants>
           {numParticipants! > 1

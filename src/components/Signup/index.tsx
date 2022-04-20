@@ -163,7 +163,7 @@ export const Signup = ({
         <S.TermsContainer>
           <Checkbox />
           <S.PTerms>
-            Li e concordo com os <S.Span>Termos e Condições</S.Span> e{' '}
+            Li e concordo com os <S.Span>Termos e Condições</S.Span> e
             <S.Span>Política de Privacidade.</S.Span>
           </S.PTerms>
         </S.TermsContainer>
@@ -178,7 +178,9 @@ export const Signup = ({
           >
             CONTINUAR COM O GMAIL
           </Button>
-          <Button fullWidth={true}>CRIAR MINHA CONTA</Button>
+          <Button fullWidth={true} bgColor={'primary'}>
+            CRIAR MINHA CONTA
+          </Button>
         </S.SignupButtons>
 
         <S.SigninInfo>

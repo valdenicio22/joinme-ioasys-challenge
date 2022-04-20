@@ -7,18 +7,20 @@ export type ButtonProps = {
   icon?: React.ReactNode
   bgColor?: 'primary' | 'lighterGray' | 'white'
   colorText?: 'primary' | 'white' | 'secondary'
-  size?: 'large'
+  size?: 'large' | 'small'
   borderColor?: 'secondary'
+  format?: 'square'
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
 const Button = ({
   children,
   icon,
   fullWidth = false,
-  bgColor = 'primary',
+  bgColor,
   colorText = 'white',
   size,
   borderColor,
+  format,
   ...props
 }: ButtonProps) => (
   <S.Wrapper
@@ -28,10 +30,11 @@ const Button = ({
     colorText={colorText}
     size={size}
     borderColor={borderColor}
+    format={format}
     {...props}
   >
-    <span>{children}</span>
     {!!icon && icon}
+    <span>{children}</span>
   </S.Wrapper>
 )
 export default Button

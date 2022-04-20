@@ -25,22 +25,13 @@ export default function Home({ eventsCard }: HomeProps) {
   const [isModalOpen, setIsModalOpen] = useState(true)
   const onCloseModal = () => setIsModalOpen(false)
 
-  const hasUpdatedInfo = (): boolean => {
-    if (user) {
-      if (user.emergencyName === null && user.emergencyPhone === null)
-        return true
-      return false
-    }
-    return false
-  }
-
   return (
     <S.Wrapper>
       <Head>
         <title>Home | joinMe</title>
       </Head>
 
-      {hasUpdatedInfo() && (
+      {user && (
         <Dialog isModalOpen={isModalOpen} onCloseModal={onCloseModal}>
           {modalStep === 1 && <EmergencyContact setModalStep={setModalStep} />}
           {modalStep === 2 && (
@@ -53,36 +44,51 @@ export default function Home({ eventsCard }: HomeProps) {
         </Dialog>
       )}
 
-      <S.HeaderContainer>
-        <S.MainLinksContainer>
-          <span>Events</span>
-          <span>insights</span>
-        </S.MainLinksContainer>
-
+      <S.HomeContainer>
         <S.FiltersContainer>
-          <button>Categoria</button>
-          <button>Tipo</button>
-          <button>Mais recentes</button>
+          <select name="FIlter" id="pet-select">
+            <option value="">--Please choose an option--</option>
+            <option value="opt1">Opt1</option>
+            <option value="opt2">Opt2</option>
+          </select>
+
+          <select name="FIlter" id="pet-selectw">
+            <option value="">--Please choose an option--</option>
+            <option value="opt1">Opt1</option>
+            <option value="opt2">Opt2</option>
+          </select>
         </S.FiltersContainer>
-      </S.HeaderContainer>
-      <S.EventsCardsListContainer>
-        {eventsCard
-          ? eventsCard.map((event) => (
-              <Link href={`/events/${event.id}`} key={event.id} passHref>
-                <a>
-                  <EventCard
-                    date={event.date}
-                    name={event.name}
-                    addresses={event.addresses}
-                    numParticipants={event.numParticipants}
-                    activities={event.activities}
-                    users={event.users}
-                  />
-                </a>
-              </Link>
-            ))
-          : 'Loading...'}
-      </S.EventsCardsListContainer>
+
+        <S.Title>Eventos impulsionados</S.Title>
+        <S.Boosted>
+          {eventsCard
+            ? eventsCard
+                .filter((event) => event.isPromoted)
+                .map((event) => (
+                  <Link href={`/events/${event.id}`} key={event.id} passHref>
+                    <a>
+                      <EventCard event={event} />
+                    </a>
+                  </Link>
+                ))
+            : 'Loading...'}
+        </S.Boosted>
+        <S.Title>Eventos Recomendados</S.Title>
+
+        <S.Recommended>
+          {eventsCard
+            ? eventsCard
+                .filter((event) => !event.isPromoted)
+                .map((event) => (
+                  <Link href={`/events/${event.id}`} key={event.id} passHref>
+                    <a>
+                      <EventCard event={event} />
+                    </a>
+                  </Link>
+                ))
+            : 'Loading...'}
+        </S.Recommended>
+      </S.HomeContainer>
     </S.Wrapper>
   )
 }

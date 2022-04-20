@@ -12,8 +12,8 @@ describe('<Button />', () => {
   it('should render the button with style proprieties', () => {
     renderWithThemeProvider(<Button>Entrar</Button>)
     expect(screen.getByRole('button', { name: /Entrar/i })).toHaveStyle({
-      padding: '1rem 3rem',
-      'font-size': '1.6rem'
+      padding: '0.8rem 2.5rem',
+      'font-size': '1.8rem'
     })
   })
 

@@ -2,7 +2,7 @@ export default {
   border: {
     radius: {
       medium: '0.8rem',
-      xlarge: '4rem'
+      large: '3.2rem'
     }
   },
   font: {

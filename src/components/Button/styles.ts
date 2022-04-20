@@ -9,14 +9,8 @@ const wrapperModifiers = {
   `,
 
   withIcon: () => css`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
     svg {
-      width: 2rem;
-      height: 2rem;
-      margin-left: 1rem;
+      margin-right: 1rem;
     }
   `,
   changeBgColor: (bgColor: 'primary' | 'lighterGray' | 'white') => css`
@@ -26,13 +20,23 @@ const wrapperModifiers = {
     color: ${({ theme }) => theme.colors[colorText]};
   `,
   largeButton: (theme: DefaultTheme) => css`
-    width: 18rem;
-    height: 5rem;
+    width: 25rem;
+    height: 6rem;
+    font-weight: ${theme.font.weight.bold};
+  `,
+  smallButton: (theme: DefaultTheme) => css`
+    width: 13rem;
+    height: 4rem;
+    padding: 0.6rem 1.5rem;
     border-radius: 1.3rem;
-    font-weight: ${theme.font.weight.semiBold};
+    font-size: ${theme.font.sizes.medium};
+    line-height: 2.4rem;
   `,
   changeBorderColor: (borderColor: 'secondary') => css`
     border: 1px solid ${({ theme }) => theme.colors[borderColor]};
+  `,
+  squareButton: (theme: DefaultTheme) => css`
+    border-radius: ${theme.border.radius.medium};
   `
 }
 
@@ -44,20 +48,30 @@ export const Wrapper = styled.button<WrapperProps>`
     bgColor,
     colorText,
     size,
-    borderColor
+    borderColor,
+    format
   }) => css`
-    border: 0;
-    padding: 1rem 3rem;
-    border-radius: ${theme.border.radius.xlarge};
-    font-size: ${theme.font.sizes.medium};
-    cursor: pointer;
-    height: 4rem;
+    width: 15.3rem;
+    height: 4.2rem;
+    padding: 0.8rem 2.5rem;
+    border: 0.2rem solid;
+    border-radius: ${theme.border.radius.large};
+    border-color: ${theme.colors.white};
+    font-size: ${theme.font.sizes.large};
+    line-height: 2.7rem;
+    background-color: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     ${!!fullWidth && wrapperModifiers.fullWidth()}
     ${!!hasIcon && wrapperModifiers.withIcon()}
     ${!!bgColor && wrapperModifiers.changeBgColor(bgColor)}
     ${!!colorText && wrapperModifiers.changeColor(colorText)}
-    ${!!size && wrapperModifiers.largeButton(theme)}
+    ${size === 'large' && wrapperModifiers.largeButton(theme)}
+    ${size === 'small' && wrapperModifiers.smallButton(theme)}
     ${!!borderColor && wrapperModifiers.changeBorderColor(borderColor)}
+    ${!!format && wrapperModifiers.squareButton(theme)}
   `}
 `
