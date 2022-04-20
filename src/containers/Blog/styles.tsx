@@ -21,3 +21,10 @@ export const Welcome = styled.h1`
     padding: 2.5rem 0;
   `}
 `
+
+export const BlogCardList = styled.main`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(36rem, 1fr));
+  gap: 2rem;
+  padding-bottom: 3rem;
+`

@@ -14,9 +14,11 @@ const Blog = () => {
     <S.Wrapper>
       <S.BlogContainer>
         <S.Welcome>Dicas de bem-estar</S.Welcome>
-        {fakeArray.map((card) => (
-          <BlogCard key={card.id} />
-        ))}
+        <S.BlogCardList>
+          {fakeArray.map((card) => (
+            <BlogCard key={card.id} />
+          ))}
+        </S.BlogCardList>
       </S.BlogContainer>
     </S.Wrapper>
   )
