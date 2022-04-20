@@ -20,10 +20,9 @@ const wrapperModifiers = {
     color: ${({ theme }) => theme.colors[colorText]};
   `,
   largeButton: (theme: DefaultTheme) => css`
-    width: 18rem;
-    height: 5rem;
-    border-radius: 1.3rem;
-    font-weight: ${theme.font.weight.semiBold};
+    width: 25rem;
+    height: 6rem;
+    font-weight: ${theme.font.weight.bold};
   `,
   smallButton: (theme: DefaultTheme) => css`
     width: 13rem;
