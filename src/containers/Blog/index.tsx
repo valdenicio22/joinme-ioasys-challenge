@@ -1,21 +1,22 @@
+import BlogCard from 'components/BlogCard'
 import * as S from './styles'
 
+type FakeArray = {
+  id: number
+}
+
 const Blog = () => {
+  const fakeArray: FakeArray[] = []
+  for (let i = 0; i < 9; i++) {
+    fakeArray.push({ id: i + 1 })
+  }
   return (
     <S.Wrapper>
       <S.BlogContainer>
         <S.Welcome>Dicas de bem-estar</S.Welcome>
-        <S.BlogCard>
-          <S.ImgContainer>
-            <img src="/img/blog.png" alt="Descrição da imagem" />
-          </S.ImgContainer>
-          <S.InfoContainer>
-            <S.CardTitle>Chás para dormir melhor</S.CardTitle>
-            <S.CardDescription>
-              Iniciando o ritual para uma boa noite{' '}
-            </S.CardDescription>
-          </S.InfoContainer>
-        </S.BlogCard>
+        {fakeArray.map((card) => (
+          <BlogCard key={card.id} />
+        ))}
       </S.BlogContainer>
     </S.Wrapper>
   )
