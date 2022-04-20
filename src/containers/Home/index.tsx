@@ -33,7 +33,6 @@ export default function Home({ eventsCard }: HomeProps) {
     }
     return false
   }
-
   return (
     <S.Wrapper>
       <Head>
@@ -70,14 +69,7 @@ export default function Home({ eventsCard }: HomeProps) {
           ? eventsCard.map((event) => (
               <Link href={`/events/${event.id}`} key={event.id} passHref>
                 <a>
-                  <EventCard
-                    date={event.date}
-                    name={event.name}
-                    addresses={event.addresses}
-                    numParticipants={event.numParticipants}
-                    activities={event.activities}
-                    users={event.users}
-                  />
+                  <EventCard event={event} />
                 </a>
               </Link>
             ))

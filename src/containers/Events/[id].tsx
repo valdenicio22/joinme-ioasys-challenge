@@ -5,7 +5,6 @@ import MeditationIcon from 'components/MeditationIcon'
 import { GetServerSideProps } from 'next'
 import { CurrentModal, EventData } from 'types/types'
 import * as S from './EventDetails'
-import { Share } from '@styled-icons/feather'
 import { toast } from 'react-toastify'
 import { useAuth } from 'context/AuthContext'
 import React, { MouseEvent, useState } from 'react'
@@ -87,7 +86,7 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
               <img
                 width={660}
                 height={370}
-                src="/img/eventFake.png"
+                src="/img/eventDetail.png"
                 alt="Default Img"
               />
             </S.EventImgContainer>
@@ -162,7 +161,6 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
               <BookMark />
             </S.SaveEvent>
             <Button
-              icon={<Share size={24} />}
               bgColor="white"
               size="large"
               colorText="secondary"

@@ -62,4 +62,7 @@ export const EventsCardsListContainer = styled.main`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(33rem, 1fr));
   gap: 0 2.5rem;
+  a {
+    text-decoration: none;
+  }
 `
