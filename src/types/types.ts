@@ -40,16 +40,20 @@ export type EventAddress = {
   state?: string
   zipCode?: string
   referencePoint?: string
-  userId?: string
-  eventId?: string
 }
 
-export type EventAcessibilities = {
+export type EventActivities = {
   id?: string
-  acessibilities: {
+  name?: string
+}
+
+export type EventAccessibilities = {
+  id?: string
+  accessibilities?: {
     id?: string
     name?: string
     description?: string
+    active?: boolean
   }
 }
 
@@ -57,22 +61,28 @@ export type EventData = {
   id?: string
   name?: string
   description?: string
+  isOnline?: boolean
+  url: string
   date?: Date
   isPetFriendly?: boolean
   maxParticipants?: number
-  numParticipants?: number
-  createdAt?: string
   startTime?: string
   activityId?: string
   userId?: string
   price?: number
-  isOnline?: boolean
   isPromoted?: boolean
   userIdentity?: string
+  numParticipants?: number
+  createdAt?: string
+  users: Pick<User, 'name' | 'aboutMe' | 'isPremium'>
+  activities?: EventActivities
   addresses?: Array<EventAddress>
-  activities?: Activity
-  eventAccessibilities?: EventAcessibilities
-  users: Pick<User, 'name' | 'aboutMe'>
+  eventAccessibilities?: Array<EventAccessibilities>
 }
 
-export type CurrentModal = 'signin' | 'signup' | 'forgotPassword' | 'idle'
+export type CurrentModal =
+  | 'signin'
+  | 'signup'
+  | 'forgotPassword'
+  | 'userInterests'
+  | 'idle'
