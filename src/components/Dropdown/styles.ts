@@ -17,7 +17,7 @@ export const Content = styled.div`
     flex-direction: column;
     background: ${theme.colors.white};
     color: ${theme.colors.black};
-    color: ${theme.font.sizes.medium};
+    font-size: ${theme.font.sizes.medium};
     border: 1px solid ${theme.colors.lightGray};
     border-radius: 0.25rem;
     margin-top: 2.4rem;
