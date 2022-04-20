@@ -1,44 +1,44 @@
 import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.div`
-  width: 33rem;
-  height: 16rem;
+  width: 36rem;
+  height: 48rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 `
 
 export const ImgContainer = styled.div`
   position: relative;
   img {
-    border-radius: 2rem 0 0 2rem;
+    border-radius: 2rem 2rem 0 0;
   }
 `
 export const Schedule = styled.p`
   ${({ theme }) => css`
     background-color: ${theme.colors.white};
-    font-size: ${theme.font.sizes.medium};
+    font-size: ${theme.font.sizes.large};
     color: ${theme.colors.primary};
     font-weight: ${theme.font.weight.bold};
-    padding: 0.6rem;
-    width: fit-content;
+    padding: 0.7rem 1.3rem;
 
     position: absolute;
-    left: 1rem;
-    top: 1rem;
-    border-radius: 3.2rem;
+    left: 1.5rem;
+    top: 1.5rem;
+    border-radius: ${theme.border.radius.large};
   `}
 `
 
 export const EventDetailsContainer = styled.div`
   ${({ theme }) => css`
-    width: 21rem;
-    height: 100%;
+    width: 100%;
+    height: 17.6rem;
     background-color: ${theme.colors.mediumGray};
-    border-radius: 0 2rem 2rem 0;
-    border: 1px solid ${theme.colors.lightGray};
-    padding: 1rem;
-    font-size: ${theme.font.sizes.small};
+    border-radius: 0 0 2rem 2rem;
+    padding: 1.5rem;
+    font-size: ${theme.font.sizes.medium};
+    line-height: 1.5rem;
 
     display: flex;
     align-items: flex-start;
@@ -50,11 +50,15 @@ export const EventTitle = styled.h1`
   ${({ theme }) => css`
     color: ${theme.colors.black};
     font-weight: ${theme.font.weight.bold};
-    font-size: ${theme.font.sizes.medium};
+    font-size: ${theme.font.sizes.large};
     width: 100%;
-    margin-bottom: 0.8rem;
-    margin-left: 1.7rem;
+    padding-left: 0.5rem;
+    padding-bottom: 1.3rem;
   `}
+`
+
+export const IsOnlineContainer = styled.p`
+  color: black;
 `
 export const LocationContainer = styled.div`
   display: flex;
@@ -74,7 +78,7 @@ export const City = styled.p`
   ${({ theme }) => css`
     color: ${theme.colors.darkGray};
     font-size: ${theme.font.sizes.small};
-    margin-left: 1.7rem;
+    padding-left: 2.45rem;
   `}
 `
 export const Street = styled.p`
