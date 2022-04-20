@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 
 import * as S from './style'
 export default function SavedEvents() {
-  return <S.Wrapper>SavedEvents</S.Wrapper>
+  return <S.Wrapper>Em construção...</S.Wrapper>
 }
 
 export const getServerSideProps: GetServerSideProps = withSSRAuth(async () => {

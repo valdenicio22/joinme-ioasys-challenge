@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import Link from 'next/link'
-import {
-  AccountCircle,
-  FavoriteBorder,
-  ExitToApp
-} from '@styled-icons/material-outlined'
-import { ChevronDown, HelpCircle } from '@styled-icons/boxicons-regular'
+import { AccountCircle, ExitToApp } from '@styled-icons/material-outlined'
+import { ChevronDown } from '@styled-icons/boxicons-regular'
+import { Create } from '@styled-icons/ionicons-outline'
+import { Bookmark } from '@styled-icons/bootstrap'
 
 import Dropdown from 'components/Dropdown'
 
@@ -41,19 +39,18 @@ const UserDropdown = ({ username }: UserDropdownProps) => {
             <span>Editar Perfil</span>
           </S.Link>
         </Link>
-        <Link href="#" passHref>
-          <S.Link title="Wishlist">
-            <FavoriteBorder />
+        <Link href="/profile/savedevents" passHref>
+          <S.Link title="Eventos Salvos" onClick={handleIsDropdownOpen}>
+            <Bookmark />
+            <span>Eventos Salvos</span>
+          </S.Link>
+        </Link>
+        <Link href="/profile/myevents" passHref>
+          <S.Link title="Meus Eventos" onClick={handleIsDropdownOpen}>
+            <Create />
             <span>Meus Eventos</span>
           </S.Link>
         </Link>
-        <Link href="#" passHref>
-          <S.Link title="Ajuda">
-            <HelpCircle />
-            <span>Ajuda</span>
-          </S.Link>
-        </Link>
-
         <Link href="#" passHref>
           <S.Link title="Sign out" onClick={signOut}>
             <ExitToApp />
