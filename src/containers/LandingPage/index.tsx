@@ -8,7 +8,6 @@ import * as S from './styles'
 import { PlayCircle } from '@styled-icons/boxicons-regular'
 import Link from 'next/link'
 import { EventData, Wellness } from 'types/types'
-import axios from 'axios'
 import { EventCard } from 'components/EventCard'
 import BlogCard from 'components/BlogCard'
 

@@ -12,7 +12,6 @@ import * as S from './styles'
 
 import { EventCard } from '../../components/EventCard'
 import { EventData } from '../../types/types'
-import axios from 'axios'
 import Link from 'next/link'
 
 type HomeProps = {

@@ -1,4 +1,3 @@
-import axios from 'axios'
 import BlogCard from 'components/BlogCard'
 import { GetServerSideProps } from 'next'
 import { Wellness } from 'types/types'

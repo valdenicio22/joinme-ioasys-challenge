@@ -18,9 +18,8 @@ import { Edit } from '@styled-icons/material-outlined'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { api } from 'service/api'
 import { toast } from 'react-toastify'
-import { parseCookies, setCookie } from 'nookies'
+import { setCookie } from 'nookies'
 import IconLogo from 'components/IconLogo'
-import axios from 'axios'
 
 type isVisibleProps = 'text' | 'password'
 
@@ -196,22 +195,20 @@ export default function EditProfile({ userInterests }: EditProfileProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = withSSRAuth(
-  async (ctx) => {
-    // const cookies = parseCookies(ctx)
+export const getServerSideProps: GetServerSideProps = withSSRAuth(async () => {
+  // const cookies = parseCookies(ctx)
 
-    // const response = await axios.get<Array<UpdateUserInterests>>(
-    //   'https://thiagosgdev.com/users/interests/list',
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${cookies.joinMeToken}`
-    //     }
-    //   }
-    // )
-    return {
-      props: {
-        userInterests: []
-      }
+  // const response = await axios.get<Array<UpdateUserInterests>>(
+  //   'https://thiagosgdev.com/users/interests/list',
+  //   {
+  //     headers: {
+  //       Authorization: `Bearer ${cookies.joinMeToken}`
+  //     }
+  //   }
+  // )
+  return {
+    props: {
+      userInterests: []
     }
   }
-)
+})

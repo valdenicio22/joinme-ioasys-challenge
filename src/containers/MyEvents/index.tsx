@@ -2,8 +2,6 @@ import { withSSRAuth } from 'utils/withSSRAuth'
 import { GetServerSideProps } from 'next'
 
 import * as S from './style'
-import { parseCookies } from 'nookies'
-import axios from 'axios'
 import { EventData } from 'types/types'
 import { EventCard } from 'components/EventCard'
 
@@ -30,22 +28,20 @@ export default function MyEvents({ eventData }: MyEventsProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = withSSRAuth(
-  async (ctx) => {
-    // const cookies = parseCookies(ctx)
+export const getServerSideProps: GetServerSideProps = withSSRAuth(async () => {
+  // const cookies = parseCookies(ctx)
 
-    // const response = await axios.get<Array<EventData>>(
-    //   `https://thiagosgdev.com/events/organizer/list`,
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${cookies.joinMeToken}`
-    //     }
-    //   }
-    // )
-    return {
-      props: {
-        eventData: []
-      }
+  // const response = await axios.get<Array<EventData>>(
+  //   `https://thiagosgdev.com/events/organizer/list`,
+  //   {
+  //     headers: {
+  //       Authorization: `Bearer ${cookies.joinMeToken}`
+  //     }
+  //   }
+  // )
+  return {
+    props: {
+      eventData: []
     }
   }
-)
+})
