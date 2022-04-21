@@ -1,1 +1,1 @@
-export { default } from '../containers/Blog'
+export { default, getServerSideProps } from '../containers/Blog'
