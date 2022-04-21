@@ -128,3 +128,21 @@ export const HowWorksTitle = styled.h2`
     top: 4rem;
   `}
 `
+// Groups Princing
+export const GroupsWrapper = styled.div`
+  ${({ theme }) => css`
+    width: 100%
+    height: 50rem;
+    background-color: ${theme.colors.mediumGray};
+  `}
+`
+export const GroupsContainer = styled.div`
+  max-width: ${({ theme }) => theme.containers.desktop};
+  width: 100%;
+  margin: 0 auto;
+  padding: 3rem 0 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`

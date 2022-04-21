@@ -58,6 +58,14 @@ export default function LandingPage() {
           />
         </S.HowWorksContainer>
       </S.HowWorksWrapper>
+      <S.GroupsWrapper>
+        <S.GroupsContainer>
+          <img
+            src="/img/groupPlans.svg"
+            alt="Tabela explicando os plano, grátis e premium"
+          />
+        </S.GroupsContainer>
+      </S.GroupsWrapper>
     </S.Wrapper>
   )
 }
