@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { GetServerSideProps } from 'next'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 
 import { Dialog } from '../../components/Dialog'
@@ -11,19 +10,19 @@ import { useAuth } from 'context/AuthContext'
 import * as S from './styles'
 
 import { EventCard } from '../../components/EventCard'
-import { EventData } from '../../types/types'
-import axios from 'axios'
 import Link from 'next/link'
+import { useEvents } from 'hooks/useEvents'
 
-type HomeProps = {
-  eventsCard: Array<EventData>
-}
-
-export default function Home({ eventsCard }: HomeProps) {
+export default function Home() {
   const { user } = useAuth()
   const [modalStep, setModalStep] = useState(1)
   const [isModalOpen, setIsModalOpen] = useState(true)
   const onCloseModal = () => setIsModalOpen(false)
+  const { events, setFilter } = useEvents()
+
+  useEffect(() => {
+    setFilter('activityId', '76e56e1a-c5fb-451b-b49c-0019258383dc')
+  }, [setFilter])
 
   return (
     <S.Wrapper>
@@ -61,8 +60,8 @@ export default function Home({ eventsCard }: HomeProps) {
 
         <S.Title>Eventos impulsionados</S.Title>
         <S.Boosted>
-          {eventsCard
-            ? eventsCard
+          {events
+            ? events
                 .filter((event) => event.isPromoted)
                 .map((event) => (
                   <Link href={`/events/${event.id}`} key={event.id} passHref>
@@ -76,8 +75,8 @@ export default function Home({ eventsCard }: HomeProps) {
         <S.Title>Eventos Recomendados</S.Title>
 
         <S.Recommended>
-          {eventsCard
-            ? eventsCard
+          {events
+            ? events
                 .filter((event) => !event.isPromoted)
                 .map((event) => (
                   <Link href={`/events/${event.id}`} key={event.id} passHref>
@@ -91,15 +90,4 @@ export default function Home({ eventsCard }: HomeProps) {
       </S.HomeContainer>
     </S.Wrapper>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await axios.get<Array<EventData>>(
-    'https://thiagosgdev.com/events/list'
-  )
-  return {
-    props: {
-      eventsCard: response.data
-    }
-  }
 }
