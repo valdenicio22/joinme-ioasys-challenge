@@ -5,14 +5,29 @@ import * as S from './style'
 import { parseCookies } from 'nookies'
 import axios from 'axios'
 import { EventData } from 'types/types'
+import { EventCard } from 'components/EventCard'
 
 type SavedEventsProps = {
-  eventData: EventData
+  eventData: Array<EventData>
 }
 
 export default function SavedEvents({ eventData }: SavedEventsProps) {
-  console.log('retornou bixo', eventData)
-  return <S.Wrapper>SavedEvents</S.Wrapper>
+  return (
+    <S.Wrapper>
+      <S.SavedEventsContainer>
+        <S.Welcome>Eventos salvos</S.Welcome>
+        {eventData ? (
+          <S.EventCardList>
+            {eventData.map((card) => (
+              <EventCard key={card.id} event={card} />
+            ))}
+          </S.EventCardList>
+        ) : (
+          'Salve seu primeiro evento'
+        )}
+      </S.SavedEventsContainer>
+    </S.Wrapper>
+  )
 }
 
 export const getServerSideProps: GetServerSideProps = withSSRAuth(
