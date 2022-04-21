@@ -32,19 +32,19 @@ export default function MyEvents({ eventData }: MyEventsProps) {
 
 export const getServerSideProps: GetServerSideProps = withSSRAuth(
   async (ctx) => {
-    const cookies = parseCookies(ctx)
+    // const cookies = parseCookies(ctx)
 
-    const response = await axios.get<Array<EventData>>(
-      `https://thiagosgdev.com/events/organizer/list`,
-      {
-        headers: {
-          Authorization: `Bearer ${cookies.joinMeToken}`
-        }
-      }
-    )
+    // const response = await axios.get<Array<EventData>>(
+    //   `https://thiagosgdev.com/events/organizer/list`,
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${cookies.joinMeToken}`
+    //     }
+    //   }
+    // )
     return {
       props: {
-        eventData: response.data
+        eventData: []
       }
     }
   }

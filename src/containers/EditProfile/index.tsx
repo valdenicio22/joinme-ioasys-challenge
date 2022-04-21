@@ -198,19 +198,19 @@ export default function EditProfile({ userInterests }: EditProfileProps) {
 
 export const getServerSideProps: GetServerSideProps = withSSRAuth(
   async (ctx) => {
-    const cookies = parseCookies(ctx)
+    // const cookies = parseCookies(ctx)
 
-    const response = await axios.get<Array<UpdateUserInterests>>(
-      'https://thiagosgdev.com/users/interests/list',
-      {
-        headers: {
-          Authorization: `Bearer ${cookies.joinMeToken}`
-        }
-      }
-    )
+    // const response = await axios.get<Array<UpdateUserInterests>>(
+    //   'https://thiagosgdev.com/users/interests/list',
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${cookies.joinMeToken}`
+    //     }
+    //   }
+    // )
     return {
       props: {
-        userInterests: response.data
+        userInterests: []
       }
     }
   }

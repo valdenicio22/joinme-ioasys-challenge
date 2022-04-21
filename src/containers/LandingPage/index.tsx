@@ -109,17 +109,17 @@ export default function LandingPage({
 }
 
 export const getServerSideProps: GetServerSideProps = withSSRGuest(async () => {
-  const eventsResponse = await axios.get<EventData[]>(
-    `https://thiagosgdev.com/events/list?take=3&skip=0`
-  )
-  const wellnessResponse = await axios.get<Wellness[]>(
-    `https://thiagosgdev.com/wellness/list`
-  )
+  // const eventsResponse = await axios.get<EventData[]>(
+  //   `https://thiagosgdev.com/events/list?take=3&skip=0`
+  // )
+  // const wellnessResponse = await axios.get<Wellness[]>(
+  //   `https://thiagosgdev.com/wellness/list`
+  // )
 
   return {
     props: {
-      eventsData: eventsResponse.data,
-      wellnessData: wellnessResponse.data.slice(0, 3)
+      eventsData: [],
+      wellnessData: []
     }
   }
 })

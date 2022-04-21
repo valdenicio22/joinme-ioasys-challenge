@@ -24,12 +24,12 @@ export default function Blog({ eventData }: BlogProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await axios.get<Array<Wellness>>(
-    `https://thiagosgdev.com/wellness/list`
-  )
+  // const response = await axios.get<Array<Wellness>>(
+  //   `https://thiagosgdev.com/wellness/list`
+  // )
   return {
     props: {
-      eventData: response.data
+      eventData: []
     }
   }
 }

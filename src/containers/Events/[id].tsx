@@ -244,7 +244,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   //   `https://thiagosgdev.com/events/list`
   // )
   // '91708714-1764-4096-81a5-524aa7ad1939'
-  const paths = ['5af2d435-c4a4-4ec7-a8e6-85f05384e1cb'].map((id) => ({
+  const paths = [].map((id) => ({
     params: {
       id
     }
