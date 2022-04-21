@@ -42,7 +42,6 @@ export const Signup = ({
   } = useForm<SignupFormData>()
 
   const onSubmit: SubmitHandler<SignupFormData> = async (formData) => {
-    console.log({ formData })
     try {
       await api.post('users/signup', { ...formData })
       toast.success('Bem vindo! Sua conta foi criada!')

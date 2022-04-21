@@ -1,16 +1,19 @@
 import * as S from './style'
+import { Wellness } from 'types/types'
 
-const BlogCard = () => {
+type BlogCardProps = {
+  card: Wellness
+}
+
+const BlogCard = ({ card }: BlogCardProps) => {
   return (
     <S.BlogCard>
       <S.ImgContainer>
-        <img src="/img/blog.png" alt="Descrição da imagem" />
+        <img src={card.imageUrl} alt={card.description} />
       </S.ImgContainer>
       <S.InfoContainer>
-        <S.CardTitle>Chás para dormir melhor</S.CardTitle>
-        <S.CardDescription>
-          Iniciando o ritual para uma boa noite{' '}
-        </S.CardDescription>
+        <S.CardTitle>{card.title}</S.CardTitle>
+        <S.CardDescription>{card.description}</S.CardDescription>
       </S.InfoContainer>
     </S.BlogCard>
   )

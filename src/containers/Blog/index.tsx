@@ -1,22 +1,21 @@
+import axios from 'axios'
 import BlogCard from 'components/BlogCard'
+import { GetServerSideProps } from 'next'
+import { Wellness } from 'types/types'
 import * as S from './styles'
 
-type FakeArray = {
-  id: number
+type BlogProps = {
+  eventData: Array<Wellness>
 }
 
-const Blog = () => {
-  const fakeArray: FakeArray[] = []
-  for (let i = 0; i < 9; i++) {
-    fakeArray.push({ id: i + 1 })
-  }
+export default function Blog({ eventData }: BlogProps) {
   return (
     <S.Wrapper>
       <S.BlogContainer>
         <S.Welcome>Dicas de bem-estar</S.Welcome>
         <S.BlogCardList>
-          {fakeArray.map((card) => (
-            <BlogCard key={card.id} />
+          {eventData.map((card) => (
+            <BlogCard key={card.id} card={card} />
           ))}
         </S.BlogCardList>
       </S.BlogContainer>
@@ -24,4 +23,13 @@ const Blog = () => {
   )
 }
 
-export default Blog
+export const getServerSideProps: GetServerSideProps = async () => {
+  const response = await axios.get<Array<Wellness>>(
+    `https://thiagosgdev.com/wellness/list`
+  )
+  return {
+    props: {
+      eventData: response.data
+    }
+  }
+}

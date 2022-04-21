@@ -86,3 +86,10 @@ export type CurrentModal =
   | 'forgotPassword'
   | 'userInterests'
   | 'idle'
+
+export type Wellness = {
+  id: string
+  title: string
+  description: string
+  imageUrl: string
+}

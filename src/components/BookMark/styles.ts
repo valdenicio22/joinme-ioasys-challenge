@@ -6,7 +6,7 @@ export const Wrapper = styled.button`
   outline: none;
 
   svg {
-    height: 2rem;
-    margin-top: 1rem;
+    height: 100%;
+    margin-top: 100%;
   }
 `

@@ -1,1 +1,5 @@
-export { default, getServerSideProps } from '../../containers/Events/[id]'
+export {
+  default,
+  getStaticPaths,
+  getStaticProps
+} from '../../containers/Events/[id]'

@@ -11,8 +11,15 @@ export const BlogCard = styled.div`
 `
 
 export const ImgContainer = styled.div`
-  width: 100%;
-  height: 30.05rem;
+  ${({ theme }) => css`
+    width: 100%;
+    height: 30.05rem;
+
+    img {
+      border-radius: ${theme.border.radius.large} ${theme.border.radius.large} 0
+        0;
+    }
+  `}
 `
 export const InfoContainer = styled.div`
   width: 100%;

@@ -2,7 +2,7 @@ import axios from 'axios'
 import BookMark from 'components/BookMark'
 import Button from 'components/Button'
 import MeditationIcon from 'components/MeditationIcon'
-import { GetServerSideProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { CurrentModal, EventData } from 'types/types'
 import * as S from './EventDetails'
 import { toast } from 'react-toastify'
@@ -30,7 +30,8 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
     users,
     id,
     numParticipants,
-    eventAccessibilities
+    eventAccessibilities,
+    addresses
   } = eventData
   const [currentModal, setCurrentModal] = useState<CurrentModal>('idle')
 
@@ -137,7 +138,7 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
                 <S.EventInfoItem>
                   <S.InfoContainer>
                     <LocationOn fill="#1E00FC" width={24} height={24} />
-                    <S.Item>Evento acessível a pessoas com deficiência?</S.Item>
+                    <S.Item>{addresses && addresses[0].street}</S.Item>
                   </S.InfoContainer>
                   {eventAccessibilities ? (
                     <S.AnswerItem>Sim!</S.AnswerItem>
@@ -238,7 +239,24 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  // const response = await axios.get<EventData[]>(
+  //   `https://thiagosgdev.com/events/list`
+  // )
+  // '91708714-1764-4096-81a5-524aa7ad1939'
+  const paths = ['5af2d435-c4a4-4ec7-a8e6-85f05384e1cb'].map((id) => ({
+    params: {
+      id
+    }
+  }))
+
+  return {
+    paths,
+    fallback: false
+  }
+}
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const eventId = ctx.params?.id
   const response = await axios.get<EventData[]>(
     `https://thiagosgdev.com/events/list?eventId=${eventId}`
@@ -247,6 +265,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       eventData: response.data[0]
-    }
+    },
+    revalidate: 1000
   }
 }

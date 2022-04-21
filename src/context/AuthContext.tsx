@@ -32,6 +32,14 @@ type AuthProviderProps = {
   children: ReactNode
 }
 
+export const logout = () => {
+  destroyCookie(undefined, 'joinMeToken')
+  destroyCookie(undefined, 'joinMeRefreshToken')
+  destroyCookie(undefined, 'joinMeUser')
+
+  Router.push('/')
+}
+
 const AuthContext = createContext({} as AuthContextData)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
@@ -48,12 +56,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }
 
   useEffect(() => {
-    const { joinMeUser } = parseCookies()
+    const { joinMeToken, joinMeUser } = parseCookies()
 
-    if (joinMeUser) {
+    if (joinMeToken) {
       const userData = JSON.parse(joinMeUser)
       setUser(userData)
-    }
+    } else setUser(undefined)
   }, [])
 
   const signIn = async ({ email, password }: SignInCredentials) => {
@@ -82,8 +90,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setUser(userData)
       Router.push('/home')
     } catch (err) {
+      console.log({ err })
       if (Axios.isAxiosError(err)) {
+        console.log({ err })
         switch (err.response?.status) {
+          case 401:
+            toast.error('Email ou senha inválido')
+            break
           case 404:
             toast.error('Usuário não encontrado')
             break
