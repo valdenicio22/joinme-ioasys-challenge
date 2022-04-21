@@ -51,7 +51,11 @@ export default function LandingPage() {
       </S.CardsInfoWrapper>
       <S.HowWorksWrapper>
         <S.HowWorksContainer>
-          <S.SubTitle>Como funciona?</S.SubTitle>
+          <S.HowWorksTitle>Como funciona?</S.HowWorksTitle>
+          <img
+            src="/img/howItWorks.svg"
+            alt="Grafico explicando o funcionamento do app"
+          />
         </S.HowWorksContainer>
       </S.HowWorksWrapper>
     </S.Wrapper>

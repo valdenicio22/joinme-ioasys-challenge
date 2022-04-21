@@ -103,12 +103,28 @@ export const CardsInfoContainer = styled.div`
 `
 
 //How Works
-export const HowWorksWrapper = styled.div``
-export const HowWorksContainer = styled.div``
-export const SubTitle = styled.h2`
+export const HowWorksWrapper = styled.div`
+  ${({ theme }) => css`
+    width: 100%
+    height: 50rem;
+    background-color: ${theme.colors.white};
+  `}
+`
+export const HowWorksContainer = styled.div`
+  max-width: ${({ theme }) => theme.containers.desktop};
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 0;
+  position: relative;
+`
+
+export const HowWorksTitle = styled.h2`
   ${({ theme }) => css`
     color: ${theme.colors.secondary};
     font-weight: ${theme.font.weight.bold};
     padding-bottom: 2rem;
+
+    position: absolute;
+    top: 4rem;
   `}
 `
