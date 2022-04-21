@@ -16,7 +16,7 @@ export default function LandingPage() {
       <S.WelcomeWrapper>
         <S.ImageContainer>
           <img
-            src="img/landingPageImg.png"
+            src="img/landingPageSvg.svg"
             alt="Um grupo de pessoas sentadas em um lugar aberto estudando juntas"
           />
 
