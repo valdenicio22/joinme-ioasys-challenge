@@ -6,8 +6,21 @@ import Router from 'next/router'
 import { withSSRGuest } from 'utils/withSSRGuest'
 import * as S from './styles'
 import { PlayCircle } from '@styled-icons/boxicons-regular'
+import Link from 'next/link'
+import { EventData, Wellness } from 'types/types'
+import axios from 'axios'
+import { EventCard } from 'components/EventCard'
+import BlogCard from 'components/BlogCard'
 
-export default function LandingPage() {
+type LandingPageProps = {
+  eventsData: Array<EventData>
+  wellnessData: Array<Wellness>
+}
+
+export default function LandingPage({
+  eventsData,
+  wellnessData
+}: LandingPageProps) {
   return (
     <S.Wrapper>
       <Head>
@@ -66,12 +79,47 @@ export default function LandingPage() {
           />
         </S.GroupsContainer>
       </S.GroupsWrapper>
+      <S.AppCardsWrapper>
+        <S.AppCardContainer>
+          <S.SubTitleContainer>
+            <S.SubTitle>Eventos Recomendados</S.SubTitle>
+            <Link href={'/home'}>{'ver mais >'}</Link>
+          </S.SubTitleContainer>
+          <S.CardsContainer>
+            {eventsData.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </S.CardsContainer>
+        </S.AppCardContainer>
+
+        <S.AppCardContainer>
+          <S.SubTitleContainer>
+            <S.SubTitle>Eventos Recomendados</S.SubTitle>
+            <Link href={'/blog'}>{'ver mais >'}</Link>
+          </S.SubTitleContainer>
+          <S.CardsContainer>
+            {wellnessData.map((card) => (
+              <BlogCard key={card.id} card={card} />
+            ))}
+          </S.CardsContainer>
+        </S.AppCardContainer>
+      </S.AppCardsWrapper>
     </S.Wrapper>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = withSSRGuest(async () => {
+  const eventsResponse = await axios.get<EventData[]>(
+    `https://thiagosgdev.com/events/list?take=3&skip=0`
+  )
+  const wellnessResponse = await axios.get<Wellness[]>(
+    `https://thiagosgdev.com/wellness/list`
+  )
+
   return {
-    props: {}
+    props: {
+      eventsData: eventsResponse.data,
+      wellnessData: wellnessResponse.data.slice(0, 3)
+    }
   }
 })

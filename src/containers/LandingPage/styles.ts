@@ -146,3 +146,47 @@ export const GroupsContainer = styled.div`
   align-items: center;
   justify-content: center;
 `
+
+//App Cards
+
+export const AppCardsWrapper = styled.div`
+  ${({ theme }) => css`
+    width: 100%
+    background-color: ${theme.colors.white};
+  `}
+`
+export const AppCardContainer = styled.div`
+  max-width: ${({ theme }) => theme.containers.desktop};
+  width: 100%;
+  margin: 0 auto;
+  padding: 3rem 0;
+`
+export const SubTitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+
+  a {
+    ${({ theme }) => css`
+      text-decoration: none;
+      font-size: ${theme.font.sizes.xlarge};
+      font-weight: ${theme.font.weight.bold};
+      color: ${theme.colors.primary};
+    `}
+  }
+`
+
+export const SubTitle = styled.h2`
+  ${({ theme }) => css`
+    font-size: ${theme.font.sizes.xxlarge};
+    font-weight: ${theme.font.weight.bold};
+    color: ${theme.colors.secondary};
+  `}
+`
+export const CardsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: 2rem;
+`
