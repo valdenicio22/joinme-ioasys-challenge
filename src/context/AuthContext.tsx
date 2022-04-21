@@ -95,7 +95,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         console.log({ err })
         switch (err.response?.status) {
           case 401:
-            toast.error('Xon xin')
+            toast.error('Email ou senha inválido')
             break
           case 404:
             toast.error('Usuário não encontrado')
