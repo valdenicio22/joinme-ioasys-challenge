@@ -1,21 +1,46 @@
 import BookMark from 'components/BookMark'
 import Tag from 'components/Tag'
-import { useState } from 'react'
+import { MouseEvent, useState } from 'react'
 import { EventData } from 'types/types'
 import * as S from './styles'
 import { LocationOn } from '@styled-icons/material'
+import { useAuth } from '../../context/AuthContext'
+import { toast } from 'react-toastify'
+import { api } from '../../service/api'
+
 type EventCardProps = {
   event: EventData
 }
 
 export const EventCard = ({ event }: EventCardProps) => {
   const [isBooked, setIsBooked] = useState(false)
-  const { name, isOnline, numParticipants, addresses, activities } = event
+  const { name, isOnline, numParticipants, addresses, activities, id } = event
+  const { user } = useAuth()
+
+  const handleAttendButton = async (e: MouseEvent) => {
+    e.preventDefault()
+
+    if (!user) {
+      toast.info(`Faça login para salvar o evento`)
+      return
+    }
+    setIsBooked(!isBooked)
+    await api.post('/events/attendees', {
+      status: 'SAVED',
+      eventId: id
+    })
+    toast.success('Evento Salvo com sucesso')
+  }
 
   return (
     <S.Wrapper>
       <S.ImgContainer>
-        <img width={360} height={304} src="/img/events.png" alt="Default Img" />
+        <img
+          width={360}
+          height={304}
+          src="/img/cardEventImg.svg"
+          alt="Default Img"
+        />
         <S.Schedule>28 abril</S.Schedule>
       </S.ImgContainer>
       <S.EventDetailsContainer>
@@ -45,7 +70,7 @@ export const EventCard = ({ event }: EventCardProps) => {
           <Tag colorText="darkGray" size="small">
             {activities?.name}
           </Tag>
-          <S.IconButton onClick={() => setIsBooked(!isBooked)}>
+          <S.IconButton onClick={handleAttendButton}>
             <BookMark isBooked={isBooked} />
           </S.IconButton>
         </S.Flags>

@@ -106,6 +106,9 @@ export const IconButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    width: 2.4rem;
+    height: 2.4rem;
   }
 `
 
