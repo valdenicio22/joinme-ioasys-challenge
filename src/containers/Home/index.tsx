@@ -95,7 +95,7 @@ export default function Home({ eventsCard }: HomeProps) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const response = await axios.get<Array<EventData>>(
-    'https://thiagosgdev.com/events/list'
+    'https://thiagosgdev.com/events/list?take=15&skip=0'
   )
   return {
     props: {
