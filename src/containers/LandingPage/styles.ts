@@ -6,16 +6,19 @@ export const Wrapper = styled.div`
 
 export const WelcomeWrapper = styled.div`
   ${({ theme }) => css`
-    width: 144rem;
+    width: 100%
     height: 74.4rem;
     background-color: ${theme.colors.primary};
   `}
 `
+export const WelcomeContainer = styled.div`
+  max-width: ${({ theme }) => theme.containers.desktop};
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 8rem;
+`
 
 export const ImageContainer = styled.div`
-  max-width: ${({ theme }) => theme.containers.desktop};
-  margin: 0 auto;
-
   width: 100%;
   max-height: 57.6rem;
   height: 100%;
@@ -23,10 +26,9 @@ export const ImageContainer = styled.div`
   outline: none;
 
   position: relative;
-  padding-bottom: 3rem;
 `
 
-export const WelcomeContainer = styled.section`
+export const WelcomeInfo = styled.section`
   width: 38.8rem;
 
   display: flex;
@@ -80,61 +82,33 @@ export const ButtonsContainer = styled.div`
     }
   `}
 `
-
-export const HowWorksWrapper = styled.div`
+//Cards App Explanation
+export const CardsInfoWrapper = styled.div`
   ${({ theme }) => css`
-    width: 144rem;
-    height: 74.4rem;
-    background-color: ${theme.colors.white};
+    width: 100%
+    height: 40.5rem;
+    background-color: ${theme.colors.mediumGray};
   `}
 `
-export const HowWorksContent = styled.div`
+
+export const CardsInfoContainer = styled.div`
   ${({ theme }) => css`
     max-width: ${({ theme }) => theme.containers.desktop};
     margin: 0 auto;
     width: 100%
     height: 100%
     background-color: ${theme.colors.white};
-    padding-top: 3rem;
+    padding: 3rem 0;
   `}
 `
+
+//How Works
+export const HowWorksWrapper = styled.div``
+export const HowWorksContainer = styled.div``
 export const SubTitle = styled.h2`
   ${({ theme }) => css`
     color: ${theme.colors.secondary};
     font-weight: ${theme.font.weight.bold};
     padding-bottom: 2rem;
-  `}
-`
-export const HowWorksCardContainer = styled.div`
-  ${({ theme }) => css`
-    width: 35rem;
-    height: 38rem;
-    padding: 4rem 2.5rem;
-    color: ${theme.colors.white};
-    background-color: ${theme.colors.primary};
-    font-weight: ${theme.font.weight.bold};
-    border-radius: ${theme.border.radius.large};
-
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: column;
-  `}
-`
-
-export const CardTitle = styled.h4`
-  ${({ theme }) => css`
-    color: ${theme.colors.white};
-    font-weight: ${theme.font.weight.bold};
-    font-size: ${theme.font.sizes.large};
-    padding: 4rem 0 2rem;
-  `}
-`
-
-export const CardDescription = styled.h4`
-  ${({ theme }) => css`
-    color: ${theme.colors.white};
-    font-size: ${theme.font.sizes.medium};
-    text-align: justify;
   `}
 `
