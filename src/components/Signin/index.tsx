@@ -41,6 +41,7 @@ export const Signin = ({ setCurrentModal }: SigninProps) => {
 
   const onSubmit: SubmitHandler<SigninFormData> = async (formData) => {
     await signIn(formData)
+    setCurrentModal('idle')
   }
 
   const handleFakeButtonClick = (e: MouseEvent) => {

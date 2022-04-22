@@ -52,7 +52,7 @@ const UserDropdown = ({ username }: UserDropdownProps) => {
           </S.Link>
         </Link>
         <Link href="#" passHref>
-          <S.Link title="Sign out" onClick={signOut}>
+          <S.Link title="Sign out" onClick={() => signOut()}>
             <ExitToApp />
             <span>Sign out</span>
           </S.Link>
