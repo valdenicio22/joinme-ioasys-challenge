@@ -24,6 +24,8 @@ export const FiltersContainer = styled.div`
     height: 4.2rem;
   }
 `
+export const ActivitiesSelect = styled.div``
+export const ModalityContainer = styled.div``
 
 export const MainLinksContainer = styled.div`
   display: flex;

@@ -13,6 +13,7 @@ import { GetServerSideProps } from 'next'
 import axios from 'axios'
 import { parseCookies } from 'nookies'
 import { useAuth } from '../../context/AuthContext'
+import { useActivities } from 'hooks/useActivities'
 
 type HomeProps = {
   userInterests: Array<Activity>
@@ -21,6 +22,7 @@ type HomeProps = {
 export default function Home({ userInterests }: HomeProps) {
   const { user } = useAuth()
   const { events } = useEvents()
+  const { activities } = useActivities()
   const [currentModal, setCurrentModal] = useState<CurrentModal>(
     user && userInterests.length === 0 ? 'emergencyContact' : 'idle'
   )
@@ -52,24 +54,27 @@ export default function Home({ userInterests }: HomeProps) {
 
       <S.HomeContainer>
         <S.FiltersContainer>
-          <label htmlFor="userInterests">Interesses:</label>
+          <S.ActivitiesSelect>
+            <label htmlFor="userInterests">Interesses:</label>
+            <select name="interests" id="userInterests">
+              {activities.map((activity) => (
+                <option key={activity.id} value={activity.id}>
+                  {activity.name}
+                </option>
+              ))}
+            </select>
+          </S.ActivitiesSelect>
 
-          <select name="interests" id="userInterests">
-            <option value="first" selected>
-              First Value
-            </option>
-            <option value="second">Second Value</option>
-            <option value="third">Third Value</option>
-          </select>
-
-          <label htmlFor="modality">Modalidade:</label>
-          <select name="modality" id={'modality'}>
-            <option value="all" selected>
-              Todos
-            </option>
-            <option value="online">online</option>
-            <option value="presencial">presencial</option>
-          </select>
+          <S.ModalityContainer>
+            <label htmlFor="modality">Modalidade:</label>
+            <select name="modality" id={'modality'}>
+              <option value="all" selected>
+                Todos
+              </option>
+              <option value="online">online</option>
+              <option value="presencial">presencial</option>
+            </select>
+          </S.ModalityContainer>
         </S.FiltersContainer>
 
         <S.Title>Eventos impulsionados</S.Title>
