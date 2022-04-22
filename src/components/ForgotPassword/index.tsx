@@ -10,20 +10,18 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { api } from 'service/api'
 import { toast } from 'react-toastify'
 import IconLogo from 'components/IconLogo'
+import { Dispatch, SetStateAction } from 'react'
+import { CurrentModal } from 'types/types'
 
 type ForgotPasswordData = {
   email: string
 }
 
 type ForgotPasswordProps = {
-  setIsForgotPasswordModalOpen: (arg: boolean) => void
-  setIsSigninModalOpen: (arg: boolean) => void
+  setCurrentModal: Dispatch<SetStateAction<CurrentModal>>
 }
 
-export const ForgotPassword = ({
-  setIsForgotPasswordModalOpen,
-  setIsSigninModalOpen
-}: ForgotPasswordProps) => {
+export const ForgotPassword = ({ setCurrentModal }: ForgotPasswordProps) => {
   const { register, handleSubmit } = useForm<ForgotPasswordData>()
 
   const onSubmit: SubmitHandler<ForgotPasswordData> = async (formData) => {
@@ -32,8 +30,8 @@ export const ForgotPassword = ({
         ...formData
       })
       toast.success('Uma nova senha foi enviada para seu e-mail')
+      setCurrentModal('idle')
       Router.push('/')
-      setIsForgotPasswordModalOpen(false)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err.response.status === 404) {
@@ -42,14 +40,9 @@ export const ForgotPassword = ({
     }
   }
 
-  const handleSingupModal = () => {
-    setIsForgotPasswordModalOpen(false)
-    setIsSigninModalOpen(true)
-  }
-
   return (
     <S.Wrapper>
-      <S.ArrowContainer onClick={handleSingupModal}>
+      <S.ArrowContainer onClick={() => setCurrentModal('signin')}>
         <Arrow />
       </S.ArrowContainer>
 
@@ -83,7 +76,9 @@ export const ForgotPassword = ({
           </Button>
           <S.PInfoAccount>
             Lembrou qual era?&nbsp;
-            <S.YourAccount>Acesse sua conta aqui!</S.YourAccount>
+            <S.YourAccount onClick={() => setCurrentModal('signin')}>
+              Acesse sua conta aqui!
+            </S.YourAccount>
           </S.PInfoAccount>
         </S.BtnAndLastInfoContainer>
       </S.Form>

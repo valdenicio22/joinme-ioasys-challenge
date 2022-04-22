@@ -44,11 +44,7 @@ export const UserDialog = ({
           isModalOpen={isSigninModalOpen}
           onCloseModal={() => handleCloseModalSignin()}
         >
-          <Signin
-            setIsSigninModalOpen={setIsSigninModalOpen}
-            setIsSignupModalOpen={setIsSignupModalOpen}
-            setIsForgotPasswordModalOpen={setIsForgotPasswordModalOpen}
-          />
+          <Signin setCurrentModal={setCurrentModal} />
         </Dialog>
       }
       {
@@ -56,10 +52,7 @@ export const UserDialog = ({
           isModalOpen={isForgotPasswordModalOpen}
           onCloseModal={() => handleCloseModalForgotPassword()}
         >
-          <ForgotPassword
-            setIsForgotPasswordModalOpen={setIsForgotPasswordModalOpen}
-            setIsSigninModalOpen={setIsSigninModalOpen}
-          />
+          <ForgotPassword setCurrentModal={setCurrentModal} />
         </Dialog>
       }
       {
@@ -67,10 +60,7 @@ export const UserDialog = ({
           isModalOpen={isSignupModalOpen}
           onCloseModal={() => handleCloseModalSignup()}
         >
-          <Signup
-            setIsSignupModalOpen={setIsSignupModalOpen}
-            setIsSigninModalOpen={setIsSigninModalOpen}
-          />
+          <Signup setCurrentModal={setCurrentModal} />
         </Dialog>
       }
     </>

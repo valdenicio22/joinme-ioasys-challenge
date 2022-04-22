@@ -61,6 +61,9 @@ export const PInfoAccount = styled.p`
   font-size: ${({ theme }) => theme.font.sizes.medium};
 `
 
-export const YourAccount = styled.span`
+export const YourAccount = styled.button`
+  background-color: transparent;
+  outline: none;
+  border: none;
   color: ${({ theme }) => theme.colors.primary};
 `
