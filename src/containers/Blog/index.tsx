@@ -25,7 +25,7 @@ export default function Blog({ eventData }: BlogProps) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const response = await axios.get<Array<Wellness>>(
-    `https://thiagosgdev.com/wellness/list`
+    `ec2-54-89-248-27.compute-1.amazonaws.com/wellness/list`
   )
   return {
     props: {

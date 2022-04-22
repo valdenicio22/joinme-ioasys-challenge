@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = withSSRAuth(
     const cookies = parseCookies(ctx)
 
     const response = await axios.get<Array<EventData>>(
-      `https://thiagosgdev.com/events/attendees/list/user?status=SAVED`,
+      `ec2-54-89-248-27.compute-1.amazonaws.com/events/attendees/list/user?status=SAVED`,
       {
         headers: {
           Authorization: `Bearer ${cookies.joinMeToken}`

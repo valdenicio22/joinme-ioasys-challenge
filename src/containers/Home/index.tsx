@@ -110,7 +110,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookies = parseCookies(ctx)
   if (cookies.joinMeToken) {
     const response = await axios.get<Activity[]>(
-      `https://thiagosgdev.com/users/interests/list`,
+      `ec2-54-89-248-27.compute-1.amazonaws.com/users/interests/list`,
       {
         headers: {
           Authorization: `Bearer ${cookies.joinMeToken}`
