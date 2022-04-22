@@ -1,5 +1,4 @@
 import { Story, Meta } from '@storybook/react/types-6-0'
-import EyeIcon from 'components/EyeIcon'
 import Button, { ButtonProps } from '.'
 
 export default {
@@ -23,6 +22,5 @@ Default.args = {
 export const withIcon: Story<ButtonProps> = (args) => <Button {...args} />
 
 withIcon.args = {
-  children: 'Test',
-  icon: <EyeIcon />
+  children: 'Test'
 }
