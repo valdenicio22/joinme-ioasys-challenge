@@ -2,7 +2,7 @@ import axios from 'axios'
 import BookMark from 'components/BookMark'
 import Button from 'components/Button'
 import MeditationIcon from 'components/MeditationIcon'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { CurrentModal, EventData } from 'types/types'
 import * as S from './EventDetails'
 import { toast } from 'react-toastify'
@@ -34,7 +34,7 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
     addresses
   } = eventData
   const [currentModal, setCurrentModal] = useState<CurrentModal>('idle')
-
+  console.log({ eventData })
   const { user } = useAuth()
 
   const notLogged = (type: string) => {
@@ -239,24 +239,24 @@ export default function EventsDetails({ eventData }: EventsDetailsProps) {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  // const response = await axios.get<EventData[]>(
-  //   `https://thiagosgdev.com/events/list`
-  // )
-  // '91708714-1764-4096-81a5-524aa7ad1939'
-  const paths = ['5af2d435-c4a4-4ec7-a8e6-85f05384e1cb'].map((id) => ({
-    params: {
-      id
-    }
-  }))
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   // const response = await axios.get<EventData[]>(
+//   //   `https://thiagosgdev.com/events/list`
+//   // )
+//   // '91708714-1764-4096-81a5-524aa7ad1939'
+//   const paths = ['5af2d435-c4a4-4ec7-a8e6-85f05384e1cb'].map((id) => ({
+//     params: {
+//       id
+//     }
+//   }))
 
-  return {
-    paths,
-    fallback: false
-  }
-}
+//   return {
+//     paths,
+//     fallback: false
+//   }
+// }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const eventId = ctx.params?.id
   const response = await axios.get<EventData[]>(
     `https://thiagosgdev.com/events/list?eventId=${eventId}`
@@ -265,7 +265,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   return {
     props: {
       eventData: response.data[0]
-    },
-    revalidate: 1000
+    }
   }
 }
