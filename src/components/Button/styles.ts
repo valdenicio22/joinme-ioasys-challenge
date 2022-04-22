@@ -1,16 +1,21 @@
 import styled, { css, DefaultTheme } from 'styled-components'
 import { ButtonProps } from '.'
 
-type WrapperProps = { hasIcon: boolean } & Omit<ButtonProps, 'children'>
+type WrapperProps = Omit<ButtonProps, 'children'>
 
 const wrapperModifiers = {
   fullWidth: () => css`
     width: 100%;
   `,
 
-  withIcon: () => css`
+  withLeftIcon: () => css`
     svg {
       margin-right: 1rem;
+    }
+  `,
+  withRightIcon: () => css`
+    svg {
+      margin-left: 1rem;
     }
   `,
   changeBgColor: (bgColor: 'primary' | 'lighterGray' | 'white') => css`
@@ -32,8 +37,8 @@ const wrapperModifiers = {
     font-size: ${theme.font.sizes.medium};
     line-height: 2.4rem;
   `,
-  changeBorderColor: (borderColor: 'secondary') => css`
-    border: 1px solid ${({ theme }) => theme.colors[borderColor]};
+  changeBorderColor: (borderColor: 'secondary' | 'white') => css`
+    border: 2px solid ${({ theme }) => theme.colors[borderColor]};
   `,
   squareButton: (theme: DefaultTheme) => css`
     border-radius: ${theme.border.radius.medium};
@@ -44,7 +49,8 @@ export const Wrapper = styled.button<WrapperProps>`
   ${({
     theme,
     fullWidth,
-    hasIcon,
+    leftIcon,
+    rightIcon,
     bgColor,
     colorText,
     size,
@@ -54,19 +60,19 @@ export const Wrapper = styled.button<WrapperProps>`
     width: 15.3rem;
     height: 4.2rem;
     padding: 0.8rem 2.5rem;
-    border: 0.2rem solid;
     border-radius: ${theme.border.radius.large};
-    border-color: ${theme.colors.white};
     font-size: ${theme.font.sizes.large};
     line-height: 2.7rem;
     background-color: transparent;
+    border: none;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
     ${!!fullWidth && wrapperModifiers.fullWidth()}
-    ${!!hasIcon && wrapperModifiers.withIcon()}
+    ${!!leftIcon && wrapperModifiers.withLeftIcon()}
+    ${!!rightIcon && wrapperModifiers.withRightIcon()}
     ${!!bgColor && wrapperModifiers.changeBgColor(bgColor)}
     ${!!colorText && wrapperModifiers.changeColor(colorText)}
     ${size === 'large' && wrapperModifiers.largeButton(theme)}

@@ -40,15 +40,15 @@ export const WelcomeInfo = styled.section`
   left: 7rem;
   bottom: 5rem;
 
-  transition: filter 0.2;
+  transition: filter 0.15s;
   button:hover {
-    filter: brightness(0.8);
+    filter: brightness(0.85);
   }
 `
 
 export const Title = styled.h1`
   ${({ theme }) => css`
-    font-size: ${theme.font.sizes.xxxlarge};
+    font-size: 4.8rem;
     color: ${theme.colors.white};
     font-weight: ${theme.font.weight.bold};
   `}
@@ -122,6 +122,7 @@ export const HowWorksTitle = styled.h2`
   ${({ theme }) => css`
     color: ${theme.colors.secondary};
     font-weight: ${theme.font.weight.bold};
+    font-size: ${theme.font.sizes.xxxlarge};
     padding-bottom: 2rem;
 
     position: absolute;
@@ -140,15 +141,43 @@ export const GroupsContainer = styled.div`
   max-width: ${({ theme }) => theme.containers.desktop};
   width: 100%;
   margin: 0 auto;
-  padding: 3rem 0 1rem;
+  padding: 2rem 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  position: relative;
+
+  button {
+    ${({ theme }) => css`
+      width: 20rem;
+      height: 4.8rem;
+      padding: 1rem 2.4rem;
+      color: ${theme.colors.white};
+      font-weight: ${theme.font.weight.bold};
+      font-size: ${theme.font.sizes.large};
+      border: none;
+      transition: filter 0.15s;
+      &:hover {
+        filter: brightness(0.85);
+      }
+    `}
+  }
+
+  .freeButton {
+    position: absolute;
+    left: 30rem;
+    bottom: 3rem;
+  }
+  .premiumButton {
+    position: absolute;
+    right: 4.2rem;
+    bottom: 3rem;
+  }
 `
 
 //App Cards
-
 export const AppCardsWrapper = styled.div`
   ${({ theme }) => css`
     width: 100%
@@ -159,14 +188,22 @@ export const AppCardContainer = styled.div`
   max-width: ${({ theme }) => theme.containers.desktop};
   width: 100%;
   margin: 0 auto;
-  padding: 3rem 0;
+  &:first-child {
+    padding: 3rem 0;
+  }
+  &:last-child {
+    padding-bottom: 3rem;
+  }
 `
 export const SubTitleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-bottom: 2rem;
-
+`
+export const LinkContainer = styled.div`
+  display: flex;
+  align-items: center;
   a {
     ${({ theme }) => css`
       text-decoration: none;
@@ -175,11 +212,17 @@ export const SubTitleContainer = styled.div`
       color: ${theme.colors.primary};
     `}
   }
+  & > svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
 `
 
 export const SubTitle = styled.h2`
   ${({ theme }) => css`
-    font-size: ${theme.font.sizes.xxlarge};
+    font-size: ${theme.font.sizes.xxxlarge};
     font-weight: ${theme.font.weight.bold};
     color: ${theme.colors.secondary};
   `}

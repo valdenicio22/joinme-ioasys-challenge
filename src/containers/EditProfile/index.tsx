@@ -6,7 +6,7 @@ import { withSSRAuth } from 'utils/withSSRAuth'
 import { useAuth } from 'context/AuthContext'
 
 import { TextField } from 'components/TextField'
-import EyeIcon from 'components/EyeIcon'
+import { Eye, EyeSlash } from '@styled-icons/bootstrap'
 import Tag from 'components/Tag'
 import Button from 'components/Button'
 
@@ -184,9 +184,15 @@ export default function EditProfile({ userInterests }: EditProfileProps) {
             })}
             fullWidth={true}
             icon={
-              <EyeIcon
-                onClick={(e) => setIsVisible(isPasswordVisible(e, isVisible))}
-              />
+              isVisible === 'password' ? (
+                <EyeSlash
+                  onClick={(e) => setIsVisible(isPasswordVisible(e, isVisible))}
+                />
+              ) : (
+                <Eye
+                  onClick={(e) => setIsVisible(isPasswordVisible(e, isVisible))}
+                />
+              )
             }
           />
         </S.TextFieldsContainer>

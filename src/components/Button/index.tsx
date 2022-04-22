@@ -4,17 +4,19 @@ import * as S from './styles'
 export type ButtonProps = {
   children: React.ReactNode
   fullWidth?: boolean
-  icon?: React.ReactNode
+  leftIcon?: React.ReactNode
+  rightIcon?: React.ReactNode
   bgColor?: 'primary' | 'lighterGray' | 'white'
   colorText?: 'primary' | 'white' | 'secondary'
   size?: 'large' | 'small'
-  borderColor?: 'secondary'
+  borderColor?: 'secondary' | 'white'
   format?: 'square'
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
 const Button = ({
   children,
-  icon,
+  leftIcon,
+  rightIcon,
   fullWidth = false,
   bgColor,
   colorText = 'white',
@@ -25,7 +27,8 @@ const Button = ({
 }: ButtonProps) => (
   <S.Wrapper
     fullWidth={fullWidth}
-    hasIcon={!!icon}
+    leftIcon={leftIcon}
+    rightIcon={rightIcon}
     bgColor={bgColor}
     colorText={colorText}
     size={size}
@@ -33,8 +36,9 @@ const Button = ({
     format={format}
     {...props}
   >
-    {!!icon && icon}
+    {!!leftIcon && leftIcon}
     <span>{children}</span>
+    {!!rightIcon && rightIcon}
   </S.Wrapper>
 )
 export default Button

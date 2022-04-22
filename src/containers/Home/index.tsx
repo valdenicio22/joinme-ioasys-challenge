@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Head from 'next/head'
 
 import { Dialog } from '../../components/Dialog'
@@ -18,11 +18,7 @@ export default function Home() {
   const [modalStep, setModalStep] = useState(1)
   const [isModalOpen, setIsModalOpen] = useState(true)
   const onCloseModal = () => setIsModalOpen(false)
-  const { events, setFilter } = useEvents()
-
-  useEffect(() => {
-    setFilter('activityId', '76e56e1a-c5fb-451b-b49c-0019258383dc')
-  }, [setFilter])
+  const { events } = useEvents()
 
   return (
     <S.Wrapper>
