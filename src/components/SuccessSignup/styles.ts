@@ -39,5 +39,9 @@ export const ButtonContainer = styled.div`
   margin-top: 6rem;
   button {
     font-weight: ${({ theme }) => theme.font.weight.bold};
+    transition: filter 0.15s;
+    &:hover {
+      filter: brightness(0.85);
+    }
   }
 `

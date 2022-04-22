@@ -1,5 +1,3 @@
-import Router from 'next/router'
-
 import Arrow from 'components/Arrow'
 import Button from 'components/Button'
 import { TextField } from 'components/TextField'
@@ -30,8 +28,7 @@ export const ForgotPassword = ({ setCurrentModal }: ForgotPasswordProps) => {
         ...formData
       })
       toast.success('Uma nova senha foi enviada para seu e-mail')
-      setCurrentModal('idle')
-      Router.push('/')
+      setCurrentModal('successResetPassword')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err.response.status === 404) {

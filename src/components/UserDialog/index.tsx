@@ -5,6 +5,7 @@ import { ForgotPassword } from 'components/ForgotPassword'
 import { Signup } from 'components/Signup'
 import { CurrentModal } from 'types/types'
 import { SuccessSignup } from 'components/SuccessSignup'
+import { SuccessResetPassword } from 'components/SuccessResetPassword'
 
 type UseDialogProps = {
   currentModal: CurrentModal
@@ -27,6 +28,8 @@ export const UserDialog = ({
   const [isSuccessSignupModalOpen, setIsSuccessSignupModalOpen] = useState(
     currentModal === 'successSignup'
   )
+  const [isSuccessResetPasswordModalOpen, setIsSuccessResetPasswordModalOpen] =
+    useState(currentModal === 'successResetPassword')
 
   const handleCloseModalSignin = () => {
     setIsSigninModalOpen(false)
@@ -42,6 +45,10 @@ export const UserDialog = ({
   }
   const handleCloseModalSuccessSignup = () => {
     setIsSuccessSignupModalOpen(false)
+    setCurrentModal('idle')
+  }
+  const handleCloseModalSuccessResetPassword = () => {
+    setIsSuccessResetPasswordModalOpen(false)
     setCurrentModal('idle')
   }
 
@@ -77,6 +84,14 @@ export const UserDialog = ({
           onCloseModal={() => handleCloseModalSuccessSignup()}
         >
           <SuccessSignup setCurrentModal={setCurrentModal} />
+        </Dialog>
+      }
+      {
+        <Dialog
+          isModalOpen={isSuccessResetPasswordModalOpen}
+          onCloseModal={() => handleCloseModalSuccessResetPassword()}
+        >
+          <SuccessResetPassword setCurrentModal={setCurrentModal} />
         </Dialog>
       }
     </>

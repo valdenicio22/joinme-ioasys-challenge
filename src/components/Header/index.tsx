@@ -38,6 +38,12 @@ const Header = () => {
           setCurrentModal={setCurrentModal}
         />
       )}
+      {currentModal === 'successResetPassword' && (
+        <UserDialog
+          currentModal={currentModal}
+          setCurrentModal={setCurrentModal}
+        />
+      )}
       <S.HeaderContainer>
         <S.LogoBtnContainer
           onClick={() => (user ? Router.push('/home') : Router.push('/'))}
