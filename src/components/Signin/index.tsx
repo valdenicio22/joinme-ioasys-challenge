@@ -4,7 +4,7 @@ import Head from 'next/head'
 import Button from 'components/Button'
 import { TextField } from 'components/TextField'
 import Switch from 'components/Switch'
-import EyeIcon from 'components/EyeIcon'
+import { Eye, EyeSlash } from '@styled-icons/bootstrap'
 import IconLogo from 'components/IconLogo'
 
 import { useAuth } from '../../context/AuthContext'
@@ -95,9 +95,15 @@ export const Signin = ({
             fullWidth={true}
             placeholder="Digite sua senha"
             icon={
-              <EyeIcon
-                onClick={(e) => setIsVisible(isPasswordVisible(e, isVisible))}
-              />
+              isVisible === 'password' ? (
+                <EyeSlash
+                  onClick={(e) => setIsVisible(isPasswordVisible(e, isVisible))}
+                />
+              ) : (
+                <Eye
+                  onClick={(e) => setIsVisible(isPasswordVisible(e, isVisible))}
+                />
+              )
             }
             {...register('password', {
               required: true,
@@ -124,7 +130,7 @@ export const Signin = ({
 
         <S.SigninButtons>
           <Button
-            icon={<GoogleIcon />}
+            rightIcon={<GoogleIcon />}
             bgColor="lighterGray"
             fullWidth={true}
             colorText={'primary'}

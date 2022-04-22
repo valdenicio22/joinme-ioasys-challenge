@@ -3,9 +3,9 @@ import Head from 'next/head'
 
 import Button from '../Button'
 import { TextField } from '../TextField'
-import EyeIcon from '../EyeIcon'
 import Checkbox from '../Checkbox'
 import GoogleIcon from '../GoogleIcon'
+import { Eye, EyeSlash } from '@styled-icons/bootstrap'
 
 import * as S from './styles'
 
@@ -125,9 +125,15 @@ export const Signup = ({
             error={handleFormError('password')}
             fullWidth={true}
             icon={
-              <EyeIcon
-                onClick={(e) => setIsVisible(isPasswordVisible(e, isVisible))}
-              />
+              isVisible === 'password' ? (
+                <EyeSlash
+                  onClick={(e) => setIsVisible(isPasswordVisible(e, isVisible))}
+                />
+              ) : (
+                <Eye
+                  onClick={(e) => setIsVisible(isPasswordVisible(e, isVisible))}
+                />
+              )
             }
           />
 
@@ -152,9 +158,15 @@ export const Signup = ({
             error={handleFormError('passwordConfirmation')}
             fullWidth={true}
             icon={
-              <EyeIcon
-                onClick={(e) => setIsVisible(isPasswordVisible(e, isVisible))}
-              />
+              isVisible === 'password' ? (
+                <EyeSlash
+                  onClick={(e) => setIsVisible(isPasswordVisible(e, isVisible))}
+                />
+              ) : (
+                <Eye
+                  onClick={(e) => setIsVisible(isPasswordVisible(e, isVisible))}
+                />
+              )
             }
           />
         </S.TextFieldsContainer>
@@ -169,7 +181,7 @@ export const Signup = ({
 
         <S.SignupButtons>
           <Button
-            icon={<GoogleIcon />}
+            rightIcon={<GoogleIcon />}
             bgColor="lighterGray"
             fullWidth={true}
             colorText={'primary'}
