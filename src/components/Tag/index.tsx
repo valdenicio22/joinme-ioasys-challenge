@@ -3,7 +3,8 @@ import * as S from './styles'
 export type TagProps = {
   children: React.ReactNode
   background?: 'primary'
-  colorText: 'primary' | 'secondary' | 'darkGray'
+  colorText?: 'primary' | 'secondary' | 'darkGray'
+  borderColor?: 'primary' | 'secondary' | 'darkGray'
   size?: 'small'
 }
 
@@ -11,9 +12,15 @@ const Tag = ({
   children,
   background,
   colorText = 'primary',
-  size
+  size,
+  borderColor
 }: TagProps) => (
-  <S.Wrapper background={background} colorText={colorText} size={size}>
+  <S.Wrapper
+    background={background}
+    colorText={colorText}
+    size={size}
+    borderColor={borderColor}
+  >
     {children}
   </S.Wrapper>
 )

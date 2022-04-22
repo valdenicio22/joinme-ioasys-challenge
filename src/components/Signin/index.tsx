@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react'
+import { Dispatch, MouseEvent, SetStateAction, useState } from 'react'
 import Head from 'next/head'
 
 import Button from 'components/Button'
@@ -15,6 +15,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { isPasswordVisible } from 'utils/isPasswordVisible'
 import GoogleIcon from 'components/GoogleIcon'
 import { toast } from 'react-toastify'
+import { CurrentModal } from 'types/types'
 
 type SigninFormData = {
   email: string
@@ -22,32 +23,16 @@ type SigninFormData = {
 }
 
 type SigninProps = {
-  setIsSigninModalOpen: (arg: boolean) => void
-  setIsSignupModalOpen: (arg: boolean) => void
-  setIsForgotPasswordModalOpen: (arg: boolean) => void
+  setCurrentModal: Dispatch<SetStateAction<CurrentModal>>
 }
 
 type isVisibleProps = 'text' | 'password'
 
-export const Signin = ({
-  setIsSigninModalOpen,
-  setIsSignupModalOpen,
-  setIsForgotPasswordModalOpen
-}: SigninProps) => {
+export const Signin = ({ setCurrentModal }: SigninProps) => {
   const { signIn } = useAuth()
   const [isVisible, setIsVisible] = useState<isVisibleProps>('password')
-
-  const handleSignupModal = () => {
-    setIsSigninModalOpen(false)
-    setIsSignupModalOpen(true)
-  }
-
-  const handleForgotPasswordModal = () => {
-    setIsSigninModalOpen(false)
-    setIsForgotPasswordModalOpen(true)
-  }
-
   const [isConectedChecked, setIsConectedChecked] = useState(true)
+
   const {
     register,
     handleSubmit,
@@ -56,7 +41,7 @@ export const Signin = ({
 
   const onSubmit: SubmitHandler<SigninFormData> = async (formData) => {
     await signIn(formData)
-    setIsSigninModalOpen(false)
+    setCurrentModal('idle')
   }
 
   const handleFakeButtonClick = (e: MouseEvent) => {
@@ -123,7 +108,9 @@ export const Signin = ({
             />
             <span>Permanecer conectado</span>
           </S.SwitchContainer>
-          <S.ForgotPasswordBtn onClick={handleForgotPasswordModal}>
+          <S.ForgotPasswordBtn
+            onClick={() => setCurrentModal('forgotPassword')}
+          >
             Esqueceu sua senha?
           </S.ForgotPasswordBtn>
         </S.SwitchAndForgotPassword>
@@ -146,7 +133,9 @@ export const Signin = ({
 
       <S.SignupInfo>
         Não tem uma conta?&nbsp;
-        <S.SignupBtn onClick={handleSignupModal}>Cadastra-se aqui.</S.SignupBtn>
+        <S.SignupBtn onClick={() => setCurrentModal('signup')}>
+          Cadastra-se aqui.
+        </S.SignupBtn>
       </S.SignupInfo>
     </S.Wrapper>
   )

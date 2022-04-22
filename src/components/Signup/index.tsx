@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react'
+import { useState, MouseEvent, Dispatch, SetStateAction } from 'react'
 import Head from 'next/head'
 
 import Button from '../Button'
@@ -13,6 +13,7 @@ import { api } from 'service/api'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { isPasswordVisible } from 'utils/isPasswordVisible'
+import { CurrentModal } from 'types/types'
 
 type SignupFormData = {
   name: 'string'
@@ -25,14 +26,10 @@ type SignupFormData = {
 type isVisibleProps = 'text' | 'password'
 
 type SignUpProps = {
-  setIsSignupModalOpen: (arg: boolean) => void
-  setIsSigninModalOpen: (arg: boolean) => void
+  setCurrentModal: Dispatch<SetStateAction<CurrentModal>>
 }
 
-export const Signup = ({
-  setIsSignupModalOpen,
-  setIsSigninModalOpen
-}: SignUpProps) => {
+export const Signup = ({ setCurrentModal }: SignUpProps) => {
   const [isVisible, setIsVisible] = useState<isVisibleProps>('password')
   const {
     register,
@@ -44,9 +41,7 @@ export const Signup = ({
   const onSubmit: SubmitHandler<SignupFormData> = async (formData) => {
     try {
       await api.post('users/signup', { ...formData })
-      toast.success('Bem vindo! Sua conta foi criada!')
-      setIsSignupModalOpen(false)
-      setIsSigninModalOpen(true)
+      setCurrentModal('successSignup')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.log({ err })
@@ -58,11 +53,6 @@ export const Signup = ({
     fieldName: keyof typeof errors
   ): string | undefined => {
     return errors[fieldName]?.message
-  }
-
-  const handleSinginModal = () => {
-    setIsSignupModalOpen(false)
-    setIsSigninModalOpen(true)
   }
 
   const handleFakeButtonClick = (e: MouseEvent) => {
@@ -174,7 +164,7 @@ export const Signup = ({
         <S.TermsContainer>
           <Checkbox />
           <S.PTerms>
-            Li e concordo com os <S.Span>Termos e Condições</S.Span> e
+            Li e concordo com os <S.Span>Termos e Condições</S.Span> e{' '}
             <S.Span>Política de Privacidade.</S.Span>
           </S.PTerms>
         </S.TermsContainer>
@@ -197,7 +187,9 @@ export const Signup = ({
         <S.SigninInfo>
           <S.PSignIn>
             Já tem uma conta?{' '}
-            <S.SpanSignin onClick={handleSinginModal}>Entre aqui</S.SpanSignin>
+            <S.SpanSignin onClick={() => setCurrentModal('signin')}>
+              Entre aqui
+            </S.SpanSignin>
           </S.PSignIn>
         </S.SigninInfo>
       </S.FormContainer>

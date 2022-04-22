@@ -1,24 +1,29 @@
 import { useState } from 'react'
 import Head from 'next/head'
 
-import { Dialog } from '../../components/Dialog'
-import { Interests } from '../../components/Interests'
-import { EmergencyContact } from '../../components/EmergencyContact'
-
-import { useAuth } from 'context/AuthContext'
-
 import * as S from './styles'
 
 import { EventCard } from '../../components/EventCard'
 import Link from 'next/link'
 import { useEvents } from 'hooks/useEvents'
+import { CurrentModal, Activity } from 'types/types'
 
-export default function Home() {
+import { UserDialog } from 'components/UserDialog'
+import { GetServerSideProps } from 'next'
+import axios from 'axios'
+import { parseCookies } from 'nookies'
+import { useAuth } from '../../context/AuthContext'
+
+type HomeProps = {
+  userInterests: Array<Activity>
+}
+
+export default function Home({ userInterests }: HomeProps) {
   const { user } = useAuth()
-  const [modalStep, setModalStep] = useState(1)
-  const [isModalOpen, setIsModalOpen] = useState(true)
-  const onCloseModal = () => setIsModalOpen(false)
   const { events } = useEvents()
+  const [currentModal, setCurrentModal] = useState<CurrentModal>(
+    user && userInterests.length === 0 ? 'emergencyContact' : 'idle'
+  )
 
   return (
     <S.Wrapper>
@@ -26,17 +31,23 @@ export default function Home() {
         <title>Home | joinMe</title>
       </Head>
 
-      {user && (
-        <Dialog isModalOpen={isModalOpen} onCloseModal={onCloseModal}>
-          {modalStep === 1 && <EmergencyContact setModalStep={setModalStep} />}
-          {modalStep === 2 && (
-            <Interests
-              setModalStep={setModalStep}
-              onCloseModal={onCloseModal}
-              modalStep={modalStep}
-            />
-          )}
-        </Dialog>
+      {currentModal === 'emergencyContact' && (
+        <UserDialog
+          currentModal={currentModal}
+          setCurrentModal={setCurrentModal}
+        />
+      )}
+      {currentModal === 'interests' && (
+        <UserDialog
+          currentModal={currentModal}
+          setCurrentModal={setCurrentModal}
+        />
+      )}
+      {currentModal === 'disabilities' && (
+        <UserDialog
+          currentModal={currentModal}
+          setCurrentModal={setCurrentModal}
+        />
       )}
 
       <S.HomeContainer>
@@ -86,4 +97,22 @@ export default function Home() {
       </S.HomeContainer>
     </S.Wrapper>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const cookies = parseCookies(ctx)
+  const response = await axios.get<Activity[]>(
+    `https://thiagosgdev.com/users/interests/list`,
+    {
+      headers: {
+        Authorization: `Bearer ${cookies.joinMeToken}`
+      }
+    }
+  )
+
+  return {
+    props: {
+      userInterests: response.data
+    }
+  }
 }

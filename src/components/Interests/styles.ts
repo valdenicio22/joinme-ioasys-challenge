@@ -1,10 +1,5 @@
 import styled, { css } from 'styled-components'
 
-export const ArrowContainer = styled.div`
-  margin-bottom: 2.5rem;
-  cursor: pointer;
-`
-
 export const H1 = styled.h1`
   ${({ theme }) => css`
     width: 100%;
@@ -53,6 +48,9 @@ export const FinalizarButton = styled.div`
   flex-direction: column;
   gap: 2.5rem;
   margin-top: 6rem;
+  ${({ theme }) => css`
+    font-weight: ${theme.font.weight.bold};
+  `}
 `
 export const SkipStep = styled.span`
   cursor: pointer;

@@ -20,7 +20,7 @@ export const FormContainer = styled.form`
 export const H1 = styled.h1`
   ${({ theme }) => css`
     width: 100%;
-    font-size: ${theme.font.sizes.large};
+    font-size: ${theme.font.sizes.xlarge};
     color: ${theme.colors.black};
   `}
 `
@@ -37,7 +37,7 @@ export const TermsContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin: 1.5rem 0 3rem;
+  margin: 1rem 0 3rem;
 `
 export const PTerms = styled.p``
 
@@ -60,7 +60,7 @@ export const SignupButtons = styled.div`
 `
 
 export const SigninInfo = styled.div`
-  font-size: ${({ theme }) => theme.font.sizes.small};
+  font-size: ${({ theme }) => theme.font.sizes.medium};
   margin-top: 2rem;
 `
 

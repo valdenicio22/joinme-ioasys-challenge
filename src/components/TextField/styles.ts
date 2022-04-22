@@ -11,7 +11,7 @@ export const LabelContainer = styled.div`
 
 export const Label = styled.label`
   ${({ theme }) => css`
-    font-size: ${theme.font.sizes.small};
+    font-size: ${theme.font.sizes.medium};
     color: ${theme.colors.black};
     cursor: pointer;
   `}
@@ -46,7 +46,7 @@ export const Input = styled.input`
     padding: 1.5rem 0;
     color: ${theme.colors.black};
     font-family: ${theme.font.family};
-    font-size: ${theme.font.sizes.medium};
+    font-size: ${theme.font.sizes.large};
     background: transparent;
     border: 0;
     outline: none;

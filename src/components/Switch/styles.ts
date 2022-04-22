@@ -6,7 +6,7 @@ export const Switch = styled(SwitchPrimitive.Root)`
     all: unset;
     width: 3.6rem;
     height: 2rem;
-    background-color: ${theme.colors.lightGray};
+    background-color: ${theme.colors.secondary};
     border-radius: 9999px;
     position: relative;
     -webkit-tap-highlight-color: #000;
@@ -14,7 +14,6 @@ export const Switch = styled(SwitchPrimitive.Root)`
     &[data-state='checked'] {
       background-color: ${theme.colors.primary};
     }
-
     cursor: pointer;
   `}
 `

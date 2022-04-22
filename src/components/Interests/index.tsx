@@ -1,33 +1,23 @@
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-import Arrow from 'components/Arrow'
 import Button from 'components/Button'
 
 import * as S from './styles'
 
-import { Activity } from '../../types/types'
+import { Activity, CurrentModal } from '../../types/types'
 
 import { api } from '../../service/api'
 import { toast } from 'react-toastify'
 
 type InterestsProps = {
-  setModalStep: (arg: number) => void
-  onCloseModal: () => void
-  modalStep: number
+  setCurrentModal: Dispatch<SetStateAction<CurrentModal>>
 }
-
 type ActivityData = {
   isSelect: boolean
 } & Activity
 
-export const Interests = ({
-  setModalStep,
-  onCloseModal,
-  modalStep
-}: InterestsProps) => {
+export const Interests = ({ setCurrentModal }: InterestsProps) => {
   const [activities, setActivities] = useState<ActivityData[]>([])
-  const handleSkipModalStep = () =>
-    modalStep > 1 ? onCloseModal() : setModalStep(2)
 
   useEffect(() => {
     api
@@ -43,11 +33,12 @@ export const Interests = ({
     try {
       await api.post('/users/interests', { activityIds })
       toast.success('Interesses cadastrado com sucesso')
+      setCurrentModal('disabilities')
     } catch (error) {
       console.log(error)
       toast.error('error')
+      setCurrentModal('idle')
     }
-    onCloseModal()
   }
 
   const handleActivitySelected = (selectedActivity: ActivityData) => {
@@ -61,9 +52,6 @@ export const Interests = ({
 
   return (
     <>
-      <S.ArrowContainer onClick={() => setModalStep(1)}>
-        <Arrow />
-      </S.ArrowContainer>
       <S.H1>
         Agora conta pra gente, quais são os seus principais interesses?
       </S.H1>
@@ -85,10 +73,16 @@ export const Interests = ({
         ))}
       </S.InterestsContainer>
       <S.FinalizarButton>
-        <Button fullWidth={true} onClick={handleUserInterests}>
-          FINALIZAR
+        <Button
+          fullWidth={true}
+          bgColor="primary"
+          onClick={handleUserInterests}
+        >
+          CONFIRMAR
         </Button>
-        <S.SkipStep onClick={handleSkipModalStep}>PULAR</S.SkipStep>
+        <S.SkipStep onClick={() => setCurrentModal('disabilities')}>
+          PULAR
+        </S.SkipStep>
       </S.FinalizarButton>
     </>
   )
