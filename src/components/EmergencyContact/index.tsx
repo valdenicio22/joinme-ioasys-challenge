@@ -1,11 +1,11 @@
 import Button from 'components/Button'
 import { TextField } from 'components/TextField'
-import SirenIcon from 'components/SirenIcon'
+import { Dispatch, SetStateAction } from 'react'
 
 import { useAuth } from '../../context/AuthContext'
 
 import * as S from './styles'
-import { User } from '../../types/types'
+import { CurrentModal, User } from '../../types/types'
 
 import { setCookie } from 'nookies'
 import { useForm, SubmitHandler } from 'react-hook-form'
@@ -15,10 +15,12 @@ import { toast } from 'react-toastify'
 type SecurityContactData = Pick<User, 'emergencyName' | 'emergencyPhone'>
 
 type EmergencyContactProps = {
-  setModalStep: (arg: number) => void
+  setCurrentModal: Dispatch<SetStateAction<CurrentModal>>
 }
 
-export const EmergencyContact = ({ setModalStep }: EmergencyContactProps) => {
+export const EmergencyContact = ({
+  setCurrentModal
+}: EmergencyContactProps) => {
   const { register, handleSubmit } = useForm<SecurityContactData>()
 
   const { user, setUser } = useAuth()
@@ -40,9 +42,10 @@ export const EmergencyContact = ({ setModalStep }: EmergencyContactProps) => {
           path: '/'
         })
         toast.success('Contato salvo com sucesso')
-        setModalStep(2)
+        setCurrentModal('interests')
       } catch (error) {
         console.log(error)
+        setCurrentModal('idle')
       }
     }
   }
@@ -50,15 +53,17 @@ export const EmergencyContact = ({ setModalStep }: EmergencyContactProps) => {
   return (
     <>
       <S.LogoContainer>
-        <SirenIcon />
+        <img src="img/emergencySiren.svg" alt="Icone de uma sirene" />
       </S.LogoContainer>
 
       <S.TitleAndDescription>
         <S.H1>Você gostaria de adicionar um contato para emergências?</S.H1>
         <S.Description>
-          Esse contato serve para enviarmos uma mensagem para alguém que você
-          confia, caso você não se sinta segura ou confortável em alguma
-          situação, através do botão de ajuda.
+          O contato serve para o organizador do evento enviar uma mensagem a
+          alguém que você confia, caso você não se sinta bem ou tenha alguma
+          emergência e precise de ajuda. O organizador poderá mandar uma
+          mensagem ou ligar para o número quando ele informar uma emergência
+          durante o evento.
         </S.Description>
       </S.TitleAndDescription>
 
@@ -72,7 +77,7 @@ export const EmergencyContact = ({ setModalStep }: EmergencyContactProps) => {
             fullWidth={true}
           />
           <TextField
-            label="Qual é o telefone do seu contato?"
+            label="Qual é o celular dele?"
             type="text"
             placeholder="(99) 9 9999-9999"
             fullWidth={true}
@@ -81,10 +86,12 @@ export const EmergencyContact = ({ setModalStep }: EmergencyContactProps) => {
         </S.InputsContainer>
 
         <S.ButtonsContainer>
-          <Button type="submit" fullWidth={true}>
+          <Button bgColor="primary" type="submit" fullWidth={true}>
             ADICIONAR CONTATO
           </Button>
-          <S.SkipStep onClick={() => setModalStep(2)}>PULAR</S.SkipStep>
+          <S.SkipStep onClick={() => setCurrentModal('interests')}>
+            PULAR
+          </S.SkipStep>
         </S.ButtonsContainer>
       </S.FormContainer>
     </>
