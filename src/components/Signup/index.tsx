@@ -41,8 +41,7 @@ export const Signup = ({ setCurrentModal }: SignUpProps) => {
   const onSubmit: SubmitHandler<SignupFormData> = async (formData) => {
     try {
       await api.post('users/signup', { ...formData })
-      toast.success('Bem vindo! Sua conta foi criada!')
-      setCurrentModal('idle')
+      setCurrentModal('successSignup')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.log({ err })

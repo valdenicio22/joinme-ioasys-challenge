@@ -4,9 +4,10 @@ import { Dialog } from 'components/Dialog'
 import { ForgotPassword } from 'components/ForgotPassword'
 import { Signup } from 'components/Signup'
 import { CurrentModal } from 'types/types'
+import { SuccessSignup } from 'components/SuccessSignup'
 
 type UseDialogProps = {
-  currentModal: 'signin' | 'signup' | 'forgotPassword' | 'idle'
+  currentModal: CurrentModal
   setCurrentModal: Dispatch<SetStateAction<CurrentModal>>
 }
 
@@ -23,6 +24,9 @@ export const UserDialog = ({
   const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(
     currentModal === 'forgotPassword'
   )
+  const [isSuccessSignupModalOpen, setIsSuccessSignupModalOpen] = useState(
+    currentModal === 'successSignup'
+  )
 
   const handleCloseModalSignin = () => {
     setIsSigninModalOpen(false)
@@ -34,6 +38,10 @@ export const UserDialog = ({
   }
   const handleCloseModalForgotPassword = () => {
     setIsForgotPasswordModalOpen(false)
+    setCurrentModal('idle')
+  }
+  const handleCloseModalSuccessSignup = () => {
+    setIsSuccessSignupModalOpen(false)
     setCurrentModal('idle')
   }
 
@@ -61,6 +69,14 @@ export const UserDialog = ({
           onCloseModal={() => handleCloseModalSignup()}
         >
           <Signup setCurrentModal={setCurrentModal} />
+        </Dialog>
+      }
+      {
+        <Dialog
+          isModalOpen={isSuccessSignupModalOpen}
+          onCloseModal={() => handleCloseModalSuccessSignup()}
+        >
+          <SuccessSignup setCurrentModal={setCurrentModal} />
         </Dialog>
       }
     </>

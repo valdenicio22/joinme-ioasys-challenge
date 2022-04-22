@@ -86,6 +86,7 @@ export type CurrentModal =
   | 'forgotPassword'
   | 'userInterests'
   | 'idle'
+  | 'successSignup'
 
 export type Wellness = {
   id: string

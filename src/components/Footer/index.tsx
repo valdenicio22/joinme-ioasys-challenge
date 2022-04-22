@@ -38,6 +38,12 @@ export const Footer = () => {
           setCurrentModal={setCurrentModal}
         />
       )}
+      {currentModal === 'successSignup' && (
+        <UserDialog
+          currentModal={currentModal}
+          setCurrentModal={setCurrentModal}
+        />
+      )}
 
       <S.FooterContainer>
         <S.FooterContent>
