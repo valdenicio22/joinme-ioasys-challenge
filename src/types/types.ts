@@ -88,10 +88,20 @@ export type CurrentModal =
   | 'idle'
   | 'successSignup'
   | 'successResetPassword'
+  | 'emergencyContact'
+  | 'interests'
+  | 'disabilities'
 
 export type Wellness = {
   id: string
   title: string
   description: string
   imageUrl: string
+}
+
+export type UserDisability = {
+  id: string
+  name: string
+  description: string
+  active: boolean
 }
