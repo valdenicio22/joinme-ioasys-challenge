@@ -101,18 +101,26 @@ export default function Home({ userInterests }: HomeProps) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookies = parseCookies(ctx)
-  const response = await axios.get<Activity[]>(
-    `https://thiagosgdev.com/users/interests/list`,
-    {
-      headers: {
-        Authorization: `Bearer ${cookies.joinMeToken}`
+  if (cookies.joinMeToken) {
+    const response = await axios.get<Activity[]>(
+      `https://thiagosgdev.com/users/interests/list`,
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.joinMeToken}`
+        }
+      }
+    )
+
+    return {
+      props: {
+        userInterests: response.data
       }
     }
-  )
-
-  return {
-    props: {
-      userInterests: response.data
+  } else {
+    return {
+      props: {
+        userInterests: []
+      }
     }
   }
 }
