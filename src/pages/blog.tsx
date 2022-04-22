@@ -1,4 +1,4 @@
 //export { default, getServerSideProps } from '../containers/Blog'
-export default function Teste() {
+export default function Blog() {
   return 'x'
 }

@@ -1,4 +1,4 @@
 //export { default, getServerSideProps } from '../../containers/SavedEvents'
-export default function Teste() {
+export default function SavedEvents() {
   return 'x'
 }
