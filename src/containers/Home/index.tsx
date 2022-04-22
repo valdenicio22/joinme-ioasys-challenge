@@ -10,8 +10,8 @@ import { CurrentModal, Activity } from 'types/types'
 
 import { UserDialog } from 'components/UserDialog'
 import { GetServerSideProps } from 'next'
-import axios from 'axios'
-import { parseCookies } from 'nookies'
+//import axios from 'axios'
+//import { parseCookies } from 'nookies'
 import { useAuth } from '../../context/AuthContext'
 
 type HomeProps = {
@@ -106,28 +106,10 @@ export default function Home({ userInterests }: HomeProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const cookies = parseCookies(ctx)
-  if (cookies.joinMeToken) {
-    const response = await axios.get<Activity[]>(
-      `https://thiagosgdev.com/users/interests/list`,
-      {
-        headers: {
-          Authorization: `Bearer ${cookies.joinMeToken}`
-        }
-      }
-    )
-
-    return {
-      props: {
-        userInterests: response.data
-      }
-    }
-  } else {
-    return {
-      props: {
-        userInterests: []
-      }
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    props: {
+      userInterests: []
     }
   }
 }
