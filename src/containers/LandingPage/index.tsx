@@ -2,15 +2,18 @@ import Button from 'components/Button'
 import { AppInfoCards } from 'components/AppInfoCards'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import Router from 'next/router'
 import { withSSRGuest } from 'utils/withSSRGuest'
 import * as S from './styles'
 import { PlayCircle } from '@styled-icons/boxicons-regular'
 import Link from 'next/link'
-import { EventData, Wellness } from 'types/types'
+import { CurrentModal, EventData, Wellness } from 'types/types'
 import axios from 'axios'
 import { EventCard } from 'components/EventCard'
 import BlogCard from 'components/BlogCard'
+import { toast } from 'react-toastify'
+import { UserDialog } from 'components/UserDialog'
+import { useState } from 'react'
+import { KeyboardArrowRight } from '@styled-icons/material'
 
 type LandingPageProps = {
   eventsData: Array<EventData>
@@ -21,11 +24,20 @@ export default function LandingPage({
   eventsData,
   wellnessData
 }: LandingPageProps) {
+  const [currentModal, setCurrentModal] = useState<CurrentModal>('idle')
+
   return (
     <S.Wrapper>
       <Head>
         <title>joinMe</title>
       </Head>
+
+      {currentModal === 'signup' && (
+        <UserDialog
+          currentModal={currentModal}
+          setCurrentModal={setCurrentModal}
+        />
+      )}
 
       <S.WelcomeWrapper>
         <S.WelcomeContainer>
@@ -43,12 +55,15 @@ export default function LandingPage({
               </S.Description>
 
               <S.ButtonsContainer>
-                <Button bgColor="primary" onClick={() => Router.push('/home')}>
+                <Button
+                  bgColor="primary"
+                  onClick={() => setCurrentModal('signup')}
+                >
                   Cadastra-se agora
                 </Button>
                 <Button
-                  icon={<PlayCircle width={15} height={15} />}
-                  onClick={() => Router.push('/home')}
+                  leftIcon={<PlayCircle width={15} height={15} />}
+                  onClick={() => toast.info('Aguardando Link')}
                 >
                   Baixe o app
                 </Button>
@@ -74,16 +89,35 @@ export default function LandingPage({
       <S.GroupsWrapper>
         <S.GroupsContainer>
           <img
-            src="/img/groupPlans.svg"
+            src="/img/freePreemium.svg"
             alt="Tabela explicando os plano, grátis e premium"
           />
+          <Button
+            bgColor="primary"
+            onClick={() => setCurrentModal('signup')}
+            className="freeButton"
+          >
+            Cadastra-se
+          </Button>
+          <Button
+            bgColor="primary"
+            className="premiumButton"
+            onClick={() =>
+              toast.info('Essa funcionalidade será liberade em breve')
+            }
+          >
+            Cadastra-se
+          </Button>
         </S.GroupsContainer>
       </S.GroupsWrapper>
       <S.AppCardsWrapper>
         <S.AppCardContainer>
           <S.SubTitleContainer>
             <S.SubTitle>Eventos Recomendados</S.SubTitle>
-            <Link href={'/home'}>{'ver mais >'}</Link>
+            <S.LinkContainer>
+              <Link href={'/home'}>{'ver mais'}</Link>
+              <KeyboardArrowRight width={22} height={22} fill={'#1E00FC'} />
+            </S.LinkContainer>
           </S.SubTitleContainer>
           <S.CardsContainer>
             {eventsData.map((event) => (
@@ -94,8 +128,11 @@ export default function LandingPage({
 
         <S.AppCardContainer>
           <S.SubTitleContainer>
-            <S.SubTitle>Eventos Recomendados</S.SubTitle>
-            <Link href={'/blog'}>{'ver mais >'}</Link>
+            <S.SubTitle>Dicas de bem-estar</S.SubTitle>
+            <S.LinkContainer>
+              <Link href={'/blog'}>{'ver mais'}</Link>
+              <KeyboardArrowRight width={25} height={25} fill={'#1E00FC'} />
+            </S.LinkContainer>
           </S.SubTitleContainer>
           <S.CardsContainer>
             {wellnessData.map((card) => (
