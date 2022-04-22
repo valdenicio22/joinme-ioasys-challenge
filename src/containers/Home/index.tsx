@@ -52,16 +52,23 @@ export default function Home({ userInterests }: HomeProps) {
 
       <S.HomeContainer>
         <S.FiltersContainer>
-          <select name="FIlter" id="pet-select">
-            <option value="">--Please choose an option--</option>
-            <option value="opt1">Opt1</option>
-            <option value="opt2">Opt2</option>
+          <label htmlFor="userInterests">Interesses:</label>
+
+          <select name="interests" id="userInterests">
+            <option value="first" selected>
+              First Value
+            </option>
+            <option value="second">Second Value</option>
+            <option value="third">Third Value</option>
           </select>
 
-          <select name="FIlter" id="pet-selectw">
-            <option value="">--Please choose an option--</option>
-            <option value="opt1">Opt1</option>
-            <option value="opt2">Opt2</option>
+          <label htmlFor="modality">Modalidade:</label>
+          <select name="modality" id={'modality'}>
+            <option value="all" selected>
+              Todos
+            </option>
+            <option value="online">online</option>
+            <option value="presencial">presencial</option>
           </select>
         </S.FiltersContainer>
 
@@ -101,18 +108,26 @@ export default function Home({ userInterests }: HomeProps) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookies = parseCookies(ctx)
-  const response = await axios.get<Activity[]>(
-    `https://thiagosgdev.com/users/interests/list`,
-    {
-      headers: {
-        Authorization: `Bearer ${cookies.joinMeToken}`
+  if (cookies.joinMeToken) {
+    const response = await axios.get<Activity[]>(
+      `https://thiagosgdev.com/users/interests/list`,
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.joinMeToken}`
+        }
+      }
+    )
+
+    return {
+      props: {
+        userInterests: response.data
       }
     }
-  )
-
-  return {
-    props: {
-      userInterests: response.data
+  } else {
+    return {
+      props: {
+        userInterests: []
+      }
     }
   }
 }
