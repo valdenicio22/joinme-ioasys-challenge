@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import * as S from './styles'
 
 export type DropdownProps = {
@@ -7,17 +8,23 @@ export type DropdownProps = {
   handleIsDropdownOpen: () => void
 }
 
-const Dropdown = ({
-  title,
-  children,
-  isDropdrowOpen,
-  handleIsDropdownOpen
-}: DropdownProps) => {
-  return (
-    <S.Wrapper isOpen={isDropdrowOpen}>
-      <S.Title onClick={handleIsDropdownOpen}>{title}</S.Title>
+const Dropdown = ({ title, children }: DropdownProps) => {
+  const [isOpen, setIsOpen] = useState(false)
 
-      <S.Content aria-hidden={!isDropdrowOpen}>{children}</S.Content>
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : 'unset'
+
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isOpen])
+
+  return (
+    <S.Wrapper isOpen={isOpen}>
+      <S.Title onClick={() => setIsOpen(!isOpen)}>{title}</S.Title>
+
+      <S.Content aria-hidden={!isOpen}>{children}</S.Content>
+      <S.Overlay aria-hidden={!isOpen} onClick={() => setIsOpen(!isOpen)} />
     </S.Wrapper>
   )
 }

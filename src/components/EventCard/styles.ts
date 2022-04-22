@@ -10,6 +10,8 @@ export const Wrapper = styled.div`
 `
 
 export const ImgContainer = styled.div`
+  width: 100%;
+  height: 30.4rem;
   position: relative;
   img {
     border-radius: 2rem 2rem 0 0;

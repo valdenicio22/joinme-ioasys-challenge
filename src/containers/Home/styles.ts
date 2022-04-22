@@ -20,8 +20,8 @@ export const FiltersContainer = styled.div`
   gap: 1.5rem;
 
   select {
-    width: 270px;
-    height: 4.5rem;
+    width: 30.2rem;
+    height: 4.2rem;
   }
 `
 
