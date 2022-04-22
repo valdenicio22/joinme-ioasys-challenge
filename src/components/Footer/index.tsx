@@ -95,10 +95,20 @@ export const Footer = () => {
         <S.FooterContent>
           <S.FooterTitle>Disponível em:</S.FooterTitle>
           <S.FooterMediasContainer>
-            <Button icon={<PlayStoreIcon />} format="square" size="small">
+            <Button
+              borderColor="white"
+              leftIcon={<PlayStoreIcon />}
+              format="square"
+              size="small"
+            >
               Android
             </Button>
-            <Button icon={<FlutterIcon />} format="square" size="small">
+            <Button
+              borderColor="white"
+              leftIcon={<FlutterIcon />}
+              format="square"
+              size="small"
+            >
               Flutter
             </Button>
           </S.FooterMediasContainer>

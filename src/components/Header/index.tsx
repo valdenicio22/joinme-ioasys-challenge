@@ -50,7 +50,10 @@ const Header = () => {
               <S.NavButton onClick={() => setCurrentModal('signin')}>
                 Entrar
               </S.NavButton>
-              <Button onClick={() => setCurrentModal('signup')}>
+              <Button
+                borderColor="white"
+                onClick={() => setCurrentModal('signup')}
+              >
                 Cadastra-se
               </Button>
             </>
