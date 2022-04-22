@@ -20,13 +20,13 @@ export const FormContainer = styled.form`
   justify-content: center;
 
   ${({ theme }) => css`
-    font-size: ${theme.font.sizes.medium};
+    font-size: ${theme.font.sizes.large};
   `}
 `
 export const H2 = styled.h2`
   ${({ theme }) => css`
     width: 100%;
-    font-size: ${theme.font.sizes.large};
+    font-size: ${theme.font.sizes.xlarge};
     color: ${theme.colors.black};
   `}
 `
@@ -92,7 +92,7 @@ export const SigninButtons = styled.div`
 export const SignupInfo = styled.p`
   margin-top: 2rem;
   ${({ theme }) => css`
-    font-size: ${theme.font.sizes.small};
+    font-size: ${theme.font.sizes.medium};
   `}
 `
 
