@@ -174,7 +174,7 @@ export const Signup = ({
         <S.TermsContainer>
           <Checkbox />
           <S.PTerms>
-            Li e concordo com os <S.Span>Termos e Condições</S.Span> e
+            Li e concordo com os <S.Span>Termos e Condições</S.Span> e{' '}
             <S.Span>Política de Privacidade.</S.Span>
           </S.PTerms>
         </S.TermsContainer>
