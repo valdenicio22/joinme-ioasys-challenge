@@ -21,7 +21,7 @@ type SignInCredentials = {
 }
 
 type AuthContextData = {
-  signIn: (credentials: SignInCredentials) => Promise<void>
+  signIn: (credentials: SignInParams) => Promise<void>
   setUser: (arg: User) => void
   signOut: () => void
   user?: User
@@ -30,6 +30,10 @@ type AuthContextData = {
 
 type AuthProviderProps = {
   children: ReactNode
+}
+
+type SignInParams = SignInCredentials & {
+  onLoginSucess?: () => void
 }
 
 export const logout = () => {
@@ -64,7 +68,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     } else setUser(undefined)
   }, [])
 
-  const signIn = async ({ email, password }: SignInCredentials) => {
+  const signIn = async ({ email, password, onLoginSucess }: SignInParams) => {
     try {
       const response = await api.post<AuthenticatedUserData>('users/signin', {
         email,
@@ -87,6 +91,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
+      onLoginSucess && onLoginSucess()
       setUser(userData)
       Router.push('/home')
     } catch (err) {
