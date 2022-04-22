@@ -150,7 +150,7 @@ export const getServerSideProps: GetServerSideProps = withSSRGuest(async () => {
     `https://thiagosgdev.com/events/list?take=3&skip=0`
   )
   const wellnessResponse = await axios.get<Wellness[]>(
-    `https://thiagosgdev.com/wellness/list`
+    `https://thiagosgdev.com/wellness/list?take=3&skip=0`
   )
 
   return {
