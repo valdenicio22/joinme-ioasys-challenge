@@ -1,6 +1,5 @@
 import { Story, Meta } from '@storybook/react'
 import { Edit } from '@styled-icons/fluentui-system-regular'
-import EyeIcon from 'components/EyeIcon'
 
 import { TextField, TextFieldProps } from '.'
 
@@ -11,7 +10,6 @@ export default {
     label: 'E-mail',
     labelFor: 'Email',
     id: 'Email',
-    icons: <EyeIcon />,
     placeholder: 'lumaCamp@email.com',
     labelIcon: <Edit />
   }
