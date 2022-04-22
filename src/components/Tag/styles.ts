@@ -14,6 +14,12 @@ const wrapperModifiers = {
   ) => css`
     color: ${theme.colors[colorText]};
   `,
+  borderColor: (
+    theme: DefaultTheme,
+    borderColor: 'primary' | 'secondary' | 'darkGray'
+  ) => css`
+    border-color: ${theme.colors[borderColor]};
+  `,
   smallSize: (theme: DefaultTheme) => css`
     width: fit-content;
     height: 2rem;
@@ -22,7 +28,7 @@ const wrapperModifiers = {
 }
 
 export const Wrapper = styled.div<WrapperProps>`
-  ${({ theme, background, colorText, size }) => css`
+  ${({ theme, background, colorText, size, borderColor }) => css`
     width: fit-content;
     padding: 1.2rem 1rem;
     border: 1px solid ${theme.colors.primary};
@@ -34,6 +40,7 @@ export const Wrapper = styled.div<WrapperProps>`
 
     ${background && wrapperModifiers.fill(theme, background)}
     ${colorText && wrapperModifiers.colorText(theme, colorText)}
+    ${borderColor && wrapperModifiers.borderColor(theme, borderColor)}
     ${size && wrapperModifiers.smallSize(theme)}
   `}
 `
