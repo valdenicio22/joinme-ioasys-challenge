@@ -12,12 +12,14 @@ export const BlogCard = styled.div`
 
 export const ImgContainer = styled.div`
   ${({ theme }) => css`
-    width: 100%;
+    width: 36rem;
     height: 30.05rem;
 
     img {
       border-radius: ${theme.border.radius.large} ${theme.border.radius.large} 0
         0;
+      width: 36rem;
+      height: 30.05rem;
     }
   `}
 `

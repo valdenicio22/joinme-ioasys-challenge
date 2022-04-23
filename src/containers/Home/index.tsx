@@ -6,26 +6,29 @@ import * as S from './styles'
 import { EventCard } from '../../components/EventCard'
 import Link from 'next/link'
 import { useEvents } from 'hooks/useEvents'
-import { CurrentModal, Activity } from 'types/types'
+import { Activity, CurrentModal } from 'types/types'
 
 import { UserDialog } from 'components/UserDialog'
 import { GetServerSideProps } from 'next'
-import axios from 'axios'
-import { parseCookies } from 'nookies'
 import { useAuth } from '../../context/AuthContext'
 import { useActivities } from 'hooks/useActivities'
+import { parseCookies } from 'nookies'
+import axios from 'axios'
 
 type HomeProps = {
-  userInterests: Array<Activity>
+  userInterests: Activity[]
 }
-
-export default function Home({ userInterests }: HomeProps) {
+export default function Home(props: HomeProps) {
   const { user } = useAuth()
-  const { events, filters, setFilter } = useEvents({ onlyRecommended: !!user })
+  const { events, filters, setFilter, page, updatePage } = useEvents({
+    onlyRecommended: !!user,
+    itemsPerPage: 5,
+    fetchAll: false
+  })
   const { events: allEvents } = useEvents()
   const { activities } = useActivities()
   const [currentModal, setCurrentModal] = useState<CurrentModal>(
-    user && userInterests.length === 0 ? 'emergencyContact' : 'idle'
+    user && props.userInterests?.length === 0 ? 'emergencyContact' : 'idle'
   )
 
   return (
@@ -108,21 +111,33 @@ export default function Home({ userInterests }: HomeProps) {
                 ))
             : 'Loading...'}
         </S.Boosted>
-        <S.Title>Eventos Recomendados</S.Title>
+        <S.Title>{`${
+          user ? 'Eventos Recomendados' : 'Todos os Eventos'
+        }`}</S.Title>
 
         <S.Recommended>
           {events
-            ? events
-                .filter((event) => !event.isPromoted)
-                .map((event) => (
-                  <Link href={`/events/${event.id}`} key={event.id} passHref>
-                    <a>
-                      <EventCard event={event} />
-                    </a>
-                  </Link>
-                ))
+            ? events.map((event) => (
+                <Link href={`/events/${event.id}`} key={event.id} passHref>
+                  <a>
+                    <EventCard event={event} />
+                  </a>
+                </Link>
+              ))
             : 'Loading...'}
         </S.Recommended>
+        <div
+          style={{
+            width: '100%',
+            marginLeft: 'auto'
+          }}
+        >
+          <button disabled={page === 1} onClick={() => updatePage(page - 1)}>
+            Anterior
+          </button>
+          {page}
+          <button onClick={() => updatePage(page + 1)}>Próximo</button>
+        </div>
       </S.HomeContainer>
     </S.Wrapper>
   )
@@ -147,9 +162,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   } else {
     return {
-      props: {
-        userInterests: []
-      }
+      props: {}
     }
   }
 }

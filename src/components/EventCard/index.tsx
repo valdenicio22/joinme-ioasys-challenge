@@ -14,8 +14,10 @@ type EventCardProps = {
 
 export const EventCard = ({ event }: EventCardProps) => {
   const [isBooked, setIsBooked] = useState(false)
-  const { name, isOnline, numParticipants, addresses, activities, id } = event
+  const { name, isOnline, numParticipants, addresses, activities, id, date } =
+    event
   const { user } = useAuth()
+  const myDate = new Date(date || '')
 
   const handleAttendButton = async (e: MouseEvent) => {
     e.preventDefault()
@@ -41,7 +43,7 @@ export const EventCard = ({ event }: EventCardProps) => {
           src="/img/cardEventImg.svg"
           alt="Default Img"
         />
-        <S.Schedule>28 abril</S.Schedule>
+        <S.Schedule>{`${myDate.getDay()} / ${myDate.getMonth()}`}</S.Schedule>
       </S.ImgContainer>
       <S.EventDetailsContainer>
         <S.EventTitle>{name}</S.EventTitle>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { api } from 'service/api'
 import { Activity } from 'types/types'
-
 export const useActivities = () => {
   const [activities, setActivities] = useState<Activity[]>([])
 
