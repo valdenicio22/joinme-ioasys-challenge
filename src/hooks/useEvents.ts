@@ -12,6 +12,10 @@ type UseEventsPayload = {
   setFilter: (filterName: FilterName, value?: string) => void
 }
 
+type UseEventsParams = {
+  onlyRecommended: boolean
+}
+
 const formatFiltersToQueryString = (filters: Filters): string => {
   const filterNames = Object.keys(filters) as FilterName[]
   return filterNames
@@ -28,8 +32,9 @@ const formatFiltersToQueryString = (filters: Filters): string => {
 }
 
 export const useEvents = (
-  eventsRecommended: boolean | undefined
+  params: UseEventsParams = { onlyRecommended: false }
 ): UseEventsPayload => {
+  const { onlyRecommended } = params
   const [events, setEvents] = useState<EventData[]>([])
   const [filters, setFilters] = useState<Filters>({
     activityId: undefined,
@@ -39,7 +44,7 @@ export const useEvents = (
   useEffect(() => {
     try {
       const filtersQueryString = formatFiltersToQueryString(filters)
-      const endpoint = eventsRecommended
+      const endpoint = onlyRecommended
         ? 'events/list/user'
         : 'events/list?' + filtersQueryString
       api
@@ -48,7 +53,7 @@ export const useEvents = (
     } catch (error) {
       console.log(error)
     }
-  }, [filters, eventsRecommended])
+  }, [filters, onlyRecommended])
 
   const setFilter = (filterName: FilterName, value?: string) => {
     setFilters((prevFilters) => ({

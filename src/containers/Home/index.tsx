@@ -21,8 +21,8 @@ type HomeProps = {
 
 export default function Home({ userInterests }: HomeProps) {
   const { user } = useAuth()
-  const { events, filters, setFilter } = useEvents(!!user)
-  const { events: allEvents } = useEvents(false)
+  const { events, filters, setFilter } = useEvents({ onlyRecommended: !!user })
+  const { events: allEvents } = useEvents()
   const { activities } = useActivities()
   const [currentModal, setCurrentModal] = useState<CurrentModal>(
     user && userInterests.length === 0 ? 'emergencyContact' : 'idle'
