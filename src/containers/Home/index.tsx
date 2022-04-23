@@ -21,7 +21,8 @@ type HomeProps = {
 
 export default function Home({ userInterests }: HomeProps) {
   const { user } = useAuth()
-  const { events } = useEvents()
+  const { events, filters, setFilter } = useEvents(!!user)
+  const { events: allEvents } = useEvents(false)
   const { activities } = useActivities()
   const [currentModal, setCurrentModal] = useState<CurrentModal>(
     user && userInterests.length === 0 ? 'emergencyContact' : 'idle'
@@ -53,35 +54,51 @@ export default function Home({ userInterests }: HomeProps) {
       )}
 
       <S.HomeContainer>
-        <S.FiltersContainer>
-          <S.ActivitiesSelect>
-            <label htmlFor="userInterests">Interesses:</label>
-            <select name="interests" id="userInterests">
-              {activities.map((activity) => (
-                <option key={activity.id} value={activity.id}>
-                  {activity.name}
+        {!user && (
+          <S.FiltersContainer>
+            <S.ActivitiesSelect>
+              <label htmlFor="userInterests">Interesses:</label>
+              <select
+                name="interests"
+                id="userInterests"
+                value={filters?.activityId}
+                onChange={(e) => setFilter('activityId', e.target.value)}
+              >
+                <option value="" selected>
+                  Todos
                 </option>
-              ))}
-            </select>
-          </S.ActivitiesSelect>
+                {activities.map((activity) => (
+                  <option key={activity.id} value={activity.id}>
+                    {activity.name}
+                  </option>
+                ))}
+              </select>
+            </S.ActivitiesSelect>
 
-          <S.ModalityContainer>
-            <label htmlFor="modality">Modalidade:</label>
-            <select name="modality" id={'modality'}>
-              <option value="all" selected>
-                Todos
-              </option>
-              <option value="online">online</option>
-              <option value="presencial">presencial</option>
-            </select>
-          </S.ModalityContainer>
-        </S.FiltersContainer>
+            <S.ModalityContainer>
+              <label htmlFor="modality">Modalidade:</label>
+              <select
+                name="modality"
+                id="modality"
+                value={filters.isOnline}
+                onChange={(e) => setFilter('isOnline', e.target.value)}
+              >
+                <option value="" selected>
+                  Todos
+                </option>
+                <option value="true">online</option>
+                <option value="false">presencial</option>
+              </select>
+            </S.ModalityContainer>
+          </S.FiltersContainer>
+        )}
 
         <S.Title>Eventos impulsionados</S.Title>
         <S.Boosted>
-          {events
-            ? events
+          {allEvents
+            ? allEvents
                 .filter((event) => event.isPromoted)
+                .slice(0, 3)
                 .map((event) => (
                   <Link href={`/events/${event.id}`} key={event.id} passHref>
                     <a>

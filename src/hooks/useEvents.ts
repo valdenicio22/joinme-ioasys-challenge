@@ -2,16 +2,17 @@ import { useEffect, useState } from 'react'
 import { api } from 'service/api'
 import { EventData } from 'types/types'
 
-type FilterName = 'activityId' | 'modality'
+type FilterName = 'activityId' | 'isOnline'
 
 type Filters = Record<FilterName, string | undefined>
 
 type UseEventsPayload = {
   events: EventData[]
+  filters: Filters
   setFilter: (filterName: FilterName, value?: string) => void
 }
 
-const formatQueryString = (filters: Filters): string => {
+const formatFiltersToQueryString = (filters: Filters): string => {
   const filterNames = Object.keys(filters) as FilterName[]
   return filterNames
     .reduce((queryString, filterName) => {
@@ -26,25 +27,28 @@ const formatQueryString = (filters: Filters): string => {
     .slice(0, -1)
 }
 
-export const useEvents = (): UseEventsPayload => {
+export const useEvents = (
+  eventsRecommended: boolean | undefined
+): UseEventsPayload => {
   const [events, setEvents] = useState<EventData[]>([])
   const [filters, setFilters] = useState<Filters>({
     activityId: undefined,
-    modality: undefined
+    isOnline: undefined
   })
 
   useEffect(() => {
     try {
-      const queryString = formatQueryString(filters)
-      //TO DO: concatenar query string na URL
-      console.log({ queryString })
+      const filtersQueryString = formatFiltersToQueryString(filters)
+      const endpoint = eventsRecommended
+        ? 'events/list/user'
+        : 'events/list?' + filtersQueryString
       api
-        .get<Array<EventData>>('events/list?' + queryString)
+        .get<Array<EventData>>(endpoint)
         .then((response) => setEvents(response.data))
     } catch (error) {
       console.log(error)
     }
-  }, [filters])
+  }, [filters, eventsRecommended])
 
   const setFilter = (filterName: FilterName, value?: string) => {
     setFilters((prevFilters) => ({
@@ -53,5 +57,5 @@ export const useEvents = (): UseEventsPayload => {
     }))
   }
 
-  return { events, setFilter }
+  return { events, setFilter, filters }
 }

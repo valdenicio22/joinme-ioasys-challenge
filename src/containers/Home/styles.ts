@@ -68,7 +68,7 @@ export const Title = styled.h2`
 export const Boosted = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(36rem, 36rem);
+  grid-template-columns: repeat(3, 1fr);
   gap: 0 2rem;
   a {
     text-decoration: none;
